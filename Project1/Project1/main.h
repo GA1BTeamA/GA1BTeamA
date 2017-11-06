@@ -14,6 +14,6 @@
 
 //ウィンドウゲームタイトル名
 #define GAME_NAME L"ライブラリ"
-
+#include<stdio.h>
 
 
