@@ -33,6 +33,7 @@ void CSceneMain::InitScene()
 	//グラフィック読み込み
 	Draw::LoadImageW(L"Block1.png", 0, TEX_SIZE_32);
 
+
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();
 	//Objs::InsertObj(objt, OBJ_TIME, 0);
@@ -40,6 +41,7 @@ void CSceneMain::InitScene()
 	//blockオブジェクト作成
 	CObjBlock* objb = new CObjBlock();
 	Objs::InsertObj(objb, OBJ_BLOCK, 0);
+
 }
 
 //実行中メソッド
