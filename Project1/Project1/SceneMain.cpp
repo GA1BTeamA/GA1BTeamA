@@ -8,12 +8,14 @@
 #include "GameL\DrawFont.h"
 #include "GameL\UserData.h"
 
+
 //使用するネームスペース
 using namespace GameL;
 
 //使用ヘッダー
 #include "SceneMain.h"
 #include "GameHead.h"
+#include "Objhero.h"
 
 //コンストラクタ
 CSceneMain::CSceneMain()
@@ -34,10 +36,15 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"Block1.png", 1, TEX_SIZE_32);
 	Draw::LoadImageW(L"haikei.png", 0, TEX_SIZE_1024);
 	Draw::LoadImageW(L"おおかみ.png", 2, TEX_SIZE_256);
+	Draw::LoadImageW(L"imouto2.png", 0, TEX_SIZE_512);
 
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();
 	//Objs::InsertObj(objt, OBJ_TIME, 0);
+
+	//主人公オブジェクト作成
+	CObjhero* objh = new CObjhero();
+	Objs::InsertObj(objh, OBJ_HERO, 10);
 
 	//blockオブジェクト作成
 	CObjBlock* objb = new CObjBlock();
