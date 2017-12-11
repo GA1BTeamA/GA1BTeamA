@@ -31,8 +31,9 @@ CSceneMain::~CSceneMain()
 void CSceneMain::InitScene()
 {
 	//グラフィック読み込み
-	Draw::LoadImageW(L"Block1.png", 0, TEX_SIZE_32);
-
+	Draw::LoadImageW(L"Block1.png", 1, TEX_SIZE_32);
+	Draw::LoadImageW(L"haikei.png", 0, TEX_SIZE_1024);
+	Draw::LoadImageW(L"おおかみ.png", 2, TEX_SIZE_256);
 
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();
@@ -40,7 +41,15 @@ void CSceneMain::InitScene()
 
 	//blockオブジェクト作成
 	CObjBlock* objb = new CObjBlock();
-	Objs::InsertObj(objb, OBJ_BLOCK, 0);
+	Objs::InsertObj(objb, OBJ_BLOCK, 1);
+
+	//背景作成
+	CObjBackground* back = new CObjBackground();
+	Objs::InsertObj(back, OBJ_BACKGROUND, 0);
+
+	//敵作成
+	CObjEnemy1* obje = new CObjEnemy1();
+	Objs::InsertObj(obje, OBJ_ENEMY1, 2);
 
 }
 

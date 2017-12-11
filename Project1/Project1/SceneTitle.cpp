@@ -33,13 +33,11 @@ void CSceneTitle::InitScene()
 	//出力させる文字のグラフィックを作成
 	Font::SetStrTex(L"GameStart");
 
-	Draw::LoadImageW(L"タイトル.png", 1, TEX_SIZE_1024);
+	Draw::LoadImageW(L"Title.png", 1, TEX_SIZE_1024);
 
 	//タイトルオブジェクト作成
 	CObjTitle* objt = new CObjTitle(); //タイトルオブジェクト作成
 	Objs::InsertObj(objt, OBJ_TITLE, 1); //主人公オブジェクト登録
-
-	
 }
 
 //ゲームメイン実行中メソッド

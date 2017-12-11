@@ -9,6 +9,8 @@ enum OBJ_NAME
 	//OBJ_TIME,
 	OBJ_BLOCK,
 	OBJ_TITLE,
+	OBJ_BACKGROUND,
+	OBJ_ENEMY1,
 };
 //------------------------------------------------
 
@@ -55,6 +57,8 @@ struct UserData
 //#include "objTime.h"
 #include "ObjBlock.h"
 #include "ObjTitle.h"
+#include "ObjBackground.h"
+#include "ObjEnemy1.h"
 
 //------------------------------------------------
 

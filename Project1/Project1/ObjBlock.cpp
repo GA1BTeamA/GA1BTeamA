@@ -48,5 +48,5 @@ void CObjBlock::Draw()
 	dst.m_right = 32.0f;
 	dst.m_bottom = 32.0f;
 
-	Draw::Draw(0, &src, &dst, c, 0.0f);
+	Draw::Draw(1, &src, &dst, c, 0.0f);
 }
