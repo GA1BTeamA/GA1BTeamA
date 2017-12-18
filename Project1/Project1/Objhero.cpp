@@ -23,13 +23,17 @@ void CObjhero::Init()
 	m_ani_timey = 0;    //アニメーションフレーム動作間隔y軸
 	m_ani_framex = 1; //描画フレームx軸
 	m_ani_framey = 1; //描画フレームｙ軸
+
+	//ブロックとの衝突状態確認用
+	m_hit_up=false;
+	m_hit_down = false;
+	m_hit_left = false;
+	m_hit_right = false;
 }
 
 //アクション
 void  CObjhero::Action()
 {
-	//移動ベクトルの破棄
-	m_vy = 1.0f;
 
 	//キー方向の入力方向
 	//x軸移動用
@@ -62,10 +66,13 @@ void  CObjhero::Action()
 	}
 
 	//y軸移動用
-	if (Input::GetVKey('Z') == true)
+	if (Input::GetVKey(VK_UP) == true)
 	{
-		m_vy -= 2.0f;
-		m_ani_timey = 4;
+		if (m_hit_down == true)
+		{
+			m_vy -= 12.0f;
+			m_ani_timey = 4;
+		}
 	}
 
 	if (m_ani_timey > 8)
@@ -82,7 +89,7 @@ void  CObjhero::Action()
 	m_vx += -(m_vx*0.098);
 
 	//自由落下
-	//m_vy += 9.8 / (16.0f);
+	m_vy += 9.8 / (16.0f);
 
 	//位置の更新
 	m_px += m_vx;
@@ -116,11 +123,11 @@ void  CObjhero::Draw()
 	src.m_bottom =128.0f + AniDatax[m_ani_framey] * 64;
 
 	//表示位置の設定
-	dst.m_top    =  0.0f+m_py;
+	dst.m_top    = 0.0f+m_py;
 	dst.m_left   = (   64.0f*m_posture)+m_px;
 	dst.m_right  = (64- 64.0f*m_posture)+m_px;
 	dst.m_bottom = 64.0f+m_py;
 
 	//描画
-	Draw::Draw(0, &src, &dst, c, 0.0f);
+	Draw::Draw(3, &src, &dst, c, 0.0f);
 }

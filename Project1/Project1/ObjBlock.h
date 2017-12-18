@@ -14,5 +14,6 @@ public:
 	void Init();//イニシャライズ
 	void Action();//アクション
 	void Draw();//ドロー
-
+private:
+	int m_map[20][25]; //マップ情報仮
 };
