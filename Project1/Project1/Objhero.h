@@ -18,16 +18,18 @@ public:
 	float GetX() { return m_px; }
 	float GetY() { return m_py; }
 	float GetVY() { return m_vy; }
+	float GetVX() { return m_vx; }
 
 	//主人公の位置変更用
 	void SetX (float x ) { m_px =  x; }
 	void SetY (float y ) { m_py =  y; }
 	void SetVY(float vy) { m_vy = vy; }
+	void SetVX(float vx) { m_vx = vx; }
 
 	//ブロックとの衝突状態確認
-	void SetUp   (bool b) { m_hit_up    = b; }
-	void SetDown (bool b) { m_hit_down  = b; }
-	void SetLeft (bool b) { m_hit_left  = b; }
+	void SetUp(bool b) { m_hit_up    = b; }
+	void SetDown(bool b) { m_hit_down  = b; }
+	void SetLeft(bool b) { m_hit_left  = b; }
 	void SetRight(bool b) { m_hit_right = b; }
 
 
