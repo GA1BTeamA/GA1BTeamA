@@ -122,5 +122,5 @@ void  CObjhero::Draw()
 	dst.m_bottom = 64.0f+m_py;
 
 	//•`‰æ
-	Draw::Draw(0, &src, &dst, c, 0.0f);
+	Draw::Draw(3, &src, &dst, c, 0.0f);
 }

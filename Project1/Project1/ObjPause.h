@@ -4,16 +4,16 @@
 //使用するネームスペース
 using namespace GameL;
 
-//オブジェクト：背景
-class CObjBackground : public CObj
+//オブジェクト：タイトル
+class CObjPause : public CObj
 {
 public:
-	CObjBackground() {};
-	~CObjBackground() {};
+	CObjPause() {};
+	~CObjPause() {};
 	void Init();	//イニシャライズ
 	void Action();	//アクション
 	void Draw();	//ドロー
 private:
-	bool m_key_flag;
+	bool m_key_flag;	//キーフラグ
 };
 

@@ -138,11 +138,13 @@
     <ClCompile Include="ObjBlock.cpp" />
     <ClCompile Include="Objhero.cpp" />
     <ClCompile Include="ObjEnemy1.cpp" />
+    <ClCompile Include="ObjPause.cpp" />
     <ClCompile Include="objTime.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="ScenePause.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,12 +167,16 @@
     <ClInclude Include="ObjBlock.h" />
     <ClInclude Include="Objhero.h" />
     <ClInclude Include="ObjEnemy1.h" />
+    <ClInclude Include="ObjPause.h" />
     <ClInclude Include="objTime.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="SceneMain.h" />
-    <ClInclude Include="SceneTitle.h" />
+    <ClInclude Include="ScenePause.h" />
+    <ClInclude Include="SceneTitle.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="GameL\Draw2DTex.hlsl" />

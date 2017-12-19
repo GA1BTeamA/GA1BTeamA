@@ -35,8 +35,8 @@ void CSceneMain::InitScene()
 	//グラフィック読み込み
 	Draw::LoadImageW(L"Block1.png", 1, TEX_SIZE_32);
 	Draw::LoadImageW(L"haikei.png", 0, TEX_SIZE_1024);
-	Draw::LoadImageW(L"おおかみ.png", 2, TEX_SIZE_256);
-	Draw::LoadImageW(L"imouto2.png", 0, TEX_SIZE_512);
+	Draw::LoadImageW(L"ookami.png", 2, TEX_SIZE_256);
+	Draw::LoadImageW(L"imouto2.png", 3, TEX_SIZE_512);
 
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();
@@ -57,7 +57,6 @@ void CSceneMain::InitScene()
 	//敵作成
 	CObjEnemy1* obje = new CObjEnemy1();
 	Objs::InsertObj(obje, OBJ_ENEMY1, 2);
-
 }
 
 //実行中メソッド
