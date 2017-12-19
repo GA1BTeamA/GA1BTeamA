@@ -114,12 +114,12 @@ void CObjBlock::Action()
 
 				
 				//主人公とブロックの当り判定
-				if ((hx + 64.0f > x) && (hx < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))
+				if ((hx + (-m_block_scroll)+64.0f > x) && (hx+(-m_block_scroll) < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))
 				{
 					//上下左右判定
 
 					//vectorの作成
-					float vx = hx+32 - x;
+					float vx = (hx+(-m_block_scroll)) - x;
 					float vy = hy+32 - y;
 
 					//長さを求める
@@ -143,7 +143,7 @@ void CObjBlock::Action()
 						{
 							//右
 							hero->SetRight(true);//主人公が左部分に衝突している
-							hero->SetX(x + 64.0f);//ブロックの位置ー主人公の幅
+							hero->SetX(x + 64.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
 							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 						}
 						if (r > 45 && r < 135)
@@ -157,7 +157,7 @@ void CObjBlock::Action()
 						{
 							//左
 							hero->SetLeft(true);//主人公が右の部分に衝突している
-							hero->SetX(x - 64.0f);//ブロックの位置ー主人公の幅
+							hero->SetX(x - 64.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
 							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 						}
 						if (r > 225 && r < 315)
