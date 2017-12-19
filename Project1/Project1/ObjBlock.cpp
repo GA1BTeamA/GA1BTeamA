@@ -24,6 +24,7 @@ CObjBlock::CObjBlock()
 //イニシャライズ
 void CObjBlock::Init()
 {
+
 	//マップデータ
 	//外部データの読み込み(ステージ情報)
 	unique_ptr<wchar_t>p;  //ステージ情報ポインター
@@ -76,12 +77,13 @@ void CObjBlock::Init()
 //アクション
 void CObjBlock::Action()
 {
+
 	//主人公の位置を取得
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
-	//後方スクロールライン
+	/*/後方スクロールライン
 	if (hx < 80)
 	{
 		hero->SetX(80);						//主人公はラインを超えないようにする
@@ -93,7 +95,7 @@ void CObjBlock::Action()
 	{
 		hero->SetX(400);					//主人公はラインを超えないようにする
 		m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
-	}
+	}*/
 
 	//主人公の衝突確認状態確認用フラグの初期化
 	hero->SetUp(false);
@@ -109,34 +111,34 @@ void CObjBlock::Action()
 			if (m_map[i][j] > 0)
 			{
 				//要素番号を座標に変更
-				float x = j;
-				float y = i;
+				float x = j*32.0f;
+				float y = i*32.0f;
 
-				int l1, r2, u3, d4;
+				
 
-				//それぞれの方向に要素があるかどうかの検索
+				/*/それぞれの方向に要素があるかどうかの検索
 				//blockの中央上の位置を要素番号化
-				int x = ((int)x + 16) / 32.0f;
-				int y = ((int)y) / 32.0f;
+				int x = ((int)px + 16) / 32.0f;
+				int y = ((int)py) / 32.0f;
 				u3 = GetMap(x, y - 1);  //上方向
 
-										//blockの中央左の位置を要素番号化
-				x = ((int)x) / 32.0f;
-				y = ((int)y + 16) / 32.0f;
+				//blockの中央左の位置を要素番号化
+				x = ((int)px) / 32.0f;
+				y = ((int)py + 16) / 32.0f;
 				l1 = GetMap(x - 1, y);  //左方向
 
-										//blockの中央右の位置を要素番号化
-				x = ((int)x + 64) / 32.0f;
-				y = ((int)y + 16) / 32.0f;
+				//blockの中央右の位置を要素番号化
+				x = ((int)px + 64) / 32.0f;
+				y = ((int)py + 16) / 32.0f;
 				r2 = GetMap(x + 1, y);  //右方向
 
-										//blockの中央下の位置を要素番号化
-				x = ((int)x + 16) / 32.0f;
-				y = ((int)y + 64) / 32.0f;
-				d4 = GetMap(x, y + 1);  //下方向
+				//blockの中央下の位置を要素番号化
+				x = ((int)px + 16) / 32.0f;
+				y = ((int)py + 64) / 32.0f;
+				d4 = GetMap(x, y + 1);  //下方向*/
 				
-				/*//主人公とブロックの当り判定
-				if ((hx + 45.0f > x) && (hx+19 < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))
+				//主人公とブロックの当り判定
+				if ((hx + 64.0f > x) && (hx < x + 64.0f) && (hy + 64.0f > y) && (hy < y + 64.0f))
 				{
 					//上下左右判定
 
@@ -157,7 +159,7 @@ void CObjBlock::Action()
 						r = 360.0f - abs(r);
 
 					//lenがある一定の長さより短い場合判定に入る
-					if (len < 40.0f)
+					if (len < 88.0f)
 					{
 
 						//角度で上下左右を判定
@@ -165,7 +167,7 @@ void CObjBlock::Action()
 						{
 							//右
 							hero->SetRight(true);//主人公が左部分に衝突している
-							hero->SetX(x + 13.0f);//ブロックの位置ー主人公の幅
+							hero->SetX(x + 64.0f);//ブロックの位置ー主人公の幅
 							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 						}
 						if (r > 45 && r < 135)
@@ -179,21 +181,21 @@ void CObjBlock::Action()
 						{
 							//左
 							hero->SetLeft(true);//主人公が右の部分に衝突している
-							hero->SetX(x - 45.0f);//ブロックの位置ー主人公の幅
+							hero->SetX(x - 64.0f);//ブロックの位置ー主人公の幅
 							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 						}
 						if (r > 225 && r < 315)
 						{
 							//下
 							hero->SetUp(true);//主人公の上の部分が衝突している
-							hero->SetY(y + 32.0f);//ブロックの位置+主人公の幅
+							hero->SetY(y + 64.0f);//ブロックの位置+主人公の幅
 							if (hero->GetVY() < 0)
 							{
 								hero->SetVY(0.0f);
 							}
 						}
 					}
-				}*/
+				}
 			}
 		}
 	}
@@ -297,17 +299,4 @@ void CObjBlock::Draw()
 		}
 	}
 
-}
-
-//マップ情報の取得メソッド
-int GetMap(int x, int y)
-{
-	//x・yが例外的な値の場合、失敗-1を返す
-	if (x < 0) return -1;
-	if (y < 0) return -1;
-	if (x >= 18) return -1;
-	if (x >= 400) return -1;
-
-	//要素を返す
-	return m_map[y][x];
 }

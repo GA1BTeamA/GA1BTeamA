@@ -30,11 +30,21 @@ void CObjhero::Init()
 	m_hit_down = false;
 	m_hit_left = false;
 	m_hit_right = false;
+
+	//ボタンフラグ
+	button_flag = false;
+
+	//描画切り替え
+	Draw_flag=true;
+
+
 }
 
 //アクション
 void  CObjhero::Action()
 {
+	
+
 	//キー方向の入力方向
 	//x軸移動用
 	if (Input::GetVKey(VK_RIGHT) == true)
@@ -42,6 +52,7 @@ void  CObjhero::Action()
 		m_vx += 0.4f;
 		m_posture = 1.0f;
 		m_ani_timex+=1;
+
 	}
 	else if (Input::GetVKey(VK_LEFT) == true)
 	{
@@ -68,21 +79,28 @@ void  CObjhero::Action()
 	//y軸移動用
 	if (Input::GetVKey(VK_UP) == true)
 	{
-		if (m_hit_down == true)
+	
+		if (button_flag== true&&m_hit_down==true)
 		{
 			m_vy -= 12.0f;
-			m_ani_timey = 4;
+			button_flag = false;
 		}
+	
+	}
+	else
+	{
+		button_flag = true;
 	}
 
-	if (m_ani_timey > 8)
+
+	//空中にいるかの確認
+	if (m_hit_down == false)
 	{
-		m_ani_framey += 1;
-		m_ani_timey = 0;
+		Draw_flag = false;
 	}
-	if (m_ani_framey == 8)
+	else
 	{
-		m_ani_framey = 0;
+		Draw_flag = true;
 	}
 
 	//摩擦
@@ -99,6 +117,7 @@ void  CObjhero::Action()
 //ドロー
 void  CObjhero::Draw()
 {
+
 	//歩き描画用
 	int AniDatax[8] =
 	{
@@ -107,7 +126,7 @@ void  CObjhero::Draw()
 
 	int AniDatay[8] =
 	{
-		-1,0,0,0,1,1,1,2
+		1,1,1,1,1,1,1,1
 	};
 
 	//描画カラー情報
@@ -115,12 +134,22 @@ void  CObjhero::Draw()
 
 	RECT_F src;  //描画切り取り位置
 	RECT_F dst;  //描画先表示位置
-
-	//切り取り位置の設定
-	src.m_top    = 64.0f + AniDatax[m_ani_framey] * 64;
-	src.m_left   =  0.0f + AniDatax[m_ani_framex] * 64;
-	src.m_right  = 64.0f + AniDatax[m_ani_framex] * 64;
-	src.m_bottom =128.0f + AniDatax[m_ani_framey] * 64;
+	if (Draw_flag == true)
+	{
+		//切り取り位置の設定
+		src.m_top = 64.0f;
+		src.m_left = 0.0f + AniDatax[m_ani_framex] * 64;
+		src.m_right = 64.0f + AniDatax[m_ani_framex] * 64;
+		src.m_bottom = 128.0f;
+	}
+	else
+	{
+		//切り取り位置の設定
+		src.m_top = 128.0f;
+		src.m_left = 0.0f + AniDatay[m_ani_framey] * 64;
+		src.m_right = 64.0f + AniDatay[m_ani_framey] * 64;
+		src.m_bottom = 192.0f;
+	}
 
 	//表示位置の設定
 	dst.m_top    = 0.0f+m_py;
