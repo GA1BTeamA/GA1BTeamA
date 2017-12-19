@@ -32,7 +32,7 @@ void CObjBlock::Init()
 
 	
 	int count = 1;
-	for (int i = 0; i < 18; i++)
+	for (int i = 0; i < MAPSIZE_X; i++)
 	{
 		for (int j = 0; j < 400; j++)
 		{
@@ -102,7 +102,7 @@ void CObjBlock::Action()
 	hero->SetRight(false);
 
 	//m_mapの全要素にアクセス
-	for (int i = 0; i < 18; i++)
+	for (int i = 0; i < MAPSIZE_X; i++)
 	{
 		for (int j = 0; j < 400; j++)
 		{
@@ -119,8 +119,8 @@ void CObjBlock::Action()
 					//上下左右判定
 
 					//vectorの作成
-					float vx = hx - x;
-					float vy = hy - y;
+					float vx = hx+32 - x;
+					float vy = hy+32 - y;
 
 					//長さを求める
 					float len = sqrt(vx*vx + vy*vy);
@@ -135,7 +135,7 @@ void CObjBlock::Action()
 						r = 360.0f - abs(r);
 
 					//lenがある一定の長さより短い場合判定に入る
-					if (len < 88.0f)
+					if (len < 40)
 					{
 
 						//角度で上下左右を判定
@@ -186,7 +186,7 @@ void CObjBlock::Draw()
 	RECT_F src;//描画元切り取り位置
 	RECT_F dst;//描画先表示位置
 
-	for (int i = 0; i < 18; i++)
+	for (int i = 0; i < MAPSIZE_X; i++)
 	{
 		for (int j = 0; j < 400; j++)
 		{
@@ -200,7 +200,7 @@ void CObjBlock::Draw()
 
 				//描画
 				//土ブロック
-				if (m_map[i][j] == 1)
+				if (m_map[i][j] == 1||m_map[i][j]==13)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -271,6 +271,17 @@ void CObjBlock::Draw()
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
 
+				//茨ブロック
+				else if (m_map[i][j] == 15)
+				{
+					//切り取り位置
+					src.m_top = 0.0f;
+					src.m_left = 128.0f;
+					src.m_right = 162.0f;
+					src.m_bottom = 32.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
 			}
 		}
 	}
