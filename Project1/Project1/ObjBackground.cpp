@@ -4,18 +4,29 @@
 #include "GameL\SceneManager.h"
 #include "GameL\DrawTexture.h"
 #include "GameHead.h"
-#include "ObjBackground.h"
 
 //使用するネームスペース
 using namespace GameL;
 
 void CObjBackground::Init()
 {
-
+	m_key_flag = false;
 }
 
 void CObjBackground::Action()
 {
+	if (Input::GetVKey('C') == true)
+	{
+		if (m_key_flag == true)
+		{
+			Scene::SetScene(new CScenePause);
+			m_key_flag == false;
+		}
+	}
+	else
+	{
+		m_key_flag = true;
+	}
 
 }
 
