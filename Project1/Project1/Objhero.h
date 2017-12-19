@@ -18,6 +18,7 @@ public:
 	float GetX() { return m_px; }
 	float GetY() { return m_py; }
 	float GetVY() { return m_vy; }
+	float GetVX() { return m_vx; }
 
 	//主人公の位置変更用
 	void SetX (float x ) { m_px =  x; }
