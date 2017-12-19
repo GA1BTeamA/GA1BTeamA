@@ -59,7 +59,6 @@ void CSceneMain::InitScene()
 	//敵作成
 	CObjEnemy1* obje = new CObjEnemy1();
 	Objs::InsertObj(obje, OBJ_ENEMY1, 2);
-
 }
 
 //実行中メソッド

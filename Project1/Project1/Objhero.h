@@ -50,4 +50,11 @@ protected:
 	bool m_hit_down;
 	bool m_hit_left;
 	bool m_hit_right;
+
+	//ボタンフラグ
+	bool button_flag;
+
+	//描画切り替え
+	bool Draw_flag;
+
 };
