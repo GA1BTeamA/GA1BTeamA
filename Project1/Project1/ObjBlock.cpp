@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\SceneObjManager.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjBlock.h"
@@ -14,13 +15,38 @@ using namespace GameL;
 
 CObjBlock::CObjBlock()
 {
+	m_block_scroll = 0.0f;
 
+	//マップデータをコピー
+	//memcpy(m_map, map, sizeof(int)*(18 * 400));
 }
 
 //イニシャライズ
 void CObjBlock::Init()
 {
 	//マップデータ
+	//外部データの読み込み(ステージ情報)
+	unique_ptr<wchar_t>p;  //ステージ情報ポインター
+	int size;  //ステージ情報の大きさ
+	p = Save::ExternalDataOpen(L"mapdata.csv", &size);  //外部データ読み込み
+
+	
+	int count = 1;
+	for (int i = 0; i < 18; i++)
+	{
+		for (int j = 0; j < 400; j++)
+		{
+			int w = 0;
+			swscanf_s(&p.get()[count], L"%d", &w);
+
+			m_map[i][j] = w;
+			if(w>=10)
+				count += 3;
+			else 
+				count += 2;
+		}
+	}
+	/*
 	int block_data[20][25] =
 	{
 		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
@@ -44,9 +70,7 @@ void CObjBlock::Init()
 		{ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
 
 	};
-
-	//マップデータをコピー
-	memcpy(m_map, block_data, sizeof(int)*(20 * 25));
+	*/
 }
 
 //アクション
@@ -57,6 +81,20 @@ void CObjBlock::Action()
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
+	//後方スクロールライン
+	if (hx < 80)
+	{
+		hero->SetX(80);						//主人公はラインを超えないようにする
+		m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+	}
+
+	//前方スクロールライン
+	if (hx > 400)
+	{
+		hero->SetX(400);					//主人公はラインを超えないようにする
+		m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+	}
+
 	//主人公の衝突確認状態確認用フラグの初期化
 	hero->SetUp(false);
 	hero->SetDown(false);
@@ -64,9 +102,9 @@ void CObjBlock::Action()
 	hero->SetRight(false);
 
 	//m_mapの全要素にアクセス
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 18; i++)
 	{
-		for (int j = 0; j < 25; j++)
+		for (int j = 0; j < 400; j++)
 		{
 			if (m_map[i][j] > 0)
 			{
@@ -170,34 +208,91 @@ void CObjBlock::Draw()
 	RECT_F src;//描画元切り取り位置
 	RECT_F dst;//描画先表示位置
 
-	//切り取り位置
-	src.m_top = 0.0f;
-	src.m_left = 0.0f;
-	src.m_right = 32.0f;
-	src.m_bottom = 32.0f;
-
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 18; i++)
 	{
-		for (int j = 0; j < 25; j++)
+		for (int j = 0; j < 400; j++)
 		{
 			if (m_map[i][j] > 0)
 			{
 				//表示位置
 				dst.m_top    = i*32.0f;
-				dst.m_left   = j*32.0f;
-				dst.m_right  =  dst.m_left+32.0f;
+				dst.m_left = j*32.0f + m_block_scroll;
+				dst.m_right = dst.m_left + 32.0f;
 				dst.m_bottom =  dst.m_top+32.0f;
+
 				//描画
 				//土ブロック
 				if (m_map[i][j] == 1)
 				{
+					//切り取り位置
+					src.m_top = 0.0f;
+					src.m_left = 0.0f;
+					src.m_right = 32.0f;
+					src.m_bottom = 32.0f;
+
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
+
 				//木ブロック
 				else if (m_map[i][j] == 2)
 				{
-					Draw::Draw(4, &src, &dst, c, 0.0f);
+					//切り取り位置
+					src.m_top = 0.0f;
+					src.m_left = 64.0f;
+					src.m_right = 96.0f;
+					src.m_bottom = 32.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
+
+				//妹ブロック
+				else if (m_map[i][j] == 4)
+				{
+					//切り取り位置
+					src.m_top = 0.0f;
+					src.m_left = 64.0f;
+					src.m_right = 96.0f;
+					src.m_bottom = 32.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+
+				//兄ブロック
+				else if (m_map[i][j] == 5)
+				{
+					//切り取り位置
+					src.m_top = 0.0f;
+					src.m_left = 64.0f;
+					src.m_right = 96.0f;
+					src.m_bottom = 32.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+
+				//茨ブロック
+				else if (m_map[i][j] == 3)
+				{
+					//切り取り位置
+					src.m_top = 0.0f;
+					src.m_left = 96.0f;
+					src.m_right = 128.0f;
+					src.m_bottom = 32.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+
+				//茨ブロック
+				else if (m_map[i][j] == 8)
+				{
+					//切り取り位置
+					src.m_top = 0.0f;
+					src.m_left = 32.0f;
+					src.m_right = 64.0f;
+					src.m_bottom = 32.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+
 			}
 		}
 	}

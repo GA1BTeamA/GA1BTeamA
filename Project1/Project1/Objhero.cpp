@@ -6,6 +6,7 @@
 
 #include "GameHead.h"
 #include "Objhero.h"
+#include "ObjBlock.h"
 
 //使用するネームスペース
 using namespace GameL;
@@ -13,7 +14,7 @@ using namespace GameL;
 //イニシャライズ
 void CObjhero::Init()
 {
-	m_px = 0.0f;    //位置
+	m_px = 100.0f;    //位置
 	m_py = 0.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
@@ -34,7 +35,6 @@ void CObjhero::Init()
 //アクション
 void  CObjhero::Action()
 {
-
 	//キー方向の入力方向
 	//x軸移動用
 	if (Input::GetVKey(VK_RIGHT) == true)
