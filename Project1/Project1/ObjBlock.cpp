@@ -274,7 +274,7 @@ void CObjBlock::Draw()
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
 
-				//茨ブロック
+				//茨ブロック(上部分)
 				else if (m_map[i][j] == 15)
 				{
 					//切り取り位置
