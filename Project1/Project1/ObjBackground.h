@@ -14,5 +14,8 @@ public:
 	void Action();	//アクション
 	void Draw();	//ドロー
 private:
+	float m_scroll;  //左右スクロール用
+	float m_x1;  //背景1の位置情報
+	float m_x2;  //背景2の位置情報
 };
 

@@ -8,11 +8,13 @@
 
 using namespace GameL;
 
+//イニシャライズ
 void CObjTitle::Init()
 {
 	m_key_flag = false;
 }
 
+//アクション
 void CObjTitle::Action()
 {
 	//エンターキーを押してシーン：ゲームメインに移行する
@@ -31,6 +33,7 @@ void CObjTitle::Action()
 
 }
 
+//ドロー
 void CObjTitle::Draw()
 {
 	//描画カラー情報
