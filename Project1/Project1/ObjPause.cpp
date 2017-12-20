@@ -71,10 +71,5 @@ void CObjPause::Draw()
 			Font::StrDraw(L"タイトルに戻る", 500, 400, 30, cl);
 		}
 	}
-	else
-	{
-		Font::StrDraw(L"ゲームに戻る", 100, 400, 30, c);
-		Font::StrDraw(L"タイトルに戻る", 500, 400, 30, c);
-	}
 
 }

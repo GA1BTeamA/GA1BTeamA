@@ -20,6 +20,7 @@ void CObjBackground::Action()
 		if (m_key_flag == true)
 		{
 			Scene::SetScene(new CScenePause);
+
 			m_key_flag == false;
 		}
 	}
@@ -51,5 +52,4 @@ void CObjBackground::Draw()
 	dst.m_bottom = 600.0f;
 
 	Draw::Draw(0, &src, &dst, c, 0.0f);
-
 }
