@@ -24,6 +24,7 @@ CObjBlock::CObjBlock()
 //イニシャライズ
 void CObjBlock::Init()
 {
+
 	//マップデータ
 	//外部データの読み込み(ステージ情報)
 	unique_ptr<wchar_t>p;  //ステージ情報ポインター
@@ -63,8 +64,8 @@ void CObjBlock::Init()
 		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0 },
 		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0 },
 		{ 0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 		{ 0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 		{ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
@@ -76,6 +77,7 @@ void CObjBlock::Init()
 //アクション
 void CObjBlock::Action()
 {
+
 	//主人公の位置を取得
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX();
@@ -113,6 +115,7 @@ void CObjBlock::Action()
 				float y = i*32.0f;
 
 				
+				
 				//主人公とブロックの当り判定
 				if ((hx + (-m_block_scroll)+64.0f > x) && (hx+(-m_block_scroll) < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))
 				{
@@ -120,7 +123,7 @@ void CObjBlock::Action()
 
 					//vectorの作成
 					float vx = (hx+(-m_block_scroll)) - x;
-					float vy = hy+32 - y;
+					float vy = hy + 32 - y;
 
 					//長さを求める
 					float len = sqrt(vx*vx + vy*vy);
@@ -143,7 +146,7 @@ void CObjBlock::Action()
 						{
 							//右
 							hero->SetRight(true);//主人公が左部分に衝突している
-							hero->SetX(x + 64.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
+							hero->SetX(x + 32.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
 							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 						}
 						if (r > 45 && r < 135)
@@ -157,7 +160,7 @@ void CObjBlock::Action()
 						{
 							//左
 							hero->SetLeft(true);//主人公が右の部分に衝突している
-							hero->SetX(x - 64.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
+							hero->SetX(x - 32.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
 							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 						}
 						if (r > 225 && r < 315)
@@ -271,7 +274,7 @@ void CObjBlock::Draw()
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
 
-				//茨ブロック
+				//茨ブロック(上部分)
 				else if (m_map[i][j] == 15)
 				{
 					//切り取り位置
