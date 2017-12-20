@@ -83,7 +83,7 @@ void CObjBlock::Action()
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
-	/*/後方スクロールライン
+	//後方スクロールライン
 	if (hx < 80)
 	{
 		hero->SetX(80);						//主人公はラインを超えないようにする
@@ -95,7 +95,7 @@ void CObjBlock::Action()
 	{
 		hero->SetX(400);					//主人公はラインを超えないようにする
 		m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
-	}*/
+	}
 
 	//主人公の衝突確認状態確認用フラグの初期化
 	hero->SetUp(false);
@@ -295,7 +295,7 @@ void CObjBlock::Draw()
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
 
-				//茨ブロック
+				//茨ブロック(上部分)
 				else if (m_map[i][j] == 15)
 				{
 					//切り取り位置
