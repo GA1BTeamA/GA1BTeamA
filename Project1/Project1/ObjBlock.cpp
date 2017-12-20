@@ -83,7 +83,7 @@ void CObjBlock::Action()
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
-	/*/後方スクロールライン
+	//後方スクロールライン
 	if (hx < 80)
 	{
 		hero->SetX(80);						//主人公はラインを超えないようにする
@@ -95,7 +95,7 @@ void CObjBlock::Action()
 	{
 		hero->SetX(400);					//主人公はラインを超えないようにする
 		m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
-	}*/
+	}
 
 	//主人公の衝突確認状態確認用フラグの初期化
 	hero->SetUp(false);
@@ -115,27 +115,6 @@ void CObjBlock::Action()
 				float y = i*32.0f;
 
 				
-
-				/*/それぞれの方向に要素があるかどうかの検索
-				//blockの中央上の位置を要素番号化
-				int x = ((int)px + 16) / 32.0f;
-				int y = ((int)py) / 32.0f;
-				u3 = GetMap(x, y - 1);  //上方向
-
-				//blockの中央左の位置を要素番号化
-				x = ((int)px) / 32.0f;
-				y = ((int)py + 16) / 32.0f;
-				l1 = GetMap(x - 1, y);  //左方向
-
-				//blockの中央右の位置を要素番号化
-				x = ((int)px + 64) / 32.0f;
-				y = ((int)py + 16) / 32.0f;
-				r2 = GetMap(x + 1, y);  //右方向
-
-				//blockの中央下の位置を要素番号化
-				x = ((int)px + 16) / 32.0f;
-				y = ((int)py + 64) / 32.0f;
-				d4 = GetMap(x, y + 1);  //下方向*/
 				
 				//主人公とブロックの当り判定
 				if ((hx + (-m_block_scroll)+64.0f > x) && (hx+(-m_block_scroll) < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))

@@ -97,10 +97,24 @@ void  CObjhero::Action()
 	if (m_hit_down == false)
 	{
 		Draw_flag = false;
+
+		m_ani_timey += 1;
+
+		if (m_ani_timey > 8)
+		{
+			m_ani_framey += 1;
+			m_ani_timey = 0;
+		}
+		if (m_ani_framey == 8)
+		{
+			m_ani_framey = 0;
+		}
 	}
 	else
 	{
 		Draw_flag = true;
+		m_ani_timey = 0;
+		m_ani_framey = 0;
 	}
 
 	//–€C
@@ -124,9 +138,9 @@ void  CObjhero::Draw()
 		-1,0,1,2,3,4,5,6,
 	};
 
-	int AniDatay[8] =
+	int AniDatay[5] =
 	{
-		1,1,1,1,1,1,1,1
+		1,1,2,2,0,
 	};
 
 	//•`‰æƒJƒ‰[î•ñ
