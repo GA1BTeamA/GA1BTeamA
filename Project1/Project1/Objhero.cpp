@@ -14,8 +14,8 @@ using namespace GameL;
 //イニシャライズ
 void CObjhero::Init()
 {
-	m_px = 500.0f;    //位置
-	m_py = 0.0f;
+	m_px = 10.0f;    //位置
+	m_py = 520.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
 	m_posture = 1.0f; //右向き0.0ｆ　左向き1.0ｆ
@@ -79,19 +79,16 @@ void  CObjhero::Action()
 	//y軸移動用
 	if (Input::GetVKey(VK_UP) == true)
 	{
-	
-		if (button_flag== true&&m_hit_down==true)
+		if(button_flag== true&&m_hit_down==true)
 		{
 			m_vy -= 12.0f;
 			button_flag = false;
 		}
-	
 	}
 	else
 	{
 		button_flag = true;
 	}
-
 
 	//空中にいるかの確認
 	if (m_hit_down == false)
@@ -127,6 +124,12 @@ void  CObjhero::Action()
 	//位置の更新
 	m_px += m_vx;
 	m_py += m_vy;
+
+	if (m_py>850)
+	{
+		Scene::SetScene(new CSceneTitle());
+	}
+
 }
 
 //ドロー
