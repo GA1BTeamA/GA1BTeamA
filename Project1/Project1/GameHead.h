@@ -7,9 +7,13 @@ enum OBJ_NAME
 	//ゲームで使うオブジェクトの名前
 	//OBJ_○○と表記
 	//OBJ_TIME,
+	OBJ_HERO,
 	OBJ_BLOCK,
 	OBJ_TITLE,
 	OBJ_GAME_OVER,
+	OBJ_BACKGROUND,
+	OBJ_ENEMY1,
+	OBJ_PAUSE,
 };
 //------------------------------------------------
 
@@ -54,9 +58,13 @@ struct UserData
 
 //ゲームシーンオブジェクトヘッダ------------------
 //#include "objTime.h"
+#include "Objhero.h"
 #include "ObjBlock.h"
 #include "ObjTitle.h"
 #include "ObjGameOver.h"
+#include "ObjBackground.h"
+#include "ObjEnemy1.h"
+#include "ObjPause.h"
 
 //------------------------------------------------
 
@@ -64,6 +72,7 @@ struct UserData
 #include "SceneMain.h"
 #include "SceneTitle.h"
 #include "SceneGameOver.h"
+#include "ScenePause.h"
 
 //-----------------------------------------------
 

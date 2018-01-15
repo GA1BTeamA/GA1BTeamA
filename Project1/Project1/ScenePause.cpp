@@ -16,32 +16,31 @@ using namespace GameL;
 #include "GameHead.h"
 
 //コンストラクタ
-CSceneTitle::CSceneTitle()
+CScenePause::CScenePause()
 {
 
 }
 
 //デストラクタ
-CSceneTitle::~CSceneTitle()
+CScenePause::~CScenePause()
 {
 
 }
 
 //ゲームメイン初期化メソッド
-void CSceneTitle::InitScene()
-{
-	//出力させる文字のグラフィックを作成
-	Font::SetStrTex(L"GameStart");
+void CScenePause::InitScene()
+{	
+	Font::SetStrTex(L"ゲームに戻る");
 
-	Draw::LoadImageW(L"Title.png", 1, TEX_SIZE_1024);
+	Draw::LoadImageW(L"haikei.png", 1, TEX_SIZE_1024);
 
-	//タイトルオブジェクト作成
-	CObjTitle* objt = new CObjTitle(); //タイトルオブジェクト作成
-	Objs::InsertObj(objt, OBJ_TITLE, 1); //主人公オブジェクト登録
+	//背景作成
+	CObjPause* back1 = new CObjPause();
+	Objs::InsertObj(back1, OBJ_PAUSE, 1);
 }
 
 //ゲームメイン実行中メソッド
-void CSceneTitle::Scene()
+void CScenePause::Scene()
 {
 
 }
