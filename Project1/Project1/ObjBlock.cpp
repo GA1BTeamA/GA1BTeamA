@@ -114,85 +114,82 @@ void CObjBlock::Action()
 				float x = j*32.0f;
 				float y = i*32.0f;
 
-				
-
-				/*/それぞれの方向に要素があるかどうかの検索
-				//blockの中央上の位置を要素番号化
-				int x = ((int)px + 16) / 32.0f;
-				int y = ((int)py) / 32.0f;
-				u3 = GetMap(x, y - 1);  //上方向
-
-				//blockの中央左の位置を要素番号化
-				x = ((int)px) / 32.0f;
-				y = ((int)py + 16) / 32.0f;
-				l1 = GetMap(x - 1, y);  //左方向
-
-				//blockの中央右の位置を要素番号化
-				x = ((int)px + 64) / 32.0f;
-				y = ((int)py + 16) / 32.0f;
-				r2 = GetMap(x + 1, y);  //右方向
-
-				//blockの中央下の位置を要素番号化
-				x = ((int)px + 16) / 32.0f;
-				y = ((int)py + 64) / 32.0f;
-				d4 = GetMap(x, y + 1);  //下方向*/
-				
 				//主人公とブロックの当り判定
-				if ((hx + (-m_block_scroll)+64.0f > x) && (hx+(-m_block_scroll) < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))
+				if ((hx+19.0f + (-m_block_scroll)+26.0f > x) && (hx+19.0+(-m_block_scroll) < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))
 				{
 					//上下左右判定
 
 					//vectorの作成
-					float vx = (hx+(-m_block_scroll)) - x;
-					float vy = hy + 32 - y;
+					float vx[2]; 
+					float vy[2];
 
-					//長さを求める
-					float len = sqrt(vx*vx + vy*vy);
+					vx[0]= (hx + (-m_block_scroll))+32 - x;
+					vy[0]= hy+32  - y;
 
-					//角度を求める
-					float r = atan2(vy, vx);
-					r = r*180.0f / 3.14f;
+					vx[1] = (hx + (-m_block_scroll)+32) - x;
+					vy[1] = hy  - y;
 
-					if (r <= 0.0f)
-						r = abs(r);
-					else
-						r = 360.0f - abs(r);
-
-					//lenがある一定の長さより短い場合判定に入る
-					if (len < 40)
+					for (int k = 0; k < 2; k++)
 					{
+						//長さを求める
+						float len = sqrt(vx[k]*vx[k] + vy[k]*vy[k]);
 
-						//角度で上下左右を判定
-						if ((r < 45 && r>0) || r > 315)
+						//角度を求める
+						float r = atan2(vy[k], vx[k]);
+						r = r*180.0f / 3.14f;
+
+						if (r <= 0.0f)
+							r = abs(r);
+						else
+							r = 360.0f - abs(r);
+
+						//lenがある一定の長さより短い場合判定に入る
+						if (len < 38)
 						{
-							//右
-							hero->SetRight(true);//主人公が左部分に衝突している
-							hero->SetX(x + 32.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
-							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
-						}
-						if (r > 45 && r < 135)
-						{
-							//上
-							hero->SetDown(true);//主人公の下の部分が衝突している
-							hero->SetY(y - 64.0f);//ブロック位置ー主人公の幅
-							hero->SetVY(0.0f);
-						}
-						if (r > 135 && r < 225)
-						{
-							//左
-							hero->SetLeft(true);//主人公が右の部分に衝突している
-							hero->SetX(x - 32.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
-							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
-						}
-						if (r > 225 && r < 315)
-						{
-							//下
-							hero->SetUp(true);//主人公の上の部分が衝突している
-							hero->SetY(y + 64.0f);//ブロックの位置+主人公の幅
-							if (hero->GetVY() < 0)
+
+							//角度で上下左右を判定
+							if ((r <= 45 && r>=0) || r >= 315)
 							{
-								hero->SetVY(0.0f);
+								//右
+								hero->SetRight(true);//主人公が左部分に衝突している
+								hero->SetX(x + 10.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+								hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
+								hx = x + 10.0f + (m_block_scroll);
+
 							}
+							if (r >= 45 && r <= 135)
+							{
+								if (k == 0)
+								{
+									//上
+									hero->SetDown(true);//主人公の下の部分が衝突している
+									hero->SetY(y - 64.0f);//ブロック位置ー主人公の幅
+									hero->SetVY(0.0f);
+								}
+							}
+							if (r >= 135 && r <= 225)
+							{
+								//左
+								hero->SetLeft(true);//主人公が右の部分に衝突している
+								hero->SetX(x - 55.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+								hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
+								hx = x - 55.0f  + (m_block_scroll);
+							}
+							if (r >= 225 && r <= 315)
+							{
+								//下
+								if (k == 1)
+								{
+									hero->SetUp(true);//主人公の上の部分が衝突している
+									//hero->SetY(y + 64.0f);//ブロックの位置+主人公の幅
+									if (hero->GetVY() < 0)
+									{
+										hero->SetVY(0.0f);
+									}
+								}
+						
+							}
+							
 						}
 					}
 				}
@@ -295,7 +292,7 @@ void CObjBlock::Draw()
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
 
-				//茨ブロック
+				//茨ブロック(上部分)
 				else if (m_map[i][j] == 15)
 				{
 					//切り取り位置

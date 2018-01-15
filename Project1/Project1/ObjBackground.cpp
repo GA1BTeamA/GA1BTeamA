@@ -8,18 +8,28 @@
 //使用するネームスペース
 using namespace GameL;
 
+//イニシャライズ
 void CObjBackground::Init()
 {
+	m_scroll = 0.0f;
+	m_x1 = 0.0f;
+	m_x2 = 800.0f;
 	m_key_flag = false;
 }
 
+//アクション
 void CObjBackground::Action()
 {
+	//背景1の動作
+	m_x1 -= 1.0f;
+	if (m_x1 < -800.0f)
+		m_x1 = 800;
 	if (Input::GetVKey('C') == true)
 	{
 		if (m_key_flag == true)
 		{
 			Scene::SetScene(new CScenePause);
+
 			m_key_flag == false;
 		}
 	}
@@ -28,8 +38,13 @@ void CObjBackground::Action()
 		m_key_flag = true;
 	}
 
+	//背景2の動作
+	m_x2 -= 1.0f;
+	if (m_x2 < -800.0f)
+		m_x2 = 800;
 }
 
+//ドロー
 void CObjBackground::Draw()
 {
 	//描画カラー情報
@@ -44,12 +59,17 @@ void CObjBackground::Draw()
 	src.m_right = 799.0f;
 	src.m_bottom = 400.0f;
 
-	//表示位置
+	//背景1位置設定し描画
 	dst.m_top = 0.0f;
-	dst.m_left = 0.0f;
-	dst.m_right = 800.0f;
+	dst.m_left = 0.0f + m_x1;
+	dst.m_right = 800.0f + m_x1;
 	dst.m_bottom = 600.0f;
-
 	Draw::Draw(0, &src, &dst, c, 0.0f);
 
+	//背景2位置設定し描画
+	dst.m_top = 0.0f;
+	dst.m_left = 0.0f + m_x2;
+	dst.m_right = 800.0f + m_x2;
+	dst.m_bottom = 600.0f;
+	Draw::Draw(0, &src, &dst, c, 0.0f);
 }

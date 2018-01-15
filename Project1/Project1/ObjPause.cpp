@@ -33,7 +33,7 @@ void CObjPause::Action()
 void CObjPause::Draw()
 {
 	//描画カラー情報
-	float c[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float c[4] = { 1.0f, 1.0f, 1.0f,1.0f };
 	float cl[4] = { 1.0f, 0.0f, 1.0f, 1.0f };
 
 	RECT_F src;//描画元切り取り位置
@@ -70,11 +70,6 @@ void CObjPause::Draw()
 		{
 			Font::StrDraw(L"タイトルに戻る", 500, 400, 30, cl);
 		}
-	}
-	else
-	{
-		Font::StrDraw(L"ゲームに戻る", 100, 400, 30, c);
-		Font::StrDraw(L"タイトルに戻る", 500, 400, 30, c);
 	}
 
 }
