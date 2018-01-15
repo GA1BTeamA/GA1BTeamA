@@ -103,12 +103,15 @@ void CObjBlock::Action()
 	hero->SetLeft(false);
 	hero->SetRight(false);
 
+	//踏んでいるblockの種類の初期化
+	hero->SetBT(0);
+
 	//m_mapの全要素にアクセス
 	for (int i = 0; i < MAPSIZE_X; i++)
 	{
 		for (int j = 0; j < 400; j++)
 		{
-			if (m_map[i][j] > 0)
+			if (m_map[i][j] > 0&&m_map[i][j]!=15)
 			{
 				//要素番号を座標に変更
 				float x = j*32.0f;
@@ -128,6 +131,8 @@ void CObjBlock::Action()
 
 					vx[1] = (hx + (-m_block_scroll)+32) - x;
 					vy[1] = hy  - y;
+					//float vx = (hx+32+(-m_block_scroll)) - x;
+					//float vy = hy + 32 - y;
 
 					for (int k = 0; k < 2; k++)
 					{
@@ -164,6 +169,7 @@ void CObjBlock::Action()
 									//上
 									hero->SetDown(true);//主人公の下の部分が衝突している
 									hero->SetY(y - 64.0f);//ブロック位置ー主人公の幅
+									hero->SetBT(m_map[i][j]);//ブロックの要素(type)を主人公に渡す
 									hero->SetVY(0.0f);
 								}
 							}
@@ -171,7 +177,7 @@ void CObjBlock::Action()
 							{
 								//左
 								hero->SetLeft(true);//主人公が右の部分に衝突している
-								hero->SetX(x - 55.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+								hero->SetX(x - 50.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
 								hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 								hx = x - 55.0f  + (m_block_scroll);
 							}
@@ -181,6 +187,7 @@ void CObjBlock::Action()
 								if (k == 1)
 								{
 									hero->SetUp(true);//主人公の上の部分が衝突している
+									hero->SetBT(m_map[i][j]);//ブロックの要素(type)を主人公に渡す
 									//hero->SetY(y + 64.0f);//ブロックの位置+主人公の幅
 									if (hero->GetVY() < 0)
 									{
@@ -196,6 +203,8 @@ void CObjBlock::Action()
 			}
 		}
 	}
+
+
 }
 
 //ドロー
@@ -220,8 +229,8 @@ void CObjBlock::Draw()
 				dst.m_bottom =  dst.m_top+32.0f;
 
 				//描画
-				//土ブロック
-				if (m_map[i][j] == 1||m_map[i][j]==13)
+				//草ブロック
+				if (m_map[i][j] == 1|| m_map[i][j] == 13)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -244,7 +253,7 @@ void CObjBlock::Draw()
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
 
-				//妹ブロック
+				//妹ブロック(木)
 				else if (m_map[i][j] == 4)
 				{
 					//切り取り位置
@@ -256,7 +265,19 @@ void CObjBlock::Draw()
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
 
-				//兄ブロック
+				////妹ブロック(草)
+				//else if (m_map[i][j] == 13)
+				//{
+				//	//切り取り位置
+				//	src.m_top = 0.0f;
+				//	src.m_left = 0.0f;
+				//	src.m_right = 32.0f;
+				//	src.m_bottom = 32.0f;
+
+				//	Draw::Draw(1, &src, &dst, c, 0.0f);
+				//}
+
+				//兄ブロック(木)
 				else if (m_map[i][j] == 5)
 				{
 					//切り取り位置
@@ -280,8 +301,8 @@ void CObjBlock::Draw()
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
 
-				//茨ブロック
-				else if (m_map[i][j] == 8)
+				//土ブロック
+				else if (m_map[i][j] == 8|| m_map[i][j] == 16)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
