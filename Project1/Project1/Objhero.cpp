@@ -130,7 +130,7 @@ void  CObjhero::Action()
 		Scene::SetScene(new CSceneTitle());
 	}
 
-	if (GetBT() == 3)
+	if (GetBT() == 3 || GetBT() == 12)
 	{
 		Scene::SetScene(new CSceneGameOver());
 	}

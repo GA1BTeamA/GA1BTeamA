@@ -187,6 +187,7 @@ void CObjBlock::Action()
 								if (k == 1)
 								{
 									hero->SetUp(true);//主人公の上の部分が衝突している
+									hero->SetBT(m_map[i][j]);//ブロックの要素(type)を主人公に渡す
 									//hero->SetY(y + 64.0f);//ブロックの位置+主人公の幅
 									if (hero->GetVY() < 0)
 									{
