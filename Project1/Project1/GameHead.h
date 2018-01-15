@@ -16,6 +16,8 @@ enum OBJ_NAME
 	OBJ_PAUSE,
 	OBJ_CLEAR,
 	OBJ_KANBAN,
+	OBJ_ITEM,
+	OBJ_ITEM2,
 };
 //------------------------------------------------
 
@@ -68,6 +70,8 @@ struct UserData
 #include "ObjBackground.h"
 #include "ObjEnemy1.h"
 #include "ObjPause.h"
+#include "Objitem.h"
+#include "Objitem2.h"
 #include "ObjClear.h"
 #include "Objkanban.h"
 

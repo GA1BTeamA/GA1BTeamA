@@ -143,6 +143,8 @@
     <ClCompile Include="Objhero.cpp" />
     <ClCompile Include="ObjEnemy1.cpp" />
     <ClCompile Include="Objkanban.cpp" />
+    <ClCompile Include="Objitem.cpp" />
+    <ClCompile Include="Objitem2.cpp" />
     <ClCompile Include="ObjPause.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -177,6 +179,8 @@
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="Objhero.h" />
     <ClInclude Include="ObjEnemy1.h" />
+    <ClInclude Include="Objitem.h" />
+    <ClInclude Include="Objitem2.h" />
     <ClInclude Include="Objkanban.h" />
     <ClInclude Include="ObjPause.h" />
     <ClInclude Include="ObjGameOver.h">
