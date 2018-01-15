@@ -33,7 +33,7 @@ CSceneMain::~CSceneMain()
 void CSceneMain::InitScene()
 {
 	//グラフィック読み込み
-	Draw::LoadImageW(L"block0.png", 1, TEX_SIZE_512);
+	Draw::LoadImageW(L"block0.png"  , 1, TEX_SIZE_512);
 	//Draw::LoadImageW(L"Block1.png"  , 1, TEX_SIZE_32);
 	//Draw::LoadImageW(L"Block2.png"  , 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"haikei.png"  , 0, TEX_SIZE_1024);
@@ -59,6 +59,7 @@ void CSceneMain::InitScene()
 	//敵作成
 	CObjEnemy1* obje = new CObjEnemy1();
 	Objs::InsertObj(obje, OBJ_ENEMY1, 2);
+
 }
 
 //実行中メソッド
