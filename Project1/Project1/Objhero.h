@@ -25,12 +25,14 @@ public:
 	void SetY (float y ) { m_py =  y; }
 	void SetVY(float vy) { m_vy = vy; }
 	void SetVX(float vx) { m_vx = vx; }
+	int GetBT() { return m_block_type; }
 
 	//ブロックとの衝突状態確認
 	void SetUp(bool b) { m_hit_up    = b; }
 	void SetDown(bool b) { m_hit_down  = b; }
 	void SetLeft(bool b) { m_hit_left  = b; }
 	void SetRight(bool b) { m_hit_right = b; }
+	void SetBT(int t) { m_block_type = t; }
 
 
 protected:
@@ -57,4 +59,6 @@ protected:
 	//描画切り替え
 	bool Draw_flag;
 
+	//踏んでいるblockの種類を確認用
+	int m_block_type;
 };

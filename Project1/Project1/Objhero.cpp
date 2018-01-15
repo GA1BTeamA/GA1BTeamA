@@ -37,7 +37,7 @@ void CObjhero::Init()
 	//描画切り替え
 	Draw_flag=true;
 
-
+	m_block_type = 15;
 }
 
 //アクション
@@ -130,6 +130,10 @@ void  CObjhero::Action()
 		Scene::SetScene(new CSceneTitle());
 	}
 
+	if (GetBT() == 3)
+	{
+		Scene::SetScene(new CSceneGameOver());
+	}
 }
 
 //ドロー
