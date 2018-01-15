@@ -57,4 +57,7 @@ protected:
 	//•`‰æØ‚è‘Ö‚¦
 	bool Draw_flag;
 
+	//‘Ì—Í
+	int HP;
+
 };

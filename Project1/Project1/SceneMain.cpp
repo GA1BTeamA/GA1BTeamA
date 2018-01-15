@@ -38,7 +38,9 @@ void CSceneMain::InitScene()
 	//Draw::LoadImageW(L"Block2.png"  , 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"haikei.png"  , 0, TEX_SIZE_1024);
 	Draw::LoadImageW(L"ookami.png", 2, TEX_SIZE_256);
-	Draw::LoadImageW(L"imouto2.png" , 3, TEX_SIZE_512);
+	Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
+	//Draw::LoadImageW(L"imouto1.png" , 3, TEX_SIZE_512);
+	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
 
 	//タイムオブジェクト
@@ -60,6 +62,10 @@ void CSceneMain::InitScene()
 	//敵作成
 	CObjEnemy1* obje = new CObjEnemy1();
 	Objs::InsertObj(obje, OBJ_ENEMY1, 2);
+
+	//看板オブジェクト作成
+	CObjkanban* objk = new CObjkanban();
+	Objs::InsertObj(objk, OBJ_KANBAN, 4);
 
 	//アイテム作成
 	CObjitem* obji = new CObjitem();
