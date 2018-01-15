@@ -38,7 +38,8 @@ void CSceneMain::InitScene()
 	//Draw::LoadImageW(L"Block2.png"  , 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"haikei.png"  , 0, TEX_SIZE_1024);
 	Draw::LoadImageW(L"ookami.png", 2, TEX_SIZE_256);
-	Draw::LoadImageW(L"imouto2.png" , 3, TEX_SIZE_512);
+	//Draw::LoadImageW(L"imouto1.png" , 3, TEX_SIZE_512);
+	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();
