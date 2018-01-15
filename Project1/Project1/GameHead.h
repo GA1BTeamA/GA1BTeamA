@@ -13,6 +13,7 @@ enum OBJ_NAME
 	OBJ_BACKGROUND,
 	OBJ_ENEMY1,
 	OBJ_PAUSE,
+	OBJ_CLEAR,
 };
 //------------------------------------------------
 
@@ -63,6 +64,7 @@ struct UserData
 #include "ObjBackground.h"
 #include "ObjEnemy1.h"
 #include "ObjPause.h"
+#include "ObjClear.h"
 
 //------------------------------------------------
 
@@ -70,6 +72,7 @@ struct UserData
 #include "SceneMain.h"
 #include "SceneTitle.h"
 #include "ScenePause.h"
+#include "SceneClear.h"
 
 //-----------------------------------------------
 

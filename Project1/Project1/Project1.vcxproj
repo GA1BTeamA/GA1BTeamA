@@ -136,6 +136,7 @@
     <ClCompile Include="GameL\UserData.cpp" />
     <ClCompile Include="GameL\WinInputs.cpp" />
     <ClCompile Include="ObjBlock.cpp" />
+    <ClCompile Include="ObjClear.cpp" />
     <ClCompile Include="Objhero.cpp" />
     <ClCompile Include="ObjEnemy1.cpp" />
     <ClCompile Include="ObjPause.cpp" />
@@ -144,6 +145,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ObjTitle.cpp" />
+    <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="ScenePause.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
@@ -166,6 +168,7 @@
     <ClInclude Include="GameL\WinInputs.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjBlock.h" />
+    <ClInclude Include="ObjClear.h" />
     <ClInclude Include="Objhero.h" />
     <ClInclude Include="ObjEnemy1.h" />
     <ClInclude Include="ObjPause.h" />
@@ -173,6 +176,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="ObjTitle.h" />
+    <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="ScenePause.h" />
     <ClInclude Include="SceneTitle.h">
