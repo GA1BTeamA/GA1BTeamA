@@ -14,35 +14,34 @@ using namespace GameL;
 //使用ヘッダー
 #include "SceneMain.h"
 #include "GameHead.h"
-#include "SceneGameOver.h"
 
 //コンストラクタ
-CSceneGameOver::CSceneGameOver()
+CSceneClear::CSceneClear()
 {
 
 }
 
 //デストラクタ
-CSceneGameOver::~CSceneGameOver()
+CSceneClear::~CSceneClear()
 {
 
 }
 
 //ゲームメイン初期化メソッド
-void CSceneGameOver::InitScene()
+void CSceneClear::InitScene()
 {
 	//出力させる文字のグラフィックを作成
-	Font::SetStrTex(L"GameOver");
+	Font::SetStrTex(L"GameClear");
+
+	//Draw::LoadImageW(L"Title.png", 1, TEX_SIZE_1024);
 
 	//タイトルオブジェクト作成
-	CObjGameOver* obj = new CObjGameOver(); //タイトルオブジェクト作成
-	Objs::InsertObj(obj, OBJ_GAME_OVER, 1); //主人公オブジェクト登録
-
-
+	CObjClear* objt = new CObjClear(); //クリアオブジェクト作成
+	Objs::InsertObj(objt, OBJ_CLEAR, 1); //主人公オブジェクト登録
 }
 
 //ゲームメイン実行中メソッド
-void CSceneGameOver::Scene()
+void CSceneClear::Scene()
 {
 
 }

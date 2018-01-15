@@ -14,6 +14,10 @@ enum OBJ_NAME
 	OBJ_BACKGROUND,
 	OBJ_ENEMY1,
 	OBJ_PAUSE,
+	OBJ_CLEAR,
+	OBJ_KANBAN,
+	OBJ_ITEM,
+	OBJ_ITEM2,
 };
 //------------------------------------------------
 
@@ -33,6 +37,7 @@ enum HIT_ELEMENTS
 	ELEMENT_BLUE,
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
+	ELEMENT_KANBAN,
 };
 //------------------------------------------------
 
@@ -65,14 +70,18 @@ struct UserData
 #include "ObjBackground.h"
 #include "ObjEnemy1.h"
 #include "ObjPause.h"
+#include "Objitem.h"
+#include "Objitem2.h"
+#include "ObjClear.h"
+#include "Objkanban.h"
 
 //------------------------------------------------
 
 //ゲームシーンクラスヘッダ------------------------
 #include "SceneMain.h"
 #include "SceneTitle.h"
-#include "SceneGameOver.h"
 #include "ScenePause.h"
+#include "SceneClear.h"
 
 //-----------------------------------------------
 

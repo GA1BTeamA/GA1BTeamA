@@ -20,10 +20,42 @@ void CObjBackground::Init()
 //ƒAƒNƒVƒ‡ƒ“
 void CObjBackground::Action()
 {
-	//”wŒi1‚Ì“®ì
-	m_x1 -= 1.0f;
+	//ålŒö‚ÌˆÊ’u‚ğæ“¾
+	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
+	float hx = hero->GetX();
+	float hy = hero->GetY();
+
+	//”wŒi1E2‚Ì“®ì
+	if (hx > 400)
+	{
+		m_x1 -= hero->GetVX();
+		m_x2 -= hero->GetVX();
+	}
+	else if (hx < 80)
+	{
+		m_x1 -= hero->GetVX();
+		m_x2 -= hero->GetVX();
+	}
+	
 	if (m_x1 < -800.0f)
-		m_x1 = 800;
+	{
+		m_x1 = m_x2 + 800;
+	}
+	if (m_x1 > 800.0f)
+	{
+		m_x1 = -800;
+	}
+	
+	if (m_x2 < -800.0f)
+	{
+		m_x2 = m_x1 + 800;
+	}
+	if (m_x2 > 800.0f)
+	{
+		m_x2 = -800;
+	}
+
+	//ƒ|[ƒY‰æ–Ê‚ÉˆÚ“®(‚Ì”wŒi•\¦)
 	if (Input::GetVKey('C') == true)
 	{
 		if (m_key_flag == true)
@@ -37,11 +69,6 @@ void CObjBackground::Action()
 	{
 		m_key_flag = true;
 	}
-
-	//”wŒi2‚Ì“®ì
-	m_x2 -= 1.0f;
-	if (m_x2 < -800.0f)
-		m_x2 = 800;
 }
 
 //ƒhƒ[
@@ -56,7 +83,7 @@ void CObjBackground::Draw()
 	//Ø‚èæ‚èˆÊ’u
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 799.0f;
+	src.m_right = 800.0f;
 	src.m_bottom = 400.0f;
 
 	//”wŒi1ˆÊ’uİ’è‚µ•`‰æ

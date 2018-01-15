@@ -324,6 +324,28 @@ void CObjBlock::Draw()
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
+				//針ブロック
+				else if (m_map[i][j] == 6)
+				{
+					//切り取り位置
+					src.m_top = 0.0f;
+					src.m_left = 160.0f;
+					src.m_right = 192.0f;
+					src.m_bottom = 32.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//針ブロック（逆さま）
+				else if (m_map[i][j] == 12)
+				{
+					//切り取り位置
+					src.m_top = 32.0f;
+					src.m_left = 160.0f;
+					src.m_right = 192.0f;
+					src.m_bottom = 0.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
 			}
 		}
 	}

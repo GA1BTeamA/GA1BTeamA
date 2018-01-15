@@ -37,6 +37,9 @@ void CObjhero::Init()
 	//描画切り替え
 	Draw_flag=true;
 
+	//体力
+	HP = 1;
+
 	m_block_type = 15;
 }
 
@@ -125,9 +128,10 @@ void  CObjhero::Action()
 	m_px += m_vx;
 	m_py += m_vy;
 
-	if (m_py>850)
+	//ゲームオーバーに切り替え
+	if (m_py>850||HP==0)
 	{
-		Scene::SetScene(new CSceneTitle());
+		Scene::SetScene(new CObjGameOver());
 	}
 
 	if (GetBT() == 3 || GetBT() == 12)
@@ -156,23 +160,36 @@ void  CObjhero::Draw()
 
 	RECT_F src;  //描画切り取り位置
 	RECT_F dst;  //描画先表示位置
-	if (Draw_flag == true)
+
+	if (HP == 0)
 	{
 		//切り取り位置の設定
-		src.m_top = 64.0f;
-		src.m_left = 0.0f + AniDatax[m_ani_framex] * 64;
-		src.m_right = 64.0f + AniDatax[m_ani_framex] * 64;
-		src.m_bottom = 128.0f;
+		src.m_top = 192.0f;
+		src.m_left = 0.0f;
+		src.m_right = 64.0f;
+		src.m_bottom = 256.0f;
 	}
 	else
 	{
-		//切り取り位置の設定
-		src.m_top = 128.0f;
-		src.m_left = 0.0f + AniDatay[m_ani_framey] * 64;
-		src.m_right = 64.0f + AniDatay[m_ani_framey] * 64;
-		src.m_bottom = 192.0f;
-	}
+		if (Draw_flag == true)
+		{
+			//切り取り位置の設定
+			src.m_top = 64.0f;
+			src.m_left = 0.0f + AniDatax[m_ani_framex] * 64;
+			src.m_right = 64.0f + AniDatax[m_ani_framex] * 64;
+			src.m_bottom = 128.0f;
+		}
 
+		else
+		{
+			//切り取り位置の設定
+			src.m_top = 128.0f;
+			src.m_left = 0.0f + AniDatay[m_ani_framey] * 64;
+			src.m_right = 64.0f + AniDatay[m_ani_framey] * 64;
+			src.m_bottom = 192.0f;
+		}
+		
+	}
 	//表示位置の設定
 	dst.m_top    = 0.0f+m_py;
 	dst.m_left   = (   64.0f*m_posture)+m_px;

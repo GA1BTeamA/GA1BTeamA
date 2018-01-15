@@ -59,6 +59,9 @@ protected:
 	//•`‰æØ‚è‘Ö‚¦
 	bool Draw_flag;
 
+	//‘Ì—Í
+	int HP;
+
 	//“¥‚ñ‚Å‚¢‚éblock‚Ìí—Ş‚ğŠm”F—p
 	int m_block_type;
 };
