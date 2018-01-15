@@ -103,6 +103,8 @@ void CObjBlock::Action()
 	hero->SetLeft(false);
 	hero->SetRight(false);
 
+	
+
 	//m_mapの全要素にアクセス
 	for (int i = 0; i < MAPSIZE_X; i++)
 	{
@@ -138,12 +140,12 @@ void CObjBlock::Action()
 				d4 = GetMap(x, y + 1);  //下方向*/
 				
 				//主人公とブロックの当り判定
-				if ((hx + (-m_block_scroll)+64.0f > x) && (hx+(-m_block_scroll) < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))
+				if ((hx+19 + (-m_block_scroll)+26.0f > x) && (hx+19+(-m_block_scroll) < x + 32.0f) && (hy + 64.0f > y) && (hy < y + 32.0f))
 				{
 					//上下左右判定
 
 					//vectorの作成
-					float vx = (hx+(-m_block_scroll)) - x;
+					float vx = (hx+32+(-m_block_scroll)) - x;
 					float vy = hy + 32 - y;
 
 					//長さを求める
@@ -159,7 +161,7 @@ void CObjBlock::Action()
 						r = 360.0f - abs(r);
 
 					//lenがある一定の長さより短い場合判定に入る
-					if (len < 40)
+					if (len < 80)
 					{
 
 						//角度で上下左右を判定
@@ -167,7 +169,7 @@ void CObjBlock::Action()
 						{
 							//右
 							hero->SetRight(true);//主人公が左部分に衝突している
-							hero->SetX(x + 32.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
+							hero->SetX(x + 19.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
 							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 						}
 						if (r > 45 && r < 135)
@@ -181,7 +183,7 @@ void CObjBlock::Action()
 						{
 							//左
 							hero->SetLeft(true);//主人公が右の部分に衝突している
-							hero->SetX(x - 32.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
+							hero->SetX(x - 45.0f+(m_block_scroll));//ブロックの位置ー主人公の幅
 							hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 						}
 						if (r > 225 && r < 315)
