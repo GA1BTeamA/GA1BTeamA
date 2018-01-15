@@ -40,6 +40,7 @@ void CObjhero::Init()
 	//体力
 	HP = 1;
 
+	m_block_type = 15;
 }
 
 //アクション
@@ -133,6 +134,10 @@ void  CObjhero::Action()
 		Scene::SetScene(new CSceneGameOver());
 	}
 
+	if (GetBT() == 3 || GetBT() == 12)
+	{
+		Scene::SetScene(new CSceneGameOver());
+	}
 }
 
 //ドロー
