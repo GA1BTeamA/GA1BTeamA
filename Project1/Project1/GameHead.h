@@ -14,6 +14,7 @@ enum OBJ_NAME
 	OBJ_ENEMY1,
 	OBJ_PAUSE,
 	OBJ_CLEAR,
+	OBJ_KANBAN,
 };
 //------------------------------------------------
 
@@ -33,6 +34,7 @@ enum HIT_ELEMENTS
 	ELEMENT_BLUE,
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
+	ELEMENT_KANBAN,
 };
 //------------------------------------------------
 
@@ -65,6 +67,7 @@ struct UserData
 #include "ObjEnemy1.h"
 #include "ObjPause.h"
 #include "ObjClear.h"
+#include "Objkanban.h"
 
 //------------------------------------------------
 
