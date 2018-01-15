@@ -129,7 +129,7 @@ void  CObjhero::Action()
 
 	if (m_py>850)
 	{
-		Scene::SetScene(new CSceneTitle());
+		Scene::SetScene(new CSceneGameOver());
 	}
 
 }
