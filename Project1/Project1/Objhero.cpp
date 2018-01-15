@@ -130,7 +130,7 @@ void  CObjhero::Action()
 	//ゲームオーバーに切り替え
 	if (m_py>850||HP==0)
 	{
-		Scene::SetScene(new CObjGameOver());
+		Scene::SetScene(new CSceneGameOver());
 	}
 
 }
