@@ -127,9 +127,10 @@ void  CObjhero::Action()
 	m_px += m_vx;
 	m_py += m_vy;
 
-	if (m_py>850)
+	//ゲームオーバーに切り替え
+	if (m_py>850||HP==0)
 	{
-		Scene::SetScene(new CSceneTitle());
+		Scene::SetScene(new CObjGameOver());
 	}
 
 }
