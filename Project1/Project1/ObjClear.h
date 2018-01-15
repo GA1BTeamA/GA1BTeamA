@@ -5,15 +5,15 @@
 using namespace GameL;
 
 //オブジェクト：タイトル
-class CObjTitle : public CObj
+class CObjClear : public CObj
 {
 public:
-	CObjTitle() {};
-	~CObjTitle() {};
+	CObjClear() {};
+	~CObjClear() {};
 	void Init();	//イニシャライズ
 	void Action();	//アクション
 	void Draw();	//ドロー
-protected:
+private:
 	bool m_key_flag;	//キーフラグ
 };
 
