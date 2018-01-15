@@ -39,6 +39,7 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"haikei.png"  , 0, TEX_SIZE_1024);
 	Draw::LoadImageW(L"ookami.png", 2, TEX_SIZE_256);
 	Draw::LoadImageW(L"imouto2.png" , 3, TEX_SIZE_512);
+	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
 
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();
@@ -59,6 +60,14 @@ void CSceneMain::InitScene()
 	//敵作成
 	CObjEnemy1* obje = new CObjEnemy1();
 	Objs::InsertObj(obje, OBJ_ENEMY1, 2);
+
+	//アイテム作成
+	CObjitem* obji = new CObjitem();
+	Objs::InsertObj(obji, OBJ_ITEM, 4);
+
+	//アイテム作成
+	CObjitem2* obji2 = new CObjitem2();
+	Objs::InsertObj(obji2, OBJ_ITEM2, 4);
 
 }
 

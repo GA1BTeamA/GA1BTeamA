@@ -14,6 +14,8 @@ enum OBJ_NAME
 	OBJ_BACKGROUND,
 	OBJ_ENEMY1,
 	OBJ_PAUSE,
+	OBJ_ITEM,
+	OBJ_ITEM2,
 };
 //------------------------------------------------
 
@@ -65,6 +67,8 @@ struct UserData
 #include "ObjBackground.h"
 #include "ObjEnemy1.h"
 #include "ObjPause.h"
+#include "Objitem.h"
+#include "Objitem2.h"
 
 //------------------------------------------------
 
