@@ -80,6 +80,7 @@ void CObjBlock::Action()
 
 	//主人公の位置を取得
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
+	CObjhero2* hero2 = (CObjhero2*)Objs::GetObj(OBJ_HERO2);
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
@@ -177,7 +178,7 @@ void CObjBlock::Action()
 							{
 								//左
 								hero->SetLeft(true);//主人公が右の部分に衝突している
-								hero->SetX(x - 50.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+								hero->SetX(x - 52.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
 								hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 								hx = x - 55.0f  + (m_block_scroll);
 							}
@@ -203,6 +204,7 @@ void CObjBlock::Action()
 			}
 		}
 	}
+
 
 
 }

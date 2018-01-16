@@ -39,7 +39,7 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"haikei.png"  , 0, TEX_SIZE_1024);
 	Draw::LoadImageW(L"ookami.png", 2, TEX_SIZE_256);
 	Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
-	//Draw::LoadImageW(L"imouto1.png" , 3, TEX_SIZE_512);
+	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
 
@@ -50,6 +50,10 @@ void CSceneMain::InitScene()
 	//主人公オブジェクト作成
 	CObjhero* objh = new CObjhero();
 	Objs::InsertObj(objh, OBJ_HERO, 10);
+
+	//主人公オブジェクト作成
+	CObjhero2* objh2 = new CObjhero2();
+	Objs::InsertObj(objh2, OBJ_HERO2, 10);
 
 	//blockオブジェクト作成
 	CObjBlock* objb = new CObjBlock();

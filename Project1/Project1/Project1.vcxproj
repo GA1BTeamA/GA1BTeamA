@@ -142,6 +142,7 @@
     <ClCompile Include="ObjClear.cpp" />
     <ClCompile Include="Objhero.cpp" />
     <ClCompile Include="ObjEnemy1.cpp" />
+    <ClCompile Include="Objhero2.cpp" />
     <ClCompile Include="Objkanban.cpp" />
     <ClCompile Include="Objitem.cpp" />
     <ClCompile Include="Objitem2.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="Objhero.h" />
     <ClInclude Include="ObjEnemy1.h" />
+    <ClInclude Include="Objhero2.h" />
     <ClInclude Include="Objitem.h" />
     <ClInclude Include="Objitem2.h" />
     <ClInclude Include="Objkanban.h" />
