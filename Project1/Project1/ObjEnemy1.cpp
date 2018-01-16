@@ -10,11 +10,18 @@
 //使用するネームスペース
 using namespace GameL;
 
+CObjEnemy1::CObjEnemy1(float x, float y)
+{
+	//位置
+	m_px = x;
+	m_py = y;
+}
+
 //イニシャライズ
 void CObjEnemy1::Init()
 {
-	m_px = 0.0f;		//位置
-	m_py = 0.0f;
+	//m_px = 0.0f;		//位置
+	//m_py = 0.0f;
 	m_vx = 0.0f;		//移動ベクトル
 	m_vy = 0.0f;
 	m_posture = 0.0f;	//右向き0.0ｆ　左向き1.0ｆ
