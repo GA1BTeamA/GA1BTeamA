@@ -98,6 +98,28 @@ void CObjBlock::Action()
 		m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 	}
 
+	//敵出現ライン
+	//主人公の位置＋500を敵出現ラインにする
+	float line = hx + (-m_block_scroll) + 1500;
+
+	//敵出現ラインを要素番号化
+	int ex = ((int)line) / 64;
+
+	//敵出現ラインの列を検索
+	for (int i = 0; i < MAPSIZE_X; i++)
+	{
+		//列の中から4を探す
+		if (m_map[i][ex] == 17)
+		{
+			//4があれば、敵を出現
+			CObjEnemy1* obje = new CObjEnemy1(ex*64.0f, i*64.0f);
+			Objs::InsertObj(obje, OBJ_ENEMY1, 2);
+
+			//敵出現場所の値を0にする
+			m_map[i][ex] = 0;
+		}
+	}
+
 	//主人公の衝突確認状態確認用フラグの初期化
 	hero->SetUp(false);
 	hero->SetDown(false);
@@ -112,7 +134,7 @@ void CObjBlock::Action()
 	{
 		for (int j = 0; j < 400; j++)
 		{
-			if (m_map[i][j] > 0&&m_map[i][j]!=15)
+			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 11 && m_map[i][j] != 17 && m_map[i][j] != 18)
 			{
 				//要素番号を座標に変更
 				float x = j*32.0f;
