@@ -60,9 +60,9 @@ void CSceneMain::InitScene()
 	CObjBackground* back = new CObjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 0);
 
-	//敵作成
-	CObjEnemy1* obje = new CObjEnemy1();
-	Objs::InsertObj(obje, OBJ_ENEMY1, 2);
+	////敵作成
+	//CObjEnemy1* obje = new CObjEnemy1(100,0);
+	//Objs::InsertObj(obje, OBJ_ENEMY1, 2);
 
 	//看板オブジェクト作成
 	CObjkanban* objk = new CObjkanban();

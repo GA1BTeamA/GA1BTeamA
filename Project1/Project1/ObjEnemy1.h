@@ -2,11 +2,12 @@
 class CObjEnemy1 : public CObj
 {
 public:
-	CObjEnemy1() {};
+	CObjEnemy1(float x,float y);
 	~CObjEnemy1() {};
 	void Init();
 	void Action();
 	void Draw();
+
 private:
 	float m_px;    //ˆÊ’u
 	float m_py;
