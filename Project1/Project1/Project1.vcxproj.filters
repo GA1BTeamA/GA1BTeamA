@@ -84,6 +84,9 @@
     <ClCompile Include="SceneGameOver.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="ObjGoal.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameL\Audio.h">
@@ -173,6 +176,9 @@
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
     <ClInclude Include="SceneGameOver.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGoal.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,7 @@ enum OBJ_NAME
 	OBJ_KANBAN,
 	OBJ_ITEM,
 	OBJ_ITEM2,
+	OBJ_GOAL,
 };
 //------------------------------------------------
 
@@ -74,6 +75,7 @@ struct UserData
 #include "Objitem2.h"
 #include "ObjClear.h"
 #include "Objkanban.h"
+#include "ObjGoal.h"
 
 //------------------------------------------------
 

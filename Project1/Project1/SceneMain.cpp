@@ -42,6 +42,7 @@ void CSceneMain::InitScene()
 	//Draw::LoadImageW(L"imouto1.png" , 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
+	Draw::LoadImageW(L"goal.png", 7, TEX_SIZE_64);
 
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();
@@ -74,6 +75,10 @@ void CSceneMain::InitScene()
 	//アイテム作成
 	CObjitem2* obji2 = new CObjitem2();
 	Objs::InsertObj(obji2, OBJ_ITEM2, 4);
+
+	//ゴールオブジェクト作成
+	CObjGoal* objg = new CObjGoal();
+	Objs::InsertObj(objg, OBJ_GOAL, 7);
 
 }
 
