@@ -76,8 +76,6 @@
     <ClCompile Include="GameL\SceneObjManager.cpp">
       <Filter>リソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Objitem.cpp" />
-    <ClCompile Include="Objitem2.cpp" />
     <ClCompile Include="SceneGameOver.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
@@ -99,6 +97,15 @@
     <ClCompile Include="Objswitchsis.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Objitem.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objitem2.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objhero2.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameL\Audio.h">
@@ -111,9 +118,6 @@
       <Filter>リソースファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameL\DrawTexture.h">
-      <Filter>リソースファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameHead.h">
       <Filter>リソースファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameL\HitBoxManager.h">
@@ -179,8 +183,6 @@
     <ClInclude Include="SceneTitle.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Objitem.h" />
-    <ClInclude Include="Objitem2.h" />
     <ClInclude Include="F:\SceneGameOver.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
@@ -203,6 +205,18 @@
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
     <ClInclude Include="Objswitchsis.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objitem.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objitem2.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHead.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objhero2.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>

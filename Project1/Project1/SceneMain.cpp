@@ -41,6 +41,8 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"kanban sis.png", 5, TEX_SIZE_32);
 	Draw::LoadImageW(L"kanban bro.png", 6, TEX_SIZE_32);
 	//Draw::LoadImageW(L"imouto1.png" , 3, TEX_SIZE_512);
+	Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
+	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
 	Draw::LoadImageW(L"gateopenleft.png", 8, TEX_SIZE_128);	//(未完)
@@ -56,6 +58,10 @@ void CSceneMain::InitScene()
 	CObjhero* objh = new CObjhero();
 	Objs::InsertObj(objh, OBJ_HERO, 10);
 
+	//主人公オブジェクト作成
+	CObjhero2* objh2 = new CObjhero2();
+	Objs::InsertObj(objh2, OBJ_HERO2, 10);
+
 	//blockオブジェクト作成
 	CObjBlock* objb = new CObjBlock();
 	Objs::InsertObj(objb, OBJ_BLOCK, 1);
@@ -64,9 +70,9 @@ void CSceneMain::InitScene()
 	CObjBackground* back = new CObjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 0);
 
-	//敵作成
-	CObjEnemy1* obje = new CObjEnemy1();
-	Objs::InsertObj(obje, OBJ_ENEMY1, 2);
+	////敵作成
+	//CObjEnemy1* obje = new CObjEnemy1(100,0);
+	//Objs::InsertObj(obje, OBJ_ENEMY1, 2);
 
 	//看板オブジェクト(妹)作成
 	CObjkanbans* objks = new CObjkanbans();

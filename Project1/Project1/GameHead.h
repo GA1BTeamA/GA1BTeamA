@@ -8,6 +8,7 @@ enum OBJ_NAME
 	//OBJ_○○と表記
 	//OBJ_TIME,
 	OBJ_HERO,
+	OBJ_HERO2,
 	OBJ_BLOCK,
 	OBJ_TITLE,
 	OBJ_GAME_OVER,
@@ -51,7 +52,6 @@ enum HIT_ELEMENTS
 struct UserData
 {
 	int mSeveData;	//サンプルセーブデータ
-	
 };
 //------------------------------------------------
 
@@ -69,6 +69,7 @@ struct UserData
 //ゲームシーンオブジェクトヘッダ------------------
 //#include "objTime.h"
 #include "Objhero.h"
+#include "Objhero2.h"
 #include "ObjBlock.h"
 #include "ObjTitle.h"
 #include "ObjGameOver.h"

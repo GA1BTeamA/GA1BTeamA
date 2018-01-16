@@ -22,6 +22,7 @@ void CObjBackground::Action()
 {
 	//ŽålŒö‚ÌˆÊ’u‚ðŽæ“¾
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
+	CObjhero2* hero2 = (CObjhero2*)Objs::GetObj(OBJ_HERO2);
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
