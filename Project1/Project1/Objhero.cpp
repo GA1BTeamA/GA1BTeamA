@@ -127,7 +127,7 @@ void  CObjhero::Action()
 
 	if (m_py>850)
 	{
-		Scene::SetScene(new CSceneTitle());
+		Scene::SetScene(new CSceneGameOver());
 	}
 
 	if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
