@@ -15,9 +15,14 @@ enum OBJ_NAME
 	OBJ_ENEMY1,
 	OBJ_PAUSE,
 	OBJ_CLEAR,
-	OBJ_KANBAN,
+	OBJ_KANBANS,
+	OBJ_KANBANB,
 	OBJ_ITEM,
 	OBJ_ITEM2,
+	OBJ_GATEOPENLEFT,
+	OBJ_GATEOPENRIGHT,
+	OBJ_SWITCHS,
+	OBJ_SWITCHB,
 };
 //------------------------------------------------
 
@@ -37,7 +42,7 @@ enum HIT_ELEMENTS
 	ELEMENT_BLUE,
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
-	ELEMENT_KANBAN,
+	ELEMENT_SWITCH,
 };
 //------------------------------------------------
 
@@ -73,7 +78,12 @@ struct UserData
 #include "Objitem.h"
 #include "Objitem2.h"
 #include "ObjClear.h"
-#include "Objkanban.h"
+#include "Objkanbans.h"
+#include "Objkanbanb.h"
+#include "Objgateopenleft.h"
+#include "Objgateopenright.h"
+#include "Objswitchsis.h"
+#include "Objswitchbro.h"
 
 //------------------------------------------------
 
