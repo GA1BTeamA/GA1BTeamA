@@ -19,9 +19,6 @@
     <ClCompile Include="Objhero.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Objkanban.cpp">
-      <Filter>ソースファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ObjPause.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
@@ -79,9 +76,34 @@
     <ClCompile Include="GameL\SceneObjManager.cpp">
       <Filter>リソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Objitem.cpp" />
-    <ClCompile Include="Objitem2.cpp" />
     <ClCompile Include="SceneGameOver.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objkanbans.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objkanbanb.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objgateopenleft.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objgateopenright.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objswitchbro.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objswitchsis.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objitem.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objitem2.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Objhero2.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,9 +118,6 @@
       <Filter>リソースファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameL\DrawTexture.h">
-      <Filter>リソースファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameHead.h">
       <Filter>リソースファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameL\HitBoxManager.h">
@@ -143,9 +162,6 @@
     <ClInclude Include="Objhero.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Objkanban.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
     <ClInclude Include="ObjPause.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
@@ -167,12 +183,40 @@
     <ClInclude Include="SceneTitle.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Objitem.h" />
-    <ClInclude Include="Objitem2.h" />
     <ClInclude Include="F:\SceneGameOver.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
     <ClInclude Include="SceneGameOver.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objkanbans.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objkanbanb.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objgateopenleft.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objgateopenright.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objswitchbro.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objswitchsis.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objitem.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objitem2.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHead.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objhero2.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>

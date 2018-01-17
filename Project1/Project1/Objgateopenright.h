@@ -8,11 +8,11 @@ using namespace GameL;
 #define MAPSIZE_X 19
 
 //オブジェクト:ブロック
-class CObjkanban :public CObj
+class CObjgateopenright :public CObj
 {
 public:
-	CObjkanban();
-	~CObjkanban() {};
+	CObjgateopenright();
+	~CObjgateopenright() {};
 	void Init();//イニシャライズ
 	void Action();//アクション
 	void Draw();//ドロー
