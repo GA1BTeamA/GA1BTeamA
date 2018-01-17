@@ -16,7 +16,9 @@ public:
 	void Init();//イニシャライズ
 	void Action();//アクション
 	void Draw();//ドロー
-	
+
+	float GetScroll() { return m_block_scroll; }
+	int GetMap(int x, int y) { return m_map[y][x]; }
 
 private:
 	int m_map[MAPSIZE_X][400]; //マップ情報仮

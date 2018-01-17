@@ -99,19 +99,19 @@ void CObjBlock::Action()
 
 	//敵出現ライン
 	//主人公の位置＋500を敵出現ラインにする
-	float line = hx + (-m_block_scroll) + 1500;
+	float line = hx + (-m_block_scroll) + 800;
 
 	//敵出現ラインを要素番号化
-	int ex = ((int)line) / 64;
+	int ex = ((int)line) / 32;
 
 	//敵出現ラインの列を検索
 	for (int i = 0; i < MAPSIZE_X; i++)
 	{
-		//列の中から4を探す
+		//列の中から17を探す
 		if (m_map[i][ex] == 17)
 		{
-			//4があれば、敵を出現
-			CObjEnemy1* obje = new CObjEnemy1(ex*64.0f, i*64.0f);
+			//17があれば、敵を出現
+			CObjEnemy1* obje = new CObjEnemy1(ex*32.0f, i*32.0f);
 			Objs::InsertObj(obje, OBJ_ENEMY1, 2);
 
 			//敵出現場所の値を0にする

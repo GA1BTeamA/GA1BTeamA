@@ -20,6 +20,12 @@ private:
 	int m_ani_framex; //描画フレームx軸用
 	int m_ani_framey;
 
+	//ブロックとの衝突状態確認用変数
+	bool m_hit_up;
+	bool m_hit_down;
+	bool m_hit_left;
+	bool m_hit_right;
+
 	float m_speed_power; //スピードパワー
 	float m_ani_max_time;//アニメーション動作間隔最大値
 
