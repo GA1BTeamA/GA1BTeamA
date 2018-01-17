@@ -16,6 +16,14 @@ public:
 	void Init();//イニシャライズ
 	void Action();//アクション
 	void Draw();//ドロー
+
+	//ブロックとの当たり判定
+	void BlockHit
+	(
+		float *x, float *y, bool scroll_on,
+		bool*up, bool* down, bool* left, bool* right,
+		float* vx, float*vy, int* bt
+	);
 	
 
 private:
