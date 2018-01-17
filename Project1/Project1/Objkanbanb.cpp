@@ -6,29 +6,29 @@
 #include "GameL\UserData.h"
 
 #include "GameHead.h"
-#include "Objkanban.h"
+#include "Objkanbanb.h"
 #include "Objhero.h"
 
 
 //使用するネームスペース
 using namespace GameL;
 
-CObjkanban::CObjkanban()
+CObjkanbanb::CObjkanbanb()
 {
 }
 
 //イニシャライズ
-void CObjkanban::Init()
+void CObjkanbanb::Init()
 {
 }
 
 //アクション
-void CObjkanban::Action()
+void CObjkanbanb::Action()
 {
 }
 
 //ドロー
-void CObjkanban::Draw()
+void CObjkanbanb::Draw()
 {
 	//カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f ,1.0f };
@@ -43,10 +43,10 @@ void CObjkanban::Draw()
 	src.m_bottom = 32.0f;
 
 	//表示位置の設定
-	dst.m_top = 0.0f;
-	dst.m_left = 0.0f;
-	dst.m_right = 32.0f;
-	dst.m_bottom = 32.0f;
+	dst.m_top = 128.0f;
+	dst.m_left = 160.0f;
+	dst.m_right = 192.0f;
+	dst.m_bottom = 160.0f;
 
-	Draw::Draw(4, &src, &dst, c, 0.0f);
+	Draw::Draw(6, &src, &dst, c, 0.0f);
 }

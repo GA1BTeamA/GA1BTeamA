@@ -17,6 +17,9 @@ public:
 	void Action();//アクション
 	void Draw();//ドロー
 
+	float GetScroll() { return m_block_scroll; }
+	int GetMap(int x, int y) { return m_map[y][x]; }
+
 	//ブロックとの当たり判定
 	void BlockHit
 	(
