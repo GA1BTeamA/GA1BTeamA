@@ -15,7 +15,7 @@ using namespace GameL;
 void CObjhero2::Init()
 {
 	m_px = 20.0f;    //位置
-	m_py = 520.0f;
+	m_py = 512.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
 	m_posture = 1.0f; //右向き0.0ｆ　左向き1.0ｆ
@@ -52,23 +52,39 @@ void CObjhero2::Init()
 void  CObjhero2::Action()
 {
 
+	
+
+	//主人公切り替え
+
+	
+	if (Input::GetVKey('Z') == true)
+	{
+
+		/*if (button_flag == true && m_hit_down == true)
+		{*/
+			if (hero_change == false)
+				hero_change = true;
+			else
+				hero_change = false;
+
+			button_flag = false;
+		//}
+	}
+	/*else
+	{
+		button_flag = true;
+	}*/
+
 	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 	pb->BlockHit(&m_px, &m_py, true,
 		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
 		&m_block_type
 	);
 
-	//主人公切り替え
-	if (Input::GetVKey('Z') == true)
-	{
-		if (hero_change == false)
-			hero_change = true;
-		else
-			hero_change = false;
-	}
-
 	if (hero_change == false)
 	{
+		
+
 		//キー方向の入力方向
 		//x軸移動用
 		if (Input::GetVKey(VK_RIGHT) == true)

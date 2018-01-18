@@ -147,7 +147,6 @@
     <ClCompile Include="Objkanbanb.cpp" />
     <ClCompile Include="Objkanbans.cpp" />
     <ClCompile Include="Objhero2.cpp" />
-    <ClCompile Include="Objkanban.cpp" />
     <ClCompile Include="Objitem.cpp" />
     <ClCompile Include="Objitem2.cpp" />
     <ClCompile Include="ObjPause.cpp">
