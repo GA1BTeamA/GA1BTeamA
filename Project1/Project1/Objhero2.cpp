@@ -5,14 +5,14 @@
 #include "GameL\SceneObjManager.h"
 
 #include "GameHead.h"
-#include "Objhero.h"
+#include "Objhero2.h"
 #include "ObjBlock.h"
 
 //使用するネームスペース
 using namespace GameL;
 
 //イニシャライズ
-void CObjhero::Init()
+void CObjhero2::Init()
 {
 	m_px = 20.0f;    //位置
 	m_py = 520.0f;
@@ -27,8 +27,8 @@ void CObjhero::Init()
 	m_ani_framey = 1; //描画フレームｙ軸
 	m_ani_framea = 1; //描画フレームアクション
 
-	//ブロックとの衝突状態確認用
-	m_hit_up=false;
+					  //ブロックとの衝突状態確認用
+	m_hit_up = false;
 	m_hit_down = false;
 	m_hit_left = false;
 	m_hit_right = false;
@@ -37,7 +37,7 @@ void CObjhero::Init()
 	button_flag = false;
 
 	//描画切り替え
-	Draw_flag=true;
+	Draw_flag = true;
 
 	//体力
 	HP = 1;
@@ -49,10 +49,9 @@ void CObjhero::Init()
 }
 
 //アクション
-void  CObjhero::Action()
+void  CObjhero2::Action()
 {
 
-	//ブロックとの当たり判定実行
 	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 	pb->BlockHit(&m_px, &m_py, true,
 		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
@@ -68,7 +67,7 @@ void  CObjhero::Action()
 			hero_change = false;
 	}
 
-	if (hero_change == true)
+	if (hero_change == false)
 	{
 		//キー方向の入力方向
 		//x軸移動用
@@ -149,33 +148,32 @@ void  CObjhero::Action()
 			}
 		}
 
-
 		//摩擦
 		m_vx += -(m_vx*0.098);
 
 		//自由落下
 		m_vy += 9.8 / (16.0f);
 
-
-
 		//位置の更新
 		m_px += m_vx;
 		m_py += m_vy;
 
-		if (m_py > 850)
+		//ゲームオーバーに切り替え
+		if (m_py > 850 || HP == 0)
 		{
 			Scene::SetScene(new CSceneGameOver());
 		}
 
-		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
+		if (GetBT() == 3 || GetBT() == 12)
 		{
 			HP = 0;
 		}
 	}
+	
 }
 
 //ドロー
-void  CObjhero::Draw()
+void  CObjhero2::Draw()
 {
 
 	//歩き描画用
@@ -200,29 +198,42 @@ void  CObjhero::Draw()
 
 	RECT_F src;  //描画切り取り位置
 	RECT_F dst;  //描画先表示位置
-	if (Draw_flag == true)
+
+	if (HP == 0)
 	{
 		//切り取り位置の設定
-		src.m_top = 64.0f;
-		src.m_left = 0.0f + AniDatax[m_ani_framex] * 64;
-		src.m_right = 64.0f + AniDatax[m_ani_framex] * 64;
-		src.m_bottom = 128.0f;
+		src.m_top = 192.0f;
+		src.m_left = 0.0f;
+		src.m_right = 64.0f;
+		src.m_bottom = 256.0f;
 	}
 	else
 	{
-		//切り取り位置の設定
-		src.m_top = 128.0f;
-		src.m_left = 0.0f + AniDatay[m_ani_framey] * 64;
-		src.m_right = 64.0f + AniDatay[m_ani_framey] * 64;
-		src.m_bottom = 192.0f;
-	}
+		if (Draw_flag == true)
+		{
+			//切り取り位置の設定
+			src.m_top = 64.0f;
+			src.m_left = 0.0f + AniDatax[m_ani_framex] * 64;
+			src.m_right = 64.0f + AniDatax[m_ani_framex] * 64;
+			src.m_bottom = 128.0f;
+		}
 
+		else
+		{
+			//切り取り位置の設定
+			src.m_top = 128.0f;
+			src.m_left = 0.0f + AniDatay[m_ani_framey] * 64;
+			src.m_right = 64.0f + AniDatay[m_ani_framey] * 64;
+			src.m_bottom = 192.0f;
+		}
+
+	}
 	//表示位置の設定
-	dst.m_top    = 0.0f+m_py;
-	dst.m_left   = (   64.0f*m_posture)+m_px;
-	dst.m_right  = (64- 64.0f*m_posture)+m_px;
-	dst.m_bottom = 64.0f+m_py;
+	dst.m_top = 0.0f + m_py;
+	dst.m_left = (64.0f*m_posture) + m_px;
+	dst.m_right = (64 - 64.0f*m_posture) + m_px;
+	dst.m_bottom = 64.0f + m_py;
 
 	//描画
-	Draw::Draw(3, &src, &dst, c, 1.0f);
+	Draw::Draw(10, &src, &dst, c, 0.0f);
 }

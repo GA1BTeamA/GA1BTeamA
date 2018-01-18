@@ -2,11 +2,12 @@
 class CObjEnemy1 : public CObj
 {
 public:
-	CObjEnemy1() {};
+	CObjEnemy1(float x,float y);
 	~CObjEnemy1() {};
 	void Init();
 	void Action();
 	void Draw();
+
 private:
 	float m_px;    //位置
 	float m_py;
@@ -18,6 +19,12 @@ private:
 	int m_ani_timey;
 	int m_ani_framex; //描画フレームx軸用
 	int m_ani_framey;
+
+	//ブロックとの衝突状態確認用変数
+	bool m_hit_up;
+	bool m_hit_down;
+	bool m_hit_left;
+	bool m_hit_right;
 
 	float m_speed_power; //スピードパワー
 	float m_ani_max_time;//アニメーション動作間隔最大値
