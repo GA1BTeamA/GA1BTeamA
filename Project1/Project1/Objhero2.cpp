@@ -180,7 +180,7 @@ void  CObjhero2::Action()
 			Scene::SetScene(new CSceneGameOver());
 		}
 
-		if (GetBT() == 3 || GetBT() == 12)
+		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
 			HP = 0;
 		}
