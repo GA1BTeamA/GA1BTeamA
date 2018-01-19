@@ -8,7 +8,7 @@ using namespace GameL;
 
 #define MAPSIZE_X 19
 
-//オブジェクト:ブロック
+//オブジェクト:看板(妹)
 class CObjkanbans :public CObj
 {
 public:

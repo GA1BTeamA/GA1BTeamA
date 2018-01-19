@@ -61,7 +61,7 @@ void CObjkanbans::Draw()
 				//dst.m_right = 132.0f;
 				//dst.m_bottom = 132.0f;
 
-					Draw::Draw(5, &src, &dst, c, 0.0f);
+				Draw::Draw(5, &src, &dst, c, 0.0f);
 			}
 		}
 	}
