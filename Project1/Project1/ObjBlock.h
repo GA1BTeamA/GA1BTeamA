@@ -20,6 +20,15 @@ public:
 	float GetScroll() { return m_block_scroll; }
 	int GetMap(int x, int y) { return m_map[y][x]; }
 
+	//ブロックとの当たり判定
+	void BlockHit
+	(
+		float *x, float *y, bool scroll_on,
+		bool*up, bool* down, bool* left, bool* right,
+		float* vx, float*vy, int* bt
+	);
+	
+
 private:
 	int m_map[MAPSIZE_X][400]; //マップ情報仮
 

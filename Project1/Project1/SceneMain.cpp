@@ -8,7 +8,6 @@
 #include "GameL\DrawFont.h"
 #include "GameL\UserData.h"
 
-
 //使用するネームスペース
 using namespace GameL;
 
@@ -56,11 +55,11 @@ void CSceneMain::InitScene()
 	//CObjTime* objt = new CObjTime();
 	//Objs::InsertObj(objt, OBJ_TIME, 0);
 
-	//主人公オブジェクト作成
+	//主人公兄オブジェクト作成
 	CObjhero* objh = new CObjhero();
 	Objs::InsertObj(objh, OBJ_HERO, 10);
 
-	//主人公オブジェクト作成
+	//主人公妹オブジェクト作成
 	CObjhero2* objh2 = new CObjhero2();
 	Objs::InsertObj(objh2, OBJ_HERO2, 10);
 
