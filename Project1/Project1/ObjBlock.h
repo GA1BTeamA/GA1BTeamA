@@ -27,10 +27,16 @@ public:
 		bool*up, bool* down, bool* left, bool* right,
 		float* vx, float*vy, int* bt
 	);
+
 	
 
 private:
 	int m_map[MAPSIZE_X][400]; //マップ情報仮
 
 	float m_block_scroll;  //スクロール用
+
+	////主人公位置
+	//float hx;
+	//float hy;
+
 };
