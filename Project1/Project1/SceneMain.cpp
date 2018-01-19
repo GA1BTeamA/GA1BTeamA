@@ -16,6 +16,8 @@ using namespace GameL;
 #include "GameHead.h"
 #include "Objhero.h"
 
+CObjBlock* g_objb;
+
 //コンストラクタ
 CSceneMain::CSceneMain()
 {
@@ -62,8 +64,8 @@ void CSceneMain::InitScene()
 	Objs::InsertObj(objh2, OBJ_HERO2, 10);
 
 	//blockオブジェクト作成
-	CObjBlock* objb = new CObjBlock();
-	Objs::InsertObj(objb, OBJ_BLOCK, 1);
+	g_objb = new CObjBlock();
+	Objs::InsertObj(g_objb, OBJ_BLOCK, 1);
 
 	//背景作成
 	CObjBackground* back = new CObjBackground();
