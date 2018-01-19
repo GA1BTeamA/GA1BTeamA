@@ -56,8 +56,11 @@ protected:
 	bool m_hit_left;
 	bool m_hit_right;
 
-	//ボタンフラグ
-	bool button_flag;
+	//ジャンプボタンフラグ
+	bool button_flag_up;
+
+	//チェンジボタンフラグ
+	bool button_flag_z;
 
 	//描画切り替え
 	bool Draw_flag;
@@ -67,8 +70,4 @@ protected:
 
 	//踏んでいるblockの種類を確認用
 	int m_block_type;
-
-	//主人公切り替え
-	bool hero_change;
-
 };

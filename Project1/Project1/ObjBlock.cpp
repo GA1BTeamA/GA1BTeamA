@@ -13,6 +13,10 @@
 //使用するネームスペース
 using namespace GameL;
 
+
+//ブロック＆主人公切り替え false=妹用 true=兄用
+bool g_hero_change;
+
 CObjBlock::CObjBlock()
 {
 	m_block_scroll = 0.0f;

@@ -11,6 +11,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//ブロック＆主人公切り替え false=妹用 true=兄用
+extern  bool g_hero_change;
+
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -33,8 +36,11 @@ void CObjhero::Init()
 	m_hit_left = false;
 	m_hit_right = false;
 
-	//ボタンフラグ
-	button_flag = false;
+	//ジャンプボタンフラグ
+	button_flag_up = false;
+
+	//チェンジボタンフラグ
+	button_flag_z = false;
 
 	//描画切り替え
 	Draw_flag=true;
@@ -42,10 +48,8 @@ void CObjhero::Init()
 	//体力
 	HP = 1;
 
-	//主人公切り替え(false=妹,true=兄)
-	hero_change = false;
-
 	m_block_type = 15;
+
 }
 
 //アクション
@@ -54,24 +58,7 @@ void  CObjhero::Action()
 
 	
 
-	//主人公切り替え
-	if (Input::GetVKey('Z') == true)
-	{
-		/*if (button_flag == true && m_hit_down == true)
-		{*/
-			if (hero_change == false)
-				hero_change = true;
-			else
-				hero_change = false;
-
-			button_flag = false;
-		//}
-	}
-
-	/*else
-	{
-		button_flag = true;
-	}*/
+	
 
 	//ブロックとの当たり判定実行
 	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
@@ -80,9 +67,28 @@ void  CObjhero::Action()
 		&m_block_type
 	);
 
-	if (hero_change == true)
+	if (g_hero_change == true)
 	{
 		
+
+		//主人公切り替え
+		if (Input::GetVKey('Z') == true)
+		{
+			if (button_flag_z == true && m_hit_down == true)
+			{
+				if (g_hero_change == false)
+					g_hero_change = true;
+				else
+					g_hero_change = false;
+
+				button_flag_z = false;
+			}
+		}
+
+		else
+		{
+			button_flag_z = true;
+		}
 
 		//キー方向の入力方向
 		//x軸移動用
@@ -119,15 +125,15 @@ void  CObjhero::Action()
 		//y軸移動用
 		if (Input::GetVKey(VK_UP) == true)
 		{
-			if (button_flag == true && m_hit_down == true)
+			if (button_flag_up == true && m_hit_down == true)
 			{
 				m_vy -= 12.0f;
-				button_flag = false;
+				button_flag_up = false;
 			}
 		}
 		else
 		{
-			button_flag = true;
+			button_flag_up = true;
 		}
 
 		//空中にいるかの確認
@@ -154,14 +160,6 @@ void  CObjhero::Action()
 			m_ani_framey = 0;
 		}
 
-		//アクション描画用
-		if (Input::GetVKey('A') == true)
-		{
-			if (button_flag == true)
-			{
-				button_flag = false;
-			}
-		}
 
 
 		//摩擦
@@ -176,7 +174,7 @@ void  CObjhero::Action()
 		m_px += m_vx;
 		m_py += m_vy;
 
-		if (m_py > 850)
+		if (m_py > 850||HP==0)
 		{
 			Scene::SetScene(new CSceneGameOver());
 		}
