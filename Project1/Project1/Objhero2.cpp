@@ -136,7 +136,7 @@ void  CObjhero2::Action()
 	m_vx += -(m_vx*0.098);
 
 	//自由落下
-	m_vy += 9.8 / (16.0f);
+	//m_vy += 9.8 / (16.0f);
 
 	//位置の更新
 	m_px += m_vx;

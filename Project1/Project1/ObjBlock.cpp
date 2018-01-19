@@ -134,7 +134,7 @@ void CObjBlock::Action()
 	{
 		for (int j = 0; j < 400; j++)
 		{
-			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 11 && m_map[i][j] != 17 && m_map[i][j] != 18)
+			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 11 && m_map[i][j] != 17 && m_map[i][j] != 18 && m_map[i][j] != 19)
 			{
 				//—v‘f”Ô†‚ğÀ•W‚É•ÏX
 				float x = j*32.0f;

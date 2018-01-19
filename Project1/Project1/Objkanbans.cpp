@@ -9,6 +9,7 @@
 #include "Objkanbans.h"
 #include "Objhero.h"
 
+extern CObjBlock* g_objb;
 
 //使用するネームスペース
 using namespace GameL;
@@ -36,17 +37,32 @@ void CObjkanbans::Draw()
 	RECT_F src;	//描画元切り取り位置
 	RECT_F dst;	//描画元表示位置
 
-	//切り取り位置の設定
-	src.m_top = 0.0f;
-	src.m_left = 0.0f;
-	src.m_right = 32.0f;
-	src.m_bottom = 32.0f;
+	for (int i = 0; i < MAPSIZE_X; i++)
+	{
+		for (int j = 0; j < 400; j++)
+		{
+			if (g_objb->GetMap(j,i) == 19)
+			{
+				//表示位置の設定
+				dst.m_top = i*32.0f;
+				dst.m_left = j*32.0f + g_objb->GetScroll();
+				dst.m_right = dst.m_left + 32.0f;
+				dst.m_bottom = dst.m_top + 32.0f;
+				
+				//切り取り位置の設定
+				src.m_top = 0.0f;
+				src.m_left = 0.0f;
+				src.m_right = 32.0f;
+				src.m_bottom = 32.0f;
 
-	//表示位置の設定
-	dst.m_top = 128.0f;
-	dst.m_left = 128.0f;
-	dst.m_right = 160.0f;
-	dst.m_bottom = 160.0f;
+				////表示位置の設定
+				//dst.m_top = 100.0f;
+				//dst.m_left = 100.0f;
+				//dst.m_right = 132.0f;
+				//dst.m_bottom = 132.0f;
 
-	Draw::Draw(5, &src, &dst, c, 0.0f);
+					Draw::Draw(5, &src, &dst, c, 0.0f);
+			}
+		}
+	}
 }
