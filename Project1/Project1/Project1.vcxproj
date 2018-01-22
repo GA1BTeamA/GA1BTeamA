@@ -143,9 +143,13 @@
     <ClCompile Include="ObjGoal.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Objgateopenleft.cpp" />
+    <ClCompile Include="Objgateopenright.cpp" />
     <ClCompile Include="Objhero.cpp" />
     <ClCompile Include="ObjEnemy1.cpp" />
-    <ClCompile Include="Objkanban.cpp" />
+    <ClCompile Include="Objkanbanb.cpp" />
+    <ClCompile Include="Objkanbans.cpp" />
+    <ClCompile Include="Objhero2.cpp" />
     <ClCompile Include="Objitem.cpp" />
     <ClCompile Include="Objitem2.cpp" />
     <ClCompile Include="ObjPause.cpp">
@@ -161,6 +165,8 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="ScenePause.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="Objswitchbro.cpp" />
+    <ClCompile Include="Objswitchsis.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="F:\SceneGameOver.h" />
@@ -182,12 +188,16 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjBlock.h" />
     <ClInclude Include="ObjClear.h" />
+    <ClInclude Include="Objgateopenleft.h" />
+    <ClInclude Include="Objgateopenright.h" />
     <ClInclude Include="ObjGoal.h" />
     <ClInclude Include="Objhero.h" />
     <ClInclude Include="ObjEnemy1.h" />
+    <ClInclude Include="Objhero2.h" />
     <ClInclude Include="Objitem.h" />
     <ClInclude Include="Objitem2.h" />
-    <ClInclude Include="Objkanban.h" />
+    <ClInclude Include="Objkanbanb.h" />
+    <ClInclude Include="Objkanbans.h" />
     <ClInclude Include="ObjPause.h" />
     <ClInclude Include="ObjGameOver.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -203,6 +213,8 @@
     <ClInclude Include="SceneTitle.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Objswitchbro.h" />
+    <ClInclude Include="Objswitchsis.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="GameL\Draw2DTex.hlsl" />

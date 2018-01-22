@@ -8,6 +8,7 @@ enum OBJ_NAME
 	//OBJ_○○と表記
 	//OBJ_TIME,
 	OBJ_HERO,
+	OBJ_HERO2,
 	OBJ_BLOCK,
 	OBJ_TITLE,
 	OBJ_GAME_OVER,
@@ -15,9 +16,14 @@ enum OBJ_NAME
 	OBJ_ENEMY1,
 	OBJ_PAUSE,
 	OBJ_CLEAR,
-	OBJ_KANBAN,
+	OBJ_KANBANS,
+	OBJ_KANBANB,
 	OBJ_ITEM,
 	OBJ_ITEM2,
+	OBJ_GATEOPENLEFT,
+	OBJ_GATEOPENRIGHT,
+	OBJ_SWITCHS,
+	OBJ_SWITCHB,
 	OBJ_GOAL,
 };
 //------------------------------------------------
@@ -38,7 +44,7 @@ enum HIT_ELEMENTS
 	ELEMENT_BLUE,
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
-	ELEMENT_KANBAN,
+	ELEMENT_SWITCH,
 };
 //------------------------------------------------
 
@@ -47,7 +53,6 @@ enum HIT_ELEMENTS
 struct UserData
 {
 	int mSeveData;	//サンプルセーブデータ
-	
 };
 //------------------------------------------------
 
@@ -65,6 +70,7 @@ struct UserData
 //ゲームシーンオブジェクトヘッダ------------------
 //#include "objTime.h"
 #include "Objhero.h"
+#include "Objhero2.h"
 #include "ObjBlock.h"
 #include "ObjTitle.h"
 #include "ObjGameOver.h"
@@ -74,6 +80,12 @@ struct UserData
 #include "Objitem.h"
 #include "Objitem2.h"
 #include "ObjClear.h"
+#include "Objkanbans.h"
+#include "Objkanbanb.h"
+#include "Objgateopenleft.h"
+#include "Objgateopenright.h"
+#include "Objswitchsis.h"
+#include "Objswitchbro.h"
 #include "Objkanban.h"
 #include "ObjGoal.h"
 
