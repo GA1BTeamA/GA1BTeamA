@@ -68,6 +68,7 @@ void  CObjhero::Action()
 	if (g_hero_change == true)
 	{
 
+
 		//ålŒöØ‚è‘Ö‚¦
 		if (Input::GetVKey('Z') == true)
 		{
@@ -179,11 +180,11 @@ void  CObjhero::Action()
 		Scene::SetScene(new CSceneGameOver());
 	}
 
-	if (goal_block == 11)
-	{
-		Scene::SetScene(new CSceneClear());
+		if (goal_block == 11)
+		{
+			Scene::SetScene(new CSceneClear());
+		}
 	}
-	
 }
 
 //ƒhƒ[
