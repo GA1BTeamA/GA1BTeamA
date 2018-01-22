@@ -140,6 +140,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ObjClear.cpp" />
+    <ClCompile Include="ObjGoal.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Objgateopenleft.cpp" />
     <ClCompile Include="Objgateopenright.cpp" />
     <ClCompile Include="Objhero.cpp" />
@@ -187,6 +190,7 @@
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="Objgateopenleft.h" />
     <ClInclude Include="Objgateopenright.h" />
+    <ClInclude Include="ObjGoal.h" />
     <ClInclude Include="Objhero.h" />
     <ClInclude Include="ObjEnemy1.h" />
     <ClInclude Include="Objhero2.h" />

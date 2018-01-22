@@ -55,12 +55,6 @@ void CObjkanbans::Draw()
 				src.m_right = 32.0f;
 				src.m_bottom = 32.0f;
 
-				////ï\é¶à íuÇÃê›íË
-				//dst.m_top = 100.0f;
-				//dst.m_left = 100.0f;
-				//dst.m_right = 132.0f;
-				//dst.m_bottom = 132.0f;
-
 				Draw::Draw(5, &src, &dst, c, 0.0f);
 			}
 		}

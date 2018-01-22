@@ -34,6 +34,7 @@ public:
 	void SetLeft(bool b) { m_hit_left  = b; }
 	void SetRight(bool b) { m_hit_right = b; }
 	void SetBT(int t) { m_block_type = t; }
+	void SetGoalBlock(int goalblock) { goal_block = goalblock; }
 
 
 protected:
@@ -70,5 +71,6 @@ protected:
 
 	//“¥‚ñ‚Å‚¢‚éblock‚ÌŽí—Þ‚ðŠm”F—p
 	int m_block_type;
-	
+
+	int goal_block;
 };

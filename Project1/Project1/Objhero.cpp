@@ -51,6 +51,7 @@ void CObjhero::Init()
 
 	m_block_type = 15;
 
+	goal_block = 0;
 }
 
 //ƒAƒNƒVƒ‡ƒ“
@@ -173,11 +174,14 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneGameOver());
 		}
 
-		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
-		{
-			HP = 0;
-		}
-		
+	if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
+	{
+		//Scene::SetScene(new CSceneGameOver());
+	}
+
+	if (goal_block == 11)
+	{
+		Scene::SetScene(new CSceneClear());
 	}
 	
 }

@@ -24,6 +24,7 @@ enum OBJ_NAME
 	OBJ_GATEOPENRIGHT,
 	OBJ_SWITCHS,
 	OBJ_SWITCHB,
+	OBJ_GOAL,
 };
 //------------------------------------------------
 
@@ -85,6 +86,8 @@ struct UserData
 #include "Objgateopenright.h"
 #include "Objswitchsis.h"
 #include "Objswitchbro.h"
+#include "Objkanban.h"
+#include "ObjGoal.h"
 
 //------------------------------------------------
 

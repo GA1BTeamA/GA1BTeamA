@@ -72,7 +72,7 @@ void CObjBackground::Action()
 	}
 	if (m_x1 > 800.0f)
 	{
-		m_x1 = -800;
+		m_x1 = m_x2 - 800;
 	}
 	
 	if (m_x2 < -800.0f)
@@ -81,7 +81,7 @@ void CObjBackground::Action()
 	}
 	if (m_x2 > 800.0f)
 	{
-		m_x2 = -800;
+		m_x2 = m_x1 - 800;
 	}
 
 	//ポーズ画面に移動(の背景表示)

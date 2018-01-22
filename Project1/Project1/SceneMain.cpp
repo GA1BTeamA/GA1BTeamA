@@ -18,6 +18,8 @@ using namespace GameL;
 
 CObjBlock* g_objb;
 
+CObjhero* objh;
+
 //コンストラクタ
 CSceneMain::CSceneMain()
 {
@@ -56,6 +58,8 @@ void CSceneMain::InitScene()
 
 	//主人公兄オブジェクト作成
 	CObjhero* objh = new CObjhero();
+	//主人公オブジェクト作成
+	objh = new CObjhero();
 	Objs::InsertObj(objh, OBJ_HERO, 10);
 
 	//主人公妹オブジェクト作成
