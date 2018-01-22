@@ -43,11 +43,11 @@ void CObjGoal::Draw()
 	src.m_right = 64.0f;
 	src.m_bottom = 64.0f;
 
-	//表示位置の設定
-	dst.m_top = 128.0f;
-	dst.m_left = 128.0f;
-	dst.m_right = 192.0f;
-	dst.m_bottom = 192.0f;
+	/*表示位置の設定
+	dst.m_top = 0.0f;
+	dst.m_left = 0.0f;
+	dst.m_right = 64.0f;
+	dst.m_bottom = 64.0f;
 
-	Draw::Draw(7, &src, &dst, c, 0.0f);
+	Draw::Draw(7, &src, &dst, c, 0.0f);*/
 }

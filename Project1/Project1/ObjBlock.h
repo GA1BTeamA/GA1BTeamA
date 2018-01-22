@@ -16,7 +16,6 @@ public:
 	void Init();//イニシャライズ
 	void Action();//アクション
 	void Draw();//ドロー
-	
 
 private:
 	int m_map[MAPSIZE_X][400]; //マップ情報仮

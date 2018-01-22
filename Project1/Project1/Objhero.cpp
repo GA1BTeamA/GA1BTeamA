@@ -15,7 +15,7 @@ using namespace GameL;
 void CObjhero::Init()
 {
 	m_px = 10.0f;    //位置
-	m_py = 520.0f;
+	m_py = 52.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
 	m_posture = 1.0f; //右向き0.0ｆ　左向き1.0ｆ
@@ -38,6 +38,8 @@ void CObjhero::Init()
 	Draw_flag=true;
 
 	m_block_type = 15;
+
+	goal_block = 0;
 }
 
 //アクション
@@ -132,7 +134,12 @@ void  CObjhero::Action()
 
 	if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 	{
-		Scene::SetScene(new CSceneGameOver());
+		//Scene::SetScene(new CSceneGameOver());
+	}
+
+	if (goal_block == 11)
+	{
+		Scene::SetScene(new CSceneClear());
 	}
 }
 

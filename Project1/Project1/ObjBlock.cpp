@@ -9,6 +9,7 @@
 #include "ObjBlock.h"
 #include "Objhero.h"
 
+extern CObjhero* objh;
 
 //使用するネームスペース
 using namespace GameL;
@@ -133,7 +134,7 @@ void CObjBlock::Action()
 	{
 		for (int j = 0; j < 400; j++)
 		{
-			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 11 && m_map[i][j] != 17 && m_map[i][j] != 18)
+			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 18)
 			{
 				//要素番号を座標に変更
 				float x = j*32.0f;
@@ -180,6 +181,7 @@ void CObjBlock::Action()
 								//右
 								hero->SetRight(true);//主人公が左部分に衝突している
 								hero->SetX(x + 10.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+								hero->SetBT(m_map[i][j]);//ブロックの要素(type)を主人公に渡す
 								hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 								hx = x + 10.0f + (m_block_scroll);
 
@@ -200,6 +202,13 @@ void CObjBlock::Action()
 								//左
 								hero->SetLeft(true);//主人公が右の部分に衝突している
 								hero->SetX(x - 50.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+								hero->SetBT(m_map[i][j]);//ブロックの要素(type)を主人公に渡す
+								
+								if (m_map[i][j] == 11)
+								{
+									objh->SetGoalBlock(11);
+								}
+								
 								hero->SetVX(-hero->GetVX()*0.1f);//-VX*反発係数
 								hx = x - 55.0f  + (m_block_scroll);
 							}
@@ -245,10 +254,22 @@ void CObjBlock::Draw()
 			if (m_map[i][j] > 0)
 			{
 				//表示位置
-				dst.m_top    = i*32.0f;
-				dst.m_left = j*32.0f + m_block_scroll;
-				dst.m_right = dst.m_left + 32.0f;
-				dst.m_bottom =  dst.m_top+32.0f;
+				//ゴールは64*64で表示
+				if (m_map[i][j] == 11)
+				{
+					dst.m_top = i*32.0f;
+					dst.m_left = j*32.0f + m_block_scroll;
+					dst.m_right = dst.m_left + 64.0f;
+					dst.m_bottom = dst.m_top + 64.0f;
+				}
+				//それ以外は32*32で表示
+				else
+				{
+					dst.m_top = i*32.0f;
+					dst.m_left = j*32.0f + m_block_scroll;
+					dst.m_right = dst.m_left + 32.0f;
+					dst.m_bottom = dst.m_top + 32.0f;
+				}
 
 				//描画
 				//草ブロック
@@ -368,6 +389,18 @@ void CObjBlock::Draw()
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
+				//ゴール
+				else if (m_map[i][j] == 11)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 0.0f;
+					src.m_right = 64.0f;
+					src.m_bottom = 96.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+
 			}
 		}
 	}
