@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\SceneObjManager.h"
+#include "GameL\HitBoxManager.h"
 
 #include "GameHead.h"
 #include "Objhero.h"
@@ -17,7 +18,7 @@ extern  bool g_hero_change;
 //イニシャライズ
 void CObjhero::Init()
 {
-	m_px = 20.0f;    //位置
+	m_px = 90.0f;    //位置
 	m_py = 512.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
@@ -56,10 +57,6 @@ void CObjhero::Init()
 void  CObjhero::Action()
 {
 
-	
-
-	
-
 	//ブロックとの当たり判定実行
 	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 	pb->BlockHit(&m_px, &m_py, true,
@@ -69,7 +66,6 @@ void  CObjhero::Action()
 
 	if (g_hero_change == true)
 	{
-		
 
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
@@ -127,7 +123,7 @@ void  CObjhero::Action()
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
-				m_vy -= 12.0f;
+				m_vy -= 13.0f;
 				button_flag_up = false;
 			}
 		}
@@ -168,8 +164,6 @@ void  CObjhero::Action()
 		//自由落下
 		m_vy += 9.8 / (16.0f);
 
-
-
 		//位置の更新
 		m_px += m_vx;
 		m_py += m_vy;
@@ -183,7 +177,9 @@ void  CObjhero::Action()
 		{
 			HP = 0;
 		}
+		
 	}
+	
 }
 
 //ドロー

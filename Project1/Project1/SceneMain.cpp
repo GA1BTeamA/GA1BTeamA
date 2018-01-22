@@ -41,7 +41,6 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"ookami.png", 2, TEX_SIZE_256);
 	Draw::LoadImageW(L"kanban sis.png", 5, TEX_SIZE_32);
 	Draw::LoadImageW(L"kanban bro.png", 6, TEX_SIZE_32);
-	//Draw::LoadImageW(L"imouto1.png" , 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);

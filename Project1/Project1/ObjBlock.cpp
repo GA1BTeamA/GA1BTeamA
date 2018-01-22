@@ -82,23 +82,49 @@ void CObjBlock::Init()
 void CObjBlock::Action()
 {
 
-	//主人公の位置を取得
+	//兄主人公の位置を取得
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
-	//後方スクロールライン
-	if (hx < 80)
+	//妹主人公の位置を取得
+	CObjhero2* hero2 = (CObjhero2*)Objs::GetObj(OBJ_HERO2);
+	float hx2 = hero2->GetX();
+	float hy2 = hero2->GetY();
+
+
+	if (g_hero_change == true)
 	{
-		hero->SetX(80);						//主人公はラインを超えないようにする
-		m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+		//兄後方スクロールライン
+		if (hx < 80)
+		{
+			hero->SetX(80);						//主人公はラインを超えないようにする
+			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+		}
+
+		//兄前方スクロールライン
+		if (hx > 400)
+		{
+			hero->SetX(400);					//主人公はラインを超えないようにする
+			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+		}
 	}
 
-	//前方スクロールライン
-	if (hx > 400)
+	else
 	{
-		hero->SetX(400);					//主人公はラインを超えないようにする
-		m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+		//妹後方スクロールライン
+		if (hx2 < 80)
+		{
+			hero2->SetX(80);						//主人公はラインを超えないようにする
+			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+		}
+
+		//妹前方スクロールライン
+		if (hx2 > 400)
+		{
+			hero2->SetX(400);					//主人公はラインを超えないようにする
+			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+		}
 	}
 
 	//敵出現ライン
