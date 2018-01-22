@@ -178,6 +178,12 @@ void  CObjhero2::Action()
 		{
 			HP = 0;
 		}
+
+		if (goal_block == 11)
+		{
+			Scene::SetScene(new CSceneClear());
+		}
+
 	}
 
 }

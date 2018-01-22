@@ -57,7 +57,7 @@ void CSceneMain::InitScene()
 	//Objs::InsertObj(objt, OBJ_TIME, 0);
 
 	//主人公兄オブジェクト作成
-	CObjhero* objh = new CObjhero();
+	objh = new CObjhero();
 	//主人公オブジェクト作成
 	objh = new CObjhero();
 	Objs::InsertObj(objh, OBJ_HERO, 10);
