@@ -160,8 +160,8 @@ void  CObjhero::Action()
 
 	}
 
-		//–€ŽC
-		m_vx += -(m_vx*0.098);
+	//–€ŽC
+	m_vx += -(m_vx*0.098);
 
 	//Ž©—R—Ž‰º
 	m_vy += 9.8 / (16.0f);
@@ -170,7 +170,7 @@ void  CObjhero::Action()
 	m_px += m_vx;
 	m_py += m_vy;
 
-	if (m_py > 850||HP==0)
+	if (m_py > 850 || HP == 0)
 	{
 		Scene::SetScene(new CSceneGameOver());
 	}

@@ -20,6 +20,7 @@ enum OBJ_NAME
 	OBJ_KANBANB,
 	OBJ_ITEM,
 	OBJ_ITEM2,
+	OBJ_GATEBLOCK,
 	OBJ_GATEOPENLEFT,
 	OBJ_GATEOPENRIGHT,
 	OBJ_SWITCHS,
@@ -82,8 +83,9 @@ struct UserData
 #include "ObjClear.h"
 #include "Objkanbans.h"
 #include "Objkanbanb.h"
-#include "Objgateopenleft.h"
-#include "Objgateopenright.h"
+//#include "Objgateopenleft.h"
+//#include "Objgateopenright.h"
+#include "ObjGate.h"
 #include "Objswitchsis.h"
 #include "Objswitchbro.h"
 #include "ObjGoal.h"
