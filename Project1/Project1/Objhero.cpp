@@ -160,8 +160,8 @@ void  CObjhero::Action()
 
 	}
 
-		//ñÄéC
-		m_vx += -(m_vx*0.098);
+	//ñÄéC
+	m_vx += -(m_vx*0.098);
 
 	//é©óRóéâ∫
 	m_vy += 9.8 / (16.0f);
@@ -170,7 +170,7 @@ void  CObjhero::Action()
 	m_px += m_vx;
 	m_py += m_vy;
 
-	if (m_py > 850||HP==0)
+	if (m_py > 850 || HP == 0)
 	{
 		Scene::SetScene(new CSceneGameOver());
 	}
@@ -180,12 +180,12 @@ void  CObjhero::Action()
 		Scene::SetScene(new CSceneGameOver());
 	}
 
-		if (goal_block == 11)
-		{
-			Scene::SetScene(new CSceneClear());
-		}
+	if (goal_block == 11)
+	{
+		Scene::SetScene(new CSceneClear());
 	}
 }
+
 
 //ÉhÉçÅ[
 void  CObjhero::Draw()
