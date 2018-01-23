@@ -184,6 +184,7 @@ void  CObjhero::Action()
 	}
 }
 
+
 //ÉhÉçÅ[
 void  CObjhero::Draw()
 {

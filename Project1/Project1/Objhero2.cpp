@@ -181,7 +181,12 @@ void  CObjhero2::Action()
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			HP = 0;
+			//HP = 0;
+		}
+
+		if (goal_block == 11)
+		{
+			Scene::SetScene(new CSceneClear());
 		}
 
 		if (goal_block == 11)
