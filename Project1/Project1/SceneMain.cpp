@@ -41,9 +41,9 @@ void CSceneMain::InitScene()
 	//Draw::LoadImageW(L"Block2.png"  , 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"haikei.png"  , 0, TEX_SIZE_1024);
 	Draw::LoadImageW(L"ookami.png", 2, TEX_SIZE_256);
-	Draw::LoadImageW(L"kanban sis.png", 5, TEX_SIZE_32);
-	Draw::LoadImageW(L"kanban bro.png", 6, TEX_SIZE_32);
-	Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
+	//Draw::LoadImageW(L"kanban sis.png", 5, TEX_SIZE_32);
+	//Draw::LoadImageW(L"kanban bro.png", 6, TEX_SIZE_32);
+	//Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
@@ -78,13 +78,13 @@ void CSceneMain::InitScene()
 	//CObjEnemy1* obje = new CObjEnemy1(100,0);
 	//Objs::InsertObj(obje, OBJ_ENEMY1, 2);
 
-	//看板オブジェクト(妹)作成
-	CObjkanbans* objks = new CObjkanbans();
-	Objs::InsertObj(objks, OBJ_KANBANS, 5);
+	////看板オブジェクト(妹)作成
+	//CObjkanbans* objks = new CObjkanbans();
+	//Objs::InsertObj(objks, OBJ_KANBANS, 5);
 
-	//看板オブジェクト(兄)作成
-	CObjkanbanb* objkb = new CObjkanbanb();
-	Objs::InsertObj(objkb, OBJ_KANBANB, 6);
+	////看板オブジェクト(兄)作成
+	//CObjkanbanb* objkb = new CObjkanbanb();
+	//Objs::InsertObj(objkb, OBJ_KANBANB, 6);
 
 	//アイテム作成
 	CObjitem* obji = new CObjitem();

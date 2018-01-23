@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\SceneObjManager.h"
+#include "GameL\HitBoxManager.h"
 
 #include "GameHead.h"
 #include "ObjEnemy1.h"
@@ -36,6 +37,7 @@ void CObjEnemy1::Init()
 
 	m_move = false; //true=右　false=左
 
+	Hits::SetHitBox(this, m_px, m_py, 64, 50, ELEMENT_ENEMY, OBJ_ENEMY1, 1);
 }
 
 //アクション
@@ -90,27 +92,30 @@ void CObjEnemy1::Action()
 	m_vx += -(m_vx * 0.098);
 
 	//自由落下運動
-	m_vy += 9.8 / (16.0f);
+	m_vy += 9.8/(16.0f);
 	
-	////ブロックタイプ検知用の変数がないためのダミー
-	//int d;
-	////ブロックとの当たり判定実行
-	//CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-	//pb->BlockHit(&m_px, &m_py, false,
-	//	&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
-	//	&d);
-		
-	//位置の更新
-	m_px += m_vx;
-	m_py += m_vy;
-	/*
+	//ブロックタイプ検知用の変数がないためのダミー
+	int d;
+	//ブロックとの当たり判定実行
+	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+	float x = pb->GetScroll() + m_px;
+
+	pb->BlockHit(&x, &m_py, false,
+		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
+		&d);
+
 	//ブロック情報を持ってくる
 	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 
 	//HitBoxの位置の変更
 	CHitBox* hit = Hits::GetHitBox(this);
-	hit->SetPos(m_px + block->GetScroll(), m_py);
-	*/
+	hit->SetPos(m_px + block->GetScroll(), m_py+12);
+		
+	//位置の更新
+	m_px += m_vx;
+	m_py += m_vy;
+	
 }
 
 //ドロー
@@ -143,26 +148,4 @@ void CObjEnemy1::Draw()
 	dst.m_bottom = m_py+64.0f;
 
 	Draw::Draw(2, &src, &dst, c, 0.0f);
-	/*
-	for (int i = 0; i < MAPSIZE_X; i++)
-	{
-		for (int j = 0; j < 400; j++)
-		{
-			if (block->GetMap(j, i) == 17)
-			//切り取り位置の設定
-			src.m_top = 0.0f;
-			src.m_left = 0.0f + AniDatax[m_ani_framex] * 64;
-			src.m_right = 64.0f + AniDatax[m_ani_framex] * 64;
-			src.m_bottom = 64.0f;
-
-			//表示位置の設定
-			dst.m_top = m_py;
-			dst.m_left = (64.0f * m_posture) + m_px + block->GetScroll();
-			dst.m_right = (64 - 64.0f * m_posture) + m_px + block->GetScroll();
-			dst.m_bottom = m_py+64.0f;
-
-			Draw::Draw(2, &src, &dst, c, 0.0f);
-		}
-	}
-	*/
 }

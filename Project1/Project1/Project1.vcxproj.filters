@@ -222,6 +222,7 @@
     <ClInclude Include="Objhero2.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
+    <ClInclude Include="ObjGoal.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
