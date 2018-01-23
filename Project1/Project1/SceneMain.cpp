@@ -7,6 +7,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\DrawFont.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 //使用するネームスペース
 using namespace GameL;
@@ -35,6 +36,15 @@ CSceneMain::~CSceneMain()
 //初期化メソッド
 void CSceneMain::InitScene()
 {
+	//音楽読み込み
+	Audio::LoadAudio(0, L"BGMGameMain.wav", BACK_MUSIC);
+
+	//ボリューム調整
+	float v = Audio::VolumeMaster(0.1);
+
+	//音楽スタート
+	Audio::Start(0);
+
 	//グラフィック読み込み
 	Draw::LoadImageW(L"block0.png"  , 1, TEX_SIZE_512);
 	//Draw::LoadImageW(L"Block1.png"  , 1, TEX_SIZE_32);
@@ -47,8 +57,9 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
-	Draw::LoadImageW(L"gateopenleft.png", 8, TEX_SIZE_128);	//(未完)
-	//Draw::LoadImageW(L"gateopenright.png", 9, TEX_SIZE_128);	(未完)
+	Draw::LoadImageW(L"GateBlock.png", 15, TEX_SIZE_64);
+	Draw::LoadImageW(L"GateOpenLeft.png", 8, TEX_SIZE_64);
+	Draw::LoadImageW(L"GateOpenRight.png", 9, TEX_SIZE_64);
 	Draw::LoadImageW(L"switchsis.png", 12, TEX_SIZE_32);
 	Draw::LoadImageW(L"switchbro.png", 13, TEX_SIZE_32);
 
@@ -94,13 +105,17 @@ void CSceneMain::InitScene()
 	CObjitem2* obji2 = new CObjitem2();
 	Objs::InsertObj(obji2, OBJ_ITEM2, 4);
 
+	//門ブロックオブジェクト作成
+	CObjGateBlock* objgbl = new CObjGateBlock();
+	Objs::InsertObj(objgbl, OBJ_GATEBLOCK, 1);
+
 	//開門オブジェクト(左)作成
-	CObjgateopenleft* objgol = new CObjgateopenleft();
-	Objs::InsertObj(objgol, OBJ_GATEOPENLEFT, 8);
+	CObjGateOpenLeft* objgol = new CObjGateOpenLeft();
+	Objs::InsertObj(objgol, OBJ_GATEOPENLEFT, 1);
 
 	//開門オブジェクト(右)作成
-	CObjgateopenright* objgor = new CObjgateopenright();
-	Objs::InsertObj(objgor, OBJ_GATEOPENRIGHT, 9);
+	CObjGateOpenRight* objgor = new CObjGateOpenRight();
+	Objs::InsertObj(objgor, OBJ_GATEOPENRIGHT, 11);
 
 	//スイッチ(妹)作成
 	CObjswitchsis* objss = new CObjswitchsis();
