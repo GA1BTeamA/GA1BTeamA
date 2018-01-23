@@ -86,7 +86,6 @@ struct UserData
 #include "Objgateopenright.h"
 #include "Objswitchsis.h"
 #include "Objswitchbro.h"
-//#include "Objkanban.h"
 #include "ObjGoal.h"
 
 //------------------------------------------------

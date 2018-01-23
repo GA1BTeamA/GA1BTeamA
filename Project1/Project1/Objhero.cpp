@@ -68,6 +68,7 @@ void  CObjhero::Action()
 	if (g_hero_change == true)
 	{
 
+
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
 		{
@@ -157,27 +158,27 @@ void  CObjhero::Action()
 			m_ani_framey = 0;
 		}
 
-
+	}
 
 		//摩擦
 		m_vx += -(m_vx*0.098);
 
-		//自由落下
-		m_vy += 9.8 / (16.0f);
+	//自由落下
+	m_vy += 9.8 / (16.0f);
 
-		//位置の更新
-		m_px += m_vx;
-		m_py += m_vy;
+	//位置の更新
+	m_px += m_vx;
+	m_py += m_vy;
 
-		if (m_py > 850 || HP == 0)
-		{
-			Scene::SetScene(new CSceneGameOver());
-		}
+	if (m_py > 850||HP==0)
+	{
+		Scene::SetScene(new CSceneGameOver());
+	}
 
-		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
-		{
-			//Scene::SetScene(new CSceneGameOver());
-		}
+	if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
+	{
+		Scene::SetScene(new CSceneGameOver());
+	}
 
 		if (goal_block == 11)
 		{
