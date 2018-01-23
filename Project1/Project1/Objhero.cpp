@@ -74,11 +74,9 @@ void  CObjhero::Action()
 		{
 			if (button_flag_z == true && m_hit_down == true)
 			{
-				if (g_hero_change == false)
-					g_hero_change = true;
-				else
-					g_hero_change = false;
 
+				g_hero_change = false;
+				
 				button_flag_z = false;
 			}
 		}
@@ -125,7 +123,7 @@ void  CObjhero::Action()
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
-				m_vy -= 13.0f;
+				m_vy -= 12.0f;
 				button_flag_up = false;
 			}
 		}
@@ -160,8 +158,8 @@ void  CObjhero::Action()
 
 	}
 
-		//摩擦
-		m_vx += -(m_vx*0.098);
+	//摩擦
+	m_vx += -(m_vx*0.098);
 
 	//自由落下
 	m_vy += 9.8 / (16.0f);
@@ -170,7 +168,7 @@ void  CObjhero::Action()
 	m_px += m_vx;
 	m_py += m_vy;
 
-	if (m_py > 850||HP==0)
+	if (m_py > 850 || HP == 0)
 	{
 		Scene::SetScene(new CSceneGameOver());
 	}
@@ -180,10 +178,9 @@ void  CObjhero::Action()
 		Scene::SetScene(new CSceneGameOver());
 	}
 
-		if (goal_block == 11)
-		{
-			Scene::SetScene(new CSceneClear());
-		}
+	if (goal_block == 11)
+	{
+		Scene::SetScene(new CSceneClear());
 	}
 }
 
@@ -207,9 +204,16 @@ void  CObjhero::Draw()
 		0,1,2,
 	};
 
+	//明度
+	float m;
+
+	if (g_hero_change == true)
+		m = 1.0f;
+	else
+		m = 0.5f;
 
 	//描画カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float c[4] = { 1.0f,1.0f,1.0f,m};
 
 	RECT_F src;  //描画切り取り位置
 	RECT_F dst;  //描画先表示位置
@@ -230,11 +234,25 @@ void  CObjhero::Draw()
 		src.m_bottom = 192.0f;
 	}
 
-	//表示位置の設定
-	dst.m_top    = 0.0f+m_py;
-	dst.m_left   = (   64.0f*m_posture)+m_px;
-	dst.m_right  = (64- 64.0f*m_posture)+m_px;
-	dst.m_bottom = 64.0f+m_py;
+	//ブロック情報を持ってくる
+	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+	if (g_hero_change == true)
+	{
+		//表示位置の設定
+		dst.m_top = 0.0f + m_py;
+		dst.m_left = (64.0f*m_posture) + m_px ;
+		dst.m_right = (64 - 64.0f*m_posture) + m_px ;
+		dst.m_bottom = 64.0f + m_py;
+	}
+	else
+	{
+		//表示位置の設定
+		dst.m_top = 0.0f + m_py;
+		dst.m_left = (64.0f*m_posture) + m_px + block->GetScroll();
+		dst.m_right = (64 - 64.0f*m_posture) + m_px + block->GetScroll();
+		dst.m_bottom = 64.0f + m_py;
+	}
 
 	//描画
 	Draw::Draw(3, &src, &dst, c, 1.0f);

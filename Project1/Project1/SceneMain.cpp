@@ -58,13 +58,14 @@ void CSceneMain::InitScene()
 
 	//主人公兄オブジェクト作成
 	objh = new CObjhero();
-	//主人公オブジェクト作成
-	objh = new CObjhero();
-	Objs::InsertObj(objh, OBJ_HERO, 10);
 
 	//主人公妹オブジェクト作成
 	CObjhero2* objh2 = new CObjhero2();
 	Objs::InsertObj(objh2, OBJ_HERO2, 10);
+
+	//主人公オブジェクト作成
+	objh = new CObjhero();
+	Objs::InsertObj(objh, OBJ_HERO, 10);
 
 	//blockオブジェクト作成
 	g_objb = new CObjBlock();

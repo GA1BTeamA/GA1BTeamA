@@ -20,6 +20,9 @@ void CObjhero2::Init()
 {
 	m_px = 150.0f;    //位置
 	m_py = 512.0f;
+
+	g_px = 0.0f; //グローバル位置
+
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
 	m_posture = 1.0f; //右向き0.0ｆ　左向き1.0ｆ
@@ -74,10 +77,10 @@ void  CObjhero2::Action()
 
 			if (button_flag_z == true && m_hit_down == true)
 			{
-				if (g_hero_change == false)
-					g_hero_change = true;
-				else
-					g_hero_change = false;
+
+				g_hero_change = true;
+
+				//g_px=
 
 				button_flag_z = false;
 			}
@@ -158,6 +161,8 @@ void  CObjhero2::Action()
 			m_ani_framey = 0;
 		}
 
+	}
+
 		//摩擦
 		m_vx += -(m_vx*0.098);
 
@@ -183,9 +188,6 @@ void  CObjhero2::Action()
 		{
 			Scene::SetScene(new CSceneClear());
 		}
-
-	}
-
 }
 
 //ドロー
@@ -208,9 +210,16 @@ void  CObjhero2::Draw()
 		0,1,2,
 	};
 
+	//明度
+	float m;
+
+	if (g_hero_change == false)
+		m = 1.0f;
+	else
+		m = 0.5f;
 
 	//描画カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float c[4] = { 1.0f,1.0f,1.0f,m };
 
 	RECT_F src;  //描画切り取り位置
 	RECT_F dst;  //描画先表示位置
@@ -244,11 +253,26 @@ void  CObjhero2::Draw()
 		}
 
 	}
-	//表示位置の設定
-	dst.m_top = 0.0f + m_py;
-	dst.m_left = (64.0f*m_posture) + m_px;
-	dst.m_right = (64 - 64.0f*m_posture) + m_px;
-	dst.m_bottom = 64.0f + m_py;
+
+	//ブロック情報を持ってくる
+	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+	if (g_hero_change == false)
+	{
+		//表示位置の設定
+		dst.m_top = 0.0f + m_py;
+		dst.m_left = (64.0f*m_posture) + m_px;
+		dst.m_right = (64 - 64.0f*m_posture) + m_px;
+		dst.m_bottom = 64.0f + m_py;
+	}
+	else
+	{
+		//表示位置の設定
+		dst.m_top = 0.0f + m_py;
+		dst.m_left = (64.0f*m_posture) + m_px + block->GetScroll();
+		dst.m_right = (64 - 64.0f*m_posture) + m_px + block->GetScroll();
+		dst.m_bottom = 64.0f + m_py;
+	}
 
 	//描画
 	Draw::Draw(10, &src, &dst, c, 0.0f);

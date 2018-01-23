@@ -156,8 +156,9 @@ void CObjBlock::Action()
 //ドロー
 void CObjBlock::Draw()
 {
+
 	//描画カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float c[4] = { 1.0f,1.0f,1.0f,1.0f};
 
 	RECT_F src;//描画元切り取り位置
 	RECT_F dst;//描画先表示位置
@@ -168,6 +169,7 @@ void CObjBlock::Draw()
 		{
 			if (m_map[i][j] > 0)
 			{
+				
 				//表示位置
 				//ゴールは64*64で表示
 				if (m_map[i][j] == 11)
@@ -220,7 +222,12 @@ void CObjBlock::Draw()
 					src.m_right = 96.0f;
 					src.m_bottom = 32.0f;
 
+					if (g_hero_change == true)
+						c[3] = 0.7f;
+
 					Draw::Draw(1, &src, &dst, c, 0.0f);
+
+					c[3] = 1.0f;
 				}
 
 				////妹ブロック(草)
@@ -244,7 +251,12 @@ void CObjBlock::Draw()
 					src.m_right = 96.0f;
 					src.m_bottom = 32.0f;
 
+					if (g_hero_change == false)
+						c[3] = 0.7f;
+
 					Draw::Draw(1, &src, &dst, c, 0.0f);
+
+					c[3] = 1.0f;
 				}
 
 				//茨ブロック
@@ -401,59 +413,70 @@ void CObjBlock::BlockHit
 						if (len < 38)
 						{
 
-							//角度で上下左右を判定
-							if ((r <= 45 && r >= 0) || r >= 315)
+							//主人公専用ブロック判定
+							//兄
+							if (g_hero_change == false && m_map[i][j] == 5)
+								;
+							//妹
+							else if (g_hero_change == true && m_map[i][j] == 4)
+								;
+							//その他
+							else
 							{
-								//右
-								*right = true;//主人公が左部分に衝突している
-								*x=(bx + 10.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
-								*vx=-(*vx)*0.1f;//-VX*反発係数
-								*x = bx + 10.0f + (m_block_scroll);
-								*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
-
-							}
-							if (r >= 45 && r <= 135)
-							{
-								if (k == 0)
+								//角度で上下左右を判定
+								if ((r <= 45 && r >= 0) || r >= 315)
 								{
-									//上
-									*down=true;//主人公の下の部分が衝突している
-									*y=by - 64.0f;//ブロック位置ー主人公の幅
-									*bt=m_map[i][j];//ブロックの要素(type)を主人公に渡す
-									*vy = 0.0f;
+									//右
+									*right = true;//主人公が左部分に衝突している
+									*x = (bx + 10.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+									*vx = -(*vx)*0.1f;//-VX*反発係数
+									*x = bx + 10.0f + (m_block_scroll);
+									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+
 								}
-							}
-							if (r >= 135 && r <= 225)
-							{
-								//左
-								*left=true;//主人公が右の部分に衝突している
-								*x=bx - 50.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
-								*vx=-(*vx)*0.1f;//-VX*反発係数
-								*x = bx - 55.0f + (m_block_scroll);
-
-								*bt=m_map[i][j];//ブロックの要素(type)を主人公に渡す
-
-								if (m_map[i][j] == 11)
+								if (r >= 45 && r <= 135)
 								{
-									objh->SetGoalBlock(11);
-								}
-
-							}
-							if (r >= 225 && r <= 315)
-							{
-								//下
-								if (k == 1)
-								{
-									*up=true;//主人公の上の部分が衝突している
-									*bt=m_map[i][j];//ブロックの要素(type)を主人公に渡す
-									//*y=by + 64.0f;//ブロックの位置+主人公の幅
-
-									if (*vy < 0)
+									if (k == 0)
 									{
-										*vy=0.0f;
+										//上
+										*down = true;//主人公の下の部分が衝突している
+										*y = by - 64.0f;//ブロック位置ー主人公の幅
+										*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+										*vy = 0.0f;
 									}
 								}
+								if (r >= 135 && r <= 225)
+								{
+									//左
+									*left = true;//主人公が右の部分に衝突している
+									*x = bx - 50.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
+									*vx = -(*vx)*0.1f;//-VX*反発係数
+									*x = bx - 55.0f + (m_block_scroll);
 
+									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+
+									if (m_map[i][j] == 11)
+									{
+										objh->SetGoalBlock(11);
+									}
+
+								}
+								if (r >= 225 && r <= 315)
+								{
+									//下
+									if (k == 1)
+									{
+										*up = true;//主人公の上の部分が衝突している
+										*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+										//*y=by + 64.0f;//ブロックの位置+主人公の幅
+
+										if (*vy < 0)
+										{
+											*vy = 0.0f;
+										}
+									}
+
+								}
 							}
 
 						}

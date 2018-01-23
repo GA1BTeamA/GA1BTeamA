@@ -33,6 +33,9 @@ public:
 private:
 	int m_map[MAPSIZE_X][400]; //マップ情報仮
 
+	//描画カラー情報
+	float c[4];
+
 	float m_block_scroll;  //スクロール用
 
 	////主人公位置
