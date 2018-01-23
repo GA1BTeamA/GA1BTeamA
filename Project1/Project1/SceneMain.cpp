@@ -7,6 +7,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\DrawFont.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 //使用するネームスペース
 using namespace GameL;
@@ -35,6 +36,15 @@ CSceneMain::~CSceneMain()
 //初期化メソッド
 void CSceneMain::InitScene()
 {
+	//音楽読み込み
+	Audio::LoadAudio(0, L"BGMGameMain.wav", BACK_MUSIC);
+
+	//ボリューム調整
+	float v = Audio::VolumeMaster(0.1);
+
+	//音楽スタート
+	Audio::Start(0);
+
 	//グラフィック読み込み
 	Draw::LoadImageW(L"block0.png"  , 1, TEX_SIZE_512);
 	//Draw::LoadImageW(L"Block1.png"  , 1, TEX_SIZE_32);
@@ -47,10 +57,10 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
-	Draw::LoadImageW(L"gateopenleft.png", 8, TEX_SIZE_128);	//(未完)
+	//Draw::LoadImageW(L"gateopenleft.png", 8, TEX_SIZE_128);	//(未完)
 	//Draw::LoadImageW(L"gateopenright.png", 9, TEX_SIZE_128);	(未完)
-	Draw::LoadImageW(L"switchsis.png", 12, TEX_SIZE_32);
-	Draw::LoadImageW(L"switchbro.png", 13, TEX_SIZE_32);
+	//Draw::LoadImageW(L"switchsis.png", 12, TEX_SIZE_32);
+	//Draw::LoadImageW(L"switchbro.png", 13, TEX_SIZE_32);
 
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();

@@ -184,8 +184,8 @@ void  CObjhero::Action()
 		{
 			Scene::SetScene(new CSceneClear());
 		}
-	}
 }
+
 
 //ÉhÉçÅ[
 void  CObjhero::Draw()
