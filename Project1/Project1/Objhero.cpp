@@ -70,7 +70,7 @@ void  CObjhero::Action()
 
 	if (g_hero_change == true)
 	{
-		
+
 
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
@@ -175,19 +175,20 @@ void  CObjhero::Action()
 		m_px += m_vx;
 		m_py += m_vy;
 
-		if (m_py > 850||HP==0)
+		if (m_py > 850 || HP == 0)
 		{
 			Scene::SetScene(new CSceneGameOver());
 		}
 
-	if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
-	{
-		//Scene::SetScene(new CSceneGameOver());
-	}
+		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
+		{
+			//Scene::SetScene(new CSceneGameOver());
+		}
 
-	if (goal_block == 11)
-	{
-		Scene::SetScene(new CSceneClear());
+		if (goal_block == 11)
+		{
+			Scene::SetScene(new CSceneClear());
+		}
 	}
 }
 
@@ -206,10 +207,10 @@ void  CObjhero::Draw()
 		1,1,2,2,2,2,2,2,0,
 	};
 	//アクション用
-	int AniDataa[3] =
+	/*int AniDataa[3] =
 	{
 		0,1,2,
-	};
+	};*/
 
 
 	//描画カラー情報
