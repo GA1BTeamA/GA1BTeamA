@@ -18,5 +18,9 @@ private:
 	float m_x1;  //”wŒi1‚ÌˆÊ’uî•ñ
 	float m_x2;  //”wŒi2‚ÌˆÊ’uî•ñ
 	bool m_key_flag;
+
+	//ålŒö‚ÌˆÊ’u‚ğæ“¾
+	float hx;
+	float hy;
 };
 

@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\SceneObjManager.h"
+#include "GameL\HitBoxManager.h"
 
 #include "GameHead.h"
 #include "Objhero2.h"
@@ -17,7 +18,7 @@ extern  bool g_hero_change;
 //イニシャライズ
 void CObjhero2::Init()
 {
-	m_px = 20.0f;    //位置
+	m_px = 150.0f;    //位置
 	m_py = 512.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
@@ -48,6 +49,9 @@ void CObjhero2::Init()
 	//体力
 	HP = 1;
 
+	//ブロック＆主人公切り替え false=妹用 true=兄用
+	g_hero_change = false;
+
 	m_block_type = 15;
 }
 
@@ -63,7 +67,7 @@ void  CObjhero2::Action()
 
 	if (g_hero_change == false)
 	{
-		
+
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
 		{
@@ -121,7 +125,7 @@ void  CObjhero2::Action()
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
-				m_vy -= 12.0f;
+				m_vy -= 11.0f;
 				button_flag_up = false;
 			}
 		}
@@ -172,10 +176,21 @@ void  CObjhero2::Action()
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			HP = 0;
+			//HP = 0;
 		}
+
+		if (goal_block == 11)
+		{
+			Scene::SetScene(new CSceneClear());
+		}
+
+		if (goal_block == 11)
+		{
+			Scene::SetScene(new CSceneClear());
+		}
+
 	}
-	
+
 }
 
 //ドロー

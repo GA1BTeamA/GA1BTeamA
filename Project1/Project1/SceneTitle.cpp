@@ -30,6 +30,13 @@ CSceneTitle::~CSceneTitle()
 //ゲームメイン初期化メソッド
 void CSceneTitle::InitScene()
 {
+	//音楽情報の読み込み
+	Audio::LoadAudio(0, L"BGMTitle.wav", SOUND_TYPE::BACK_MUSIC);
+
+	//バックミュージックスタート
+	float Volume = Audio::VolumeMaster(-0.6f);//マスターボリューム調整
+	Audio::Start(0);
+
 	//出力させる文字のグラフィックを作成
 	Font::SetStrTex(L"GameStart");
 
