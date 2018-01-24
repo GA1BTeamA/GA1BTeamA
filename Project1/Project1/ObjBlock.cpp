@@ -150,7 +150,7 @@ void CObjBlock::Action()
 		}
 	}
 
-	
+
 }
 
 //ドロー
@@ -327,6 +327,39 @@ void CObjBlock::Draw()
 					src.m_left = 0.0f;
 					src.m_right = 64.0f;
 					src.m_bottom = 96.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//カギ
+				else if (m_map[i][j] == 18)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 96.0f;
+					src.m_right = 127.0f;
+					src.m_bottom = 63.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//くつ
+				else if (m_map[i][j] == 19)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 64.0f;
+					src.m_right = 95.0f;
+					src.m_bottom = 63.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//よろい
+				else if (m_map[i][j] == 20)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 128.0f;
+					src.m_right = 160.0f;
+					src.m_bottom = 63.0f;
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}

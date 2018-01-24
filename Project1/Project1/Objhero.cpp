@@ -204,15 +204,16 @@ void  CObjhero::Action()
 		Scene::SetScene(new CSceneGameOver());
 	}
 
-	if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
-	{
-		Scene::SetScene(new CSceneGameOver());
-	}
+		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
+		{
+			//Scene::SetScene(new CSceneGameOver());
+		}
 
 		if (goal_block == 11)
 		{
 			Scene::SetScene(new CSceneClear());
 		}
+	}
 }
 
 //ドロー
@@ -230,10 +231,10 @@ void  CObjhero::Draw()
 		1,1,2,2,2,2,2,2,0,
 	};
 	//アクション用
-	int AniDataa[3] =
+	/*int AniDataa[3] =
 	{
 		0,1,2,
-	};
+	};*/
 
 
 	//描画カラー情報
