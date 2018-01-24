@@ -315,13 +315,24 @@ void CObjBlock::Draw()
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
-				//カギ
+				//カギ(兄)
 				else if (m_map[i][j] == 18)
 				{
 					//切り取り位置の設定
 					src.m_top = 32.0f;
-					src.m_left = 96.0f;
-					src.m_right = 127.0f;
+					src.m_left = 128.0f;
+					src.m_right = 160.0f;
+					src.m_bottom = 63.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//カギ(妹)
+				else if (m_map[i][j] == 21)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 161.0f;
+					src.m_right = 192.0f;
 					src.m_bottom = 63.0f;
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
@@ -342,8 +353,8 @@ void CObjBlock::Draw()
 				{
 					//切り取り位置の設定
 					src.m_top = 32.0f;
-					src.m_left = 128.0f;
-					src.m_right = 160.0f;
+					src.m_left = 96.0f;
+					src.m_right = 127.0f;
 					src.m_bottom = 63.0f;
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
@@ -390,7 +401,7 @@ void CObjBlock::BlockHit
 	{
 		for (int j = 0; j < 400; j++)
 		{
-			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 18 && m_map[i][j] != 19)
+			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 18 )
 			{
 				//要素番号を座標に変更
 				float bx = j*32.0f;

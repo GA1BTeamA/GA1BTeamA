@@ -225,8 +225,13 @@
     <ClInclude Include="Objhero2.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ObjGoal.h" />
     <ClInclude Include="ObjGate.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGoal.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Objkey.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>

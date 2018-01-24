@@ -72,4 +72,5 @@ protected:
 	int m_block_type;
 
 	int goal_block;
+	int shose_block;
 };

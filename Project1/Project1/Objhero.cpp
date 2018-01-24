@@ -52,6 +52,8 @@ void CObjhero::Init()
 	m_block_type = 15;
 
 	goal_block = 0;
+
+	key_block = 0;
 }
 
 //アクション
@@ -158,7 +160,7 @@ void  CObjhero::Action()
 			m_ani_framey = 0;
 		}
 
-	}
+}
 
 	//摩擦
 	m_vx += -(m_vx*0.098);
@@ -177,16 +179,19 @@ void  CObjhero::Action()
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			//Scene::SetScene(new CSceneGameOver());
+			HP -= 1;
 		}
 
 		if (goal_block == 11)
 		{
 			Scene::SetScene(new CSceneClear());
 		}
-	}
-}
 
+		if (shoes_block == 19)
+		{
+			Scene::SetScene(new CSceneClear());
+		}
+	}
 
 //ドロー
 void  CObjhero::Draw()
