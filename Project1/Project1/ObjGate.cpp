@@ -28,7 +28,7 @@ CObjGate::CObjGate()
 //イニシャライズ
 void CObjGate::Init()
 {
-	gb_map_x = 14;
+	gb_map_x = /*246*/0;
 	gb_x = 0.0f;
 }
 //アクション
@@ -44,19 +44,19 @@ void CObjGate::Action()
 	float hx2 = hero2->GetX();
 	float hy2 = hero2->GetY();
 
-	//主人公スクロールライン
+	//主人公ライン
 	if (g_hero_change == true)
 	{
-		//兄スクロールライン
-		if (hx < 80|| hx > 400)
+		//兄ライン
+		if (hx < 80|| hx > MAPSIZE_X)
 		{
 			gb_x -= hero->GetVX();
 		}
 	}
 	else
 	{
-		//妹スクロールライン
-		if (hx2 < 80|| hx2 > 400)
+		//妹ライン
+		if (hx2 < 80|| hx2 > MAPSIZE_X)
 		{
 			gb_x -= hero2->GetVX();
 		}

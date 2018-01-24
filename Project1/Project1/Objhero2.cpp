@@ -214,7 +214,7 @@ void  CObjhero2::Action()
 		}
 		if (GetBT() == 19)
 		{
-			Scene::SetScene(new CSceneClear());
+			//Scene::SetScene(new CSceneClear());
 		}
 	}
 
