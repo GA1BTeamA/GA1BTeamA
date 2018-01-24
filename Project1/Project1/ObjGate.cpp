@@ -17,6 +17,9 @@ using namespace GameL;
 
 //門ブロック
 
+//ブロック＆主人公切り替え false=妹用 true=兄用
+extern bool g_hero_change;
+
 CObjGateBlock::CObjGateBlock()
 {
 }
@@ -37,37 +40,37 @@ void CObjGateBlock::Action()
 	float hx2 = hero2->GetX();
 	float hy2 = hero2->GetY();
 
-	//if (g_hero_change == true)
-	//{
+	/*if (g_hero_change == true)
+	{
 		//兄後方スクロールライン
 		if (hx < 80)
 		{
 			hero->SetX(80);						//主人公はラインを超えないようにする
-			//m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
 
 		//兄前方スクロールライン
 		if (hx > 400)
 		{
 			hero->SetX(400);					//主人公はラインを超えないようにする
-			//m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
-	//}
+	}
 
-	/*else
+	else
 	{
 		//妹後方スクロールライン
 		if (hx2 < 80)
 		{
 			hero2->SetX(80);						//主人公はラインを超えないようにする
-			//m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
 
 		//妹前方スクロールライン
 		if (hx2 > 400)
 		{
 			hero2->SetX(400);					//主人公はラインを超えないようにする
-			//m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
 	}*/
 }
