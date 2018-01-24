@@ -37,9 +37,9 @@ void CObjkanbanb::Draw()
 	RECT_F src;	//•`‰æŒ³Ø‚èæ‚èˆÊ’u
 	RECT_F dst;	//•`‰æŒ³•\¦ˆÊ’u
 
-	for (int i = 0; i < MAPSIZE_X; i++)
+	for (int i = 0; i < MAPSIZE_Y; i++)
 	{
-		for (int j = 0; j < 400; j++)
+		for (int j = 0; j < MAPSIZE_X; j++)
 		{
 			if (g_objb->GetMap(j, i) == 19)
 			{

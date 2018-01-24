@@ -89,13 +89,13 @@ void CSceneMain::InitScene()
 	//CObjEnemy1* obje = new CObjEnemy1(100,0);
 	//Objs::InsertObj(obje, OBJ_ENEMY1, 2);
 
-	//看板オブジェクト(妹)作成
-	CObjkanbans* objks = new CObjkanbans();
-	Objs::InsertObj(objks, OBJ_KANBANS, 5);
+	////看板オブジェクト(妹)作成
+	//CObjkanbans* objks = new CObjkanbans();
+	//Objs::InsertObj(objks, OBJ_KANBANS, 5);
 
-	//看板オブジェクト(兄)作成
-	CObjkanbanb* objkb = new CObjkanbanb();
-	Objs::InsertObj(objkb, OBJ_KANBANB, 6);
+	////看板オブジェクト(兄)作成
+	//CObjkanbanb* objkb = new CObjkanbanb();
+	//Objs::InsertObj(objkb, OBJ_KANBANB, 6);
 
 	//アイテム作成
 	CObjitem* obji = new CObjitem();

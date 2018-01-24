@@ -36,6 +36,8 @@ public:
 	void SetBT(int t) { m_block_type = t; }
 	void SetGoalBlock(int goalblock) { goal_block = goalblock; }
 
+	bool GetDrawFlag() { return Draw_flag; }
+
 
 protected:
 	float m_px;    //位置
@@ -72,6 +74,7 @@ protected:
 	//踏んでいるblockの種類を確認用
 	int m_block_type;
 
+	//ゴールの当たり判定チェック用
 	int goal_block;
 	int key_block;
 	int shoes_block;
