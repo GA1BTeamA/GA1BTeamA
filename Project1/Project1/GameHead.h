@@ -16,8 +16,8 @@ enum OBJ_NAME
 	OBJ_ENEMY1,
 	OBJ_PAUSE,
 	OBJ_CLEAR,
-	OBJ_KANBANS,
-	OBJ_KANBANB,
+	//OBJ_KANBANS,
+	//OBJ_KANBANB,
 	OBJ_ITEM,
 	OBJ_ITEM2,
 	OBJ_GATE,
@@ -80,8 +80,8 @@ struct UserData
 #include "Objitem.h"
 #include "Objitem2.h"
 #include "ObjClear.h"
-#include "Objkanbans.h"
-#include "Objkanbanb.h"
+//#include "Objkanbans.h"
+//#include "Objkanbanb.h"
 //#include "Objgateopenleft.h"
 //#include "Objgateopenright.h"
 #include "ObjGate.h"

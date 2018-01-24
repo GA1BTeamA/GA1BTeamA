@@ -152,8 +152,12 @@
     </ClCompile>
     <ClCompile Include="Objhero.cpp" />
     <ClCompile Include="ObjEnemy1.cpp" />
-    <ClCompile Include="Objkanbanb.cpp" />
-    <ClCompile Include="Objkanbans.cpp" />
+    <ClCompile Include="Objkanbanb.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Objkanbans.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Objhero2.cpp" />
     <ClCompile Include="Objitem.cpp" />
     <ClCompile Include="Objitem2.cpp" />
@@ -206,8 +210,15 @@
     <ClInclude Include="Objhero2.h" />
     <ClInclude Include="Objitem.h" />
     <ClInclude Include="Objitem2.h" />
+    <ClInclude Include="Objkanbanb.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Objkanbans.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Objkanbanb.h" />
     <ClInclude Include="Objkanbans.h" />
+    <ClInclude Include="Objkey.h" />
     <ClInclude Include="ObjPause.h" />
     <ClInclude Include="ObjGameOver.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

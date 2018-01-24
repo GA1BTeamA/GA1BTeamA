@@ -38,9 +38,9 @@ void CObjBlock::Init()
 
 	
 	int count = 1;
-	for (int i = 0; i < MAPSIZE_X; i++)
+	for (int i = 0; i < MAPSIZE_Y; i++)
 	{
-		for (int j = 0; j < 400; j++)
+		for (int j = 0; j < MAPSIZE_X; j++)
 		{
 			int w = 0;
 			swscanf_s(&p.get()[count], L"%d", &w);
@@ -104,9 +104,9 @@ void CObjBlock::Action()
 		}
 
 		//兄前方スクロールライン
-		if (hx > 400)
+		if (hx > MAPSIZE_X)
 		{
-			hero->SetX(400);					//主人公はラインを超えないようにする
+			hero->SetX(MAPSIZE_X);					//主人公はラインを超えないようにする
 			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
 	}
@@ -121,22 +121,22 @@ void CObjBlock::Action()
 		}
 
 		//妹前方スクロールライン
-		if (hx2 > 400)
+		if (hx2 > MAPSIZE_X)
 		{
-			hero2->SetX(400);					//主人公はラインを超えないようにする
+			hero2->SetX(MAPSIZE_X);					//主人公はラインを超えないようにする
 			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
 	}
 
 	//敵出現ライン
 	//主人公の位置＋500を敵出現ラインにする
-	float line = hx + (-m_block_scroll) + 800;
+	float line = hx + (-m_block_scroll) + 1000;
 
 	//敵出現ラインを要素番号化
 	int ex = ((int)line) / 32;
 
 	//敵出現ラインの列を検索
-	for (int i = 0; i < MAPSIZE_X; i++)
+	for (int i = 0; i < MAPSIZE_Y; i++)
 	{
 		//列の中から17を探す
 		if (m_map[i][ex] == 17)
@@ -150,7 +150,7 @@ void CObjBlock::Action()
 		}
 	}
 
-	
+
 }
 
 //ドロー
@@ -162,9 +162,9 @@ void CObjBlock::Draw()
 	RECT_F src;//描画元切り取り位置
 	RECT_F dst;//描画先表示位置
 
-	for (int i = 0; i < MAPSIZE_X; i++)
+	for (int i = 0; i < MAPSIZE_Y; i++)
 	{
-		for (int j = 0; j < 400; j++)
+		for (int j = 0; j < MAPSIZE_X; j++)
 		{
 			if (m_map[i][j] > 0)
 			{
@@ -186,9 +186,60 @@ void CObjBlock::Draw()
 					dst.m_bottom = dst.m_top + 32.0f;
 				}
 
-				//描画
+			//描画
+				if (g_hero_change == false)
+				{
+					//妹ブロック(木)
+					if (m_map[i][j] == 4)
+					{
+						//切り取り位置
+						src.m_top = 0.0f;
+						src.m_left = 64.0f;
+						src.m_right = 96.0f;
+						src.m_bottom = 32.0f;
+
+						Draw::Draw(1, &src, &dst, c, 0.0f);
+					}
+					//妹ブロック(草)
+					else if (m_map[i][j] == 13)
+					{
+						//切り取り位置
+						src.m_top = 0.0f;
+						src.m_left = 0.0f;
+						src.m_right = 32.0f;
+						src.m_bottom = 32.0f;
+
+						Draw::Draw(1, &src, &dst, c, 0.0f);
+					}
+					//妹ブロック(土)
+					else if (m_map[i][j] == 16)
+					{
+						//切り取り位置
+						src.m_top = 0.0f;
+						src.m_left = 32.0f;
+						src.m_right = 64.0f;
+						src.m_bottom = 32.0f;
+
+						Draw::Draw(1, &src, &dst, c, 0.0f);
+					}
+				}
+				else if (g_hero_change == true)
+				{
+					//兄ブロック(木)
+					if (m_map[i][j] == 5)
+					{
+						//切り取り位置
+						src.m_top = 0.0f;
+						src.m_left = 64.0f;
+						src.m_right = 96.0f;
+						src.m_bottom = 32.0f;
+
+						Draw::Draw(1, &src, &dst, c, 0.0f);
+					}
+				}
+
 				//草ブロック
-				if (m_map[i][j] == 1|| m_map[i][j] == 13)
+				if (m_map[i][j] == 1)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -201,42 +252,6 @@ void CObjBlock::Draw()
 
 				//木ブロック
 				else if (m_map[i][j] == 2)
-				{
-					//切り取り位置
-					src.m_top = 0.0f;
-					src.m_left = 64.0f;
-					src.m_right = 96.0f;
-					src.m_bottom = 32.0f;
-
-					Draw::Draw(1, &src, &dst, c, 0.0f);
-				}
-
-				//妹ブロック(木)
-				else if (m_map[i][j] == 4)
-				{
-					//切り取り位置
-					src.m_top = 0.0f;
-					src.m_left = 64.0f;
-					src.m_right = 96.0f;
-					src.m_bottom = 32.0f;
-
-					Draw::Draw(1, &src, &dst, c, 0.0f);
-				}
-
-				////妹ブロック(草)
-				//else if (m_map[i][j] == 13)
-				//{
-				//	//切り取り位置
-				//	src.m_top = 0.0f;
-				//	src.m_left = 0.0f;
-				//	src.m_right = 32.0f;
-				//	src.m_bottom = 32.0f;
-
-				//	Draw::Draw(1, &src, &dst, c, 0.0f);
-				//}
-
-				//兄ブロック(木)
-				else if (m_map[i][j] == 5)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -260,7 +275,7 @@ void CObjBlock::Draw()
 				}
 
 				//土ブロック
-				else if (m_map[i][j] == 8|| m_map[i][j] == 16)
+				else if (m_map[i][j] == 8)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -315,6 +330,50 @@ void CObjBlock::Draw()
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
+				//カギ(兄)
+				else if (m_map[i][j] == 18)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 128.0f;
+					src.m_right = 160.0f;
+					src.m_bottom = 63.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//カギ(妹)
+				else if (m_map[i][j] == 21)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 161.0f;
+					src.m_right = 192.0f;
+					src.m_bottom = 63.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//くつ
+				else if (m_map[i][j] == 19)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 64.0f;
+					src.m_right = 95.0f;
+					src.m_bottom = 63.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//よろい
+				else if (m_map[i][j] == 20)
+				{
+					//切り取り位置の設定
+					src.m_top = 32.0f;
+					src.m_left = 96.0f;
+					src.m_right = 127.0f;
+					src.m_bottom = 63.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
 
 			}
 		}
@@ -333,7 +392,7 @@ void CObjBlock::Draw()
 //引数7  bool*  right      ;上下左右判定の右部分に当たっているかどうかを返す
 //引数8  float* vx         ;左右判定時の反発による移動方向・力の値変えて返す
 //引数9  float* vy         ;上下判定時による自由落下運動の移動方向・力の値変えて返す
-//引数10 int*   bt         ;下部分半手時、特殊なブロックのタイプを返す
+//引数10 int*   bt         ;下部分判定時、特殊なブロックのタイプを返す
 //判定を行うobjectとブロック64＊64限定で、当たり判定と上下左右半手を行う
 //その結果は引数4～10に返す
 void CObjBlock::BlockHit
@@ -353,11 +412,11 @@ void CObjBlock::BlockHit
 	*bt = 0;
 
 	//m_mapの全要素にアクセス
-	for (int i = 0; i < MAPSIZE_X; i++)
+	for (int i = 0; i < MAPSIZE_Y; i++)
 	{
-		for (int j = 0; j < 400; j++)
+		for (int j = 0; j < MAPSIZE_X; j++)
 		{
-			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 18 && m_map[i][j] != 19)
+			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 18 )
 			{
 				//要素番号を座標に変更
 				float bx = j*32.0f;

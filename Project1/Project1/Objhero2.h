@@ -15,7 +15,7 @@ public:
 	void Action(); //アクション
 	void Draw();   //ドロー
 
-				   //主人公の位置取得用
+	//主人公の位置取得用
 	float GetX() { return m_px; }
 	float GetY() { return m_py; }
 	float GetVY() { return m_vy; }
@@ -72,4 +72,5 @@ protected:
 	int m_block_type;
 
 	int goal_block;
+	int shose_block;
 };

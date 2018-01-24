@@ -6,7 +6,7 @@
 //使用するネームスペース
 using namespace GameL;
 
-#define MAPSIZE_X 19
+//#define MAPSIZE_X 19
 
 //オブジェクト:看板(兄)
 class CObjkanbanb :public CObj
