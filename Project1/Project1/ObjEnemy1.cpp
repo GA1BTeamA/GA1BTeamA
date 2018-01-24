@@ -43,6 +43,8 @@ void CObjEnemy1::Init()
 //アクション
 void CObjEnemy1::Action()
 {
+
+
 	//落下
 	if (m_py > 1000.0f)
 	{
@@ -111,6 +113,12 @@ void CObjEnemy1::Action()
 	//HitBoxの位置の変更
 	CHitBox* hit = Hits::GetHitBox(this);
 	hit->SetPos(m_px + block->GetScroll(), m_py+12);
+
+	if (m_px < 0 || m_px > 2500 || m_py < 0 || m_py > 600)
+	{
+		this->SetStatus(false);
+		Hits::DeleteHitBox(this);
+	}
 		
 	//位置の更新
 	m_px += m_vx;

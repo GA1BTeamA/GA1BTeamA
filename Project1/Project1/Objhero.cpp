@@ -204,15 +204,14 @@ void  CObjhero::Action()
 		Scene::SetScene(new CSceneGameOver());
 	}
 
-		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
-		{
-			//Scene::SetScene(new CSceneGameOver());
-		}
+	if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
+	{
+		//Scene::SetScene(new CSceneGameOver());
+	}
 
-		if (goal_block == 11)
-		{
-			Scene::SetScene(new CSceneClear());
-		}
+	if (goal_block == 11)
+	{
+		Scene::SetScene(new CSceneClear());
 	}
 }
 
