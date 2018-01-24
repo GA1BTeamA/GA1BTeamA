@@ -29,6 +29,7 @@ void CObjBackground::Action()
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
 	CObjhero2* hero2 = (CObjhero2*)Objs::GetObj(OBJ_HERO2);
 
+	//–…
 	if (g_hero_change == false)
 	{
 		hx = hero2->GetX();
@@ -45,6 +46,7 @@ void CObjBackground::Action()
 			m_x2 -= hero2->GetVX();
 		}
 	}
+	//ŒZ
 	else
 	{
 		hx = hero->GetX();

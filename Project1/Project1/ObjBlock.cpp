@@ -223,7 +223,7 @@ void CObjBlock::Draw()
 					src.m_bottom = 32.0f;
 
 					if (g_hero_change == true)
-						c[3] = 0.7f;
+						c[3] = 0.5f;
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 
@@ -252,7 +252,7 @@ void CObjBlock::Draw()
 					src.m_bottom = 32.0f;
 
 					if (g_hero_change == false)
-						c[3] = 0.7f;
+						c[3] = 0.5f;
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 

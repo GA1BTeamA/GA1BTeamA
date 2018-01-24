@@ -15,13 +15,16 @@ using namespace GameL;
 //ブロック＆主人公切り替え false=妹用 true=兄用
 extern  bool g_hero_change;
 
+//グローバル位置
+ float g_px;
+
 //イニシャライズ
 void CObjhero2::Init()
 {
 	m_px = 150.0f;    //位置
 	m_py = 512.0f;
 
-	g_px = 0.0f; //グローバル位置
+	//g_px = 0.0f; //グローバル位置
 
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
@@ -80,7 +83,10 @@ void  CObjhero2::Action()
 
 				g_hero_change = true;
 
-				//g_px=
+				//ブロック情報を持ってくる
+				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+				g_px = block->GetScroll();
 
 				button_flag_z = false;
 			}
@@ -176,12 +182,13 @@ void  CObjhero2::Action()
 		//ゲームオーバーに切り替え
 		if (m_py > 850 || HP == 0)
 		{
+			g_px = 0.0f;
 			Scene::SetScene(new CSceneGameOver());
 		}
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			//HP = 0;
+			HP = 0;
 		}
 
 		if (goal_block == 11)
@@ -266,16 +273,16 @@ void  CObjhero2::Draw()
 	{
 		//表示位置の設定
 		dst.m_top = 0.0f + m_py;
-		dst.m_left = (64.0f*m_posture) + m_px;
-		dst.m_right = (64 - 64.0f*m_posture) + m_px;
+		dst.m_left = (64.0f*m_posture) + m_px ;
+		dst.m_right = (64 - 64.0f*m_posture) + m_px ;
 		dst.m_bottom = 64.0f + m_py;
 	}
 	else
 	{
 		//表示位置の設定
 		dst.m_top = 0.0f + m_py;
-		dst.m_left = (64.0f*m_posture) + m_px + block->GetScroll();
-		dst.m_right = (64 - 64.0f*m_posture) + m_px + block->GetScroll();
+		dst.m_left = (64.0f*m_posture) + m_px-g_px + block->GetScroll();
+		dst.m_right = (64 - 64.0f*m_posture) + m_px-g_px + block->GetScroll();
 		dst.m_bottom = 64.0f + m_py;
 	}
 

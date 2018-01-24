@@ -39,9 +39,6 @@ public:
 protected:
 	float m_px;    //位置
 	float m_py;
-
-	float g_px;    //グローバル位置
-
 	float m_vx;    //移動ベクトル
 	float m_vy;
 	float m_posture; //向き
