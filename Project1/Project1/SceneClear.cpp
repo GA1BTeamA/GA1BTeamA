@@ -29,7 +29,16 @@ CSceneClear::~CSceneClear()
 
 //ゲームメイン初期化メソッド
 void CSceneClear::InitScene()
-{
+{//音楽読み込み
+	Audio::LoadAudio(0, L"BGMClear.wav", BACK_MUSIC);
+
+	//ボリュームを戻す
+	float v = Audio::VolumeMaster(0.1);
+	v = Audio::VolumeMaster((1.0 - v));
+
+	//音楽スタート
+	Audio::Start(0);
+
 	//出力させる文字のグラフィックを作成
 	Font::SetStrTex(L"GameClear");
 

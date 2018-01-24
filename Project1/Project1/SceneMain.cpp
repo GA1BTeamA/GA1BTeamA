@@ -7,6 +7,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\DrawFont.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 //使用するネームスペース
 using namespace GameL;
@@ -35,20 +36,28 @@ CSceneMain::~CSceneMain()
 //初期化メソッド
 void CSceneMain::InitScene()
 {
+	//音楽読み込み
+	Audio::LoadAudio(0, L"BGMGameMain.wav", BACK_MUSIC);
+
+	//ボリューム調整
+	float v = Audio::VolumeMaster(0.1);
+
+	//音楽スタート
+	Audio::Start(0);
+
 	//グラフィック読み込み
 	Draw::LoadImageW(L"block0.png"  , 1, TEX_SIZE_512);
 	//Draw::LoadImageW(L"Block1.png"  , 1, TEX_SIZE_32);
 	//Draw::LoadImageW(L"Block2.png"  , 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"haikei.png"  , 0, TEX_SIZE_1024);
 	Draw::LoadImageW(L"ookami.png", 2, TEX_SIZE_256);
-	Draw::LoadImageW(L"kanban sis.png", 5, TEX_SIZE_32);
-	Draw::LoadImageW(L"kanban bro.png", 6, TEX_SIZE_32);
-	Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
+	//Draw::LoadImageW(L"kanban sis.png", 5, TEX_SIZE_32);
+	//Draw::LoadImageW(L"kanban bro.png", 6, TEX_SIZE_32);
+	//Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
-	Draw::LoadImageW(L"GateBlock.png", 15, TEX_SIZE_64);
-	Draw::LoadImageW(L"GateOpenLeft.png", 8, TEX_SIZE_64);
+	Draw::LoadImageW(L"Gate.png", 8, TEX_SIZE_512);
 	Draw::LoadImageW(L"GateOpenRight.png", 9, TEX_SIZE_64);
 	Draw::LoadImageW(L"switchsis.png", 12, TEX_SIZE_32);
 	Draw::LoadImageW(L"switchbro.png", 13, TEX_SIZE_32);
@@ -80,13 +89,13 @@ void CSceneMain::InitScene()
 	//CObjEnemy1* obje = new CObjEnemy1(100,0);
 	//Objs::InsertObj(obje, OBJ_ENEMY1, 2);
 
-	//看板オブジェクト(妹)作成
-	CObjkanbans* objks = new CObjkanbans();
-	Objs::InsertObj(objks, OBJ_KANBANS, 5);
+	////看板オブジェクト(妹)作成
+	//CObjkanbans* objks = new CObjkanbans();
+	//Objs::InsertObj(objks, OBJ_KANBANS, 5);
 
-	//看板オブジェクト(兄)作成
-	CObjkanbanb* objkb = new CObjkanbanb();
-	Objs::InsertObj(objkb, OBJ_KANBANB, 6);
+	////看板オブジェクト(兄)作成
+	//CObjkanbanb* objkb = new CObjkanbanb();
+	//Objs::InsertObj(objkb, OBJ_KANBANB, 6);
 
 	//アイテム作成
 	CObjitem* obji = new CObjitem();
@@ -96,13 +105,9 @@ void CSceneMain::InitScene()
 	CObjitem2* obji2 = new CObjitem2();
 	Objs::InsertObj(obji2, OBJ_ITEM2, 4);
 
-	//門ブロックオブジェクト作成
-	CObjGateBlock* objgbl = new CObjGateBlock();
-	Objs::InsertObj(objgbl, OBJ_GATEBLOCK, 1);
-
-	//開門オブジェクト(左)作成
-	CObjGateOpenLeft* objgol = new CObjGateOpenLeft();
-	Objs::InsertObj(objgol, OBJ_GATEOPENLEFT, 1);
+	//門オブジェクト作成
+	CObjGate* objgate = new CObjGate();
+	Objs::InsertObj(objgate, OBJ_GATE, 1);
 
 	//開門オブジェクト(右)作成
 	CObjGateOpenRight* objgor = new CObjGateOpenRight();
