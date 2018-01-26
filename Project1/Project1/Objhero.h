@@ -35,7 +35,6 @@ public:
 	void SetRight(bool b) { m_hit_right = b; }
 	void SetBT(int t) { m_block_type = t; }
 	void SetGoalBlock(int goalblock) { goal_block = goalblock; }
-	void SetArmorBlock(int armorblock) { armor_block = armorblock; }
 
 	bool GetDrawFlag() { return Draw_flag; }
 

@@ -752,10 +752,6 @@ void CObjBlock::BlockHit
 									{
 										objh->SetGoalBlock(11);
 									}
-									if (m_map[i][j] == 20)
-									{
-										objh->SetArmorBlock(20);
-									}
 
 								}
 								if (r >= 225 && r <= 315)
@@ -816,31 +812,32 @@ void CObjBlock::BlockHit
 									}
 								}
 
-							if (g_hero_change == true)
-							{
-								//兄がよろいに触れたらフラグを立てる
-								if (m_map[i][j] == 20)
+								if (g_hero_change == true)
 								{
-									armor_block = true;
-									m_map[i][j] = 0;
-								}
-								//ダメージを受けるとよろいが消える
-								if (m_map[i][j] == 3|| m_map[i][j] == 6|| m_map[i][j] == 12)
-								{
-									if (armor_block == true)
+									//兄がよろいに触れたらフラグを立てる
+									if (m_map[i][j] == 20)
 									{
-										armor_block = false;
-										m_map[i][j] = 99;
+										armor_block = true;
+										m_map[i][j] = 0;
+									}
+									//ダメージを受けるとよろいが消える
+									if (m_map[i][j] == 3 || m_map[i][j] == 6 || m_map[i][j] == 12)
+									{
+										if (armor_block == true)
+										{
+											armor_block = false;
+											m_map[i][j] = 99;
+										}
 									}
 								}
-							}
-							else
-							{
-								//妹がくつに触れたらフラグを立てる
-								if (m_map[i][j] == 19)
+								else
 								{
-									shose_block = true;
-									m_map[i][j] = 0;
+									//妹がくつに触れたらフラグを立てる
+									if (m_map[i][j] == 19)
+									{
+										shose_block = true;
+										m_map[i][j] = 0;
+									}
 								}
 							}
 						}

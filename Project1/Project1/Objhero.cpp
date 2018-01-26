@@ -20,6 +20,8 @@ extern float g_px;
 //兄妹の画面切り替えフラグ
 extern bool screen_change_flag;
 
+extern bool armor_block;
+
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -58,8 +60,6 @@ void CObjhero::Init()
 
 	//ゴールブロック
 	goal_block = 0;
-	//鎧ブロック
-	armor_block = 0;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
 
@@ -229,7 +229,7 @@ void  CObjhero::Action()
 		{
 			HP += 1;
 		}
-	}
+
 		if (g_hero_change == true)
 			hit->SetPos(m_px + 16, m_py);
 

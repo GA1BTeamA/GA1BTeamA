@@ -18,11 +18,8 @@ extern  bool g_hero_change;
 //グローバル位置
  float g_px;
 
- //兄妹の画面切り替えフラグ
- extern bool screen_change_flag;
-
- //妹のアイテムポーチ[0]=靴[1]=鍵
- int Sitem_porch[2];
+//兄妹の画面切り替えフラグ
+extern bool screen_change_flag;
 
 extern bool shose_block;
 
@@ -233,14 +230,13 @@ void  CObjhero2::Action()
 
 		if (GetBT() == 3 && shose_block == false)
 		{
-			//HP -= 1;
+			HP -= 1;
 		}
 
 		if (goal_block == 11)
 		{
 			Scene::SetScene(new CSceneClear());
 		}
-	}
 
 		hit->SetPos(m_px + 16, m_py);
 	}

@@ -54,7 +54,7 @@ void CObjEnemy1::Action()
 	//通常速度
 	m_speed_power = 0.35f;
 	m_ani_max_time = 6;
-	/*
+	
 	//ブロック衝突で向き変更
 	if (m_hit_left == true)
 	{
@@ -64,9 +64,9 @@ void CObjEnemy1::Action()
 	{
 		m_move = false;
 	}
-	*/
+	
 	//方向
-	/*if (m_move == true)
+	if (m_move == true)
 	{
 		m_vx += m_speed_power;
 		m_posture = 1.0f;
@@ -88,7 +88,7 @@ void CObjEnemy1::Action()
 	if (m_ani_framex == 4)
 	{
 		m_ani_framex = 0;
-	}*/
+	}
 
 	//摩擦
 	m_vx += -(m_vx * 0.098);
@@ -114,7 +114,7 @@ void CObjEnemy1::Action()
 	CHitBox* hit = Hits::GetHitBox(this);
 	hit->SetPos(m_px + block->GetScroll(), m_py+12);
 
-	if (m_px < 0 || m_px > 2500 || m_py < 0 || m_py > 600)
+	if ( m_py < 0 || m_py > 600)
 	{
 		this->SetStatus(false);
 		Hits::DeleteHitBox(this);
