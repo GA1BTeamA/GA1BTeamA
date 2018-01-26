@@ -27,9 +27,36 @@ bool brother_gateopen;
 bool sister_gateopen;
 
 
+//グローバル位置
+extern float g_px;
+
+//兄妹の画面切り替えフラグ
+bool screen_change_flag;
+
+//兄のアイテムポーチ[0]=鎧[1]=鍵
+extern int Bitem_porch[2];
+
+
+//妹のアイテムポーチ[0]=靴[1]=鍵
+extern int Sitem_porch[2];
+
 CObjBlock::CObjBlock()
 {
 	m_block_scroll = 0.0f;
+
+	gb_block_scroll = 0.0f;
+
+	gs_block_scroll = 0.0f;
+
+	scroll_change_b = 0.0f;
+
+	scroll_change_s = 0.0f;
+
+	scroll_change_keep = 0.0f;
+
+	screen_change_flag = false;
+
+	button_flag = true;
 
 	//マップデータをコピー
 	//memcpy(m_map, map, sizeof(int)*(18 * 400));
@@ -100,6 +127,8 @@ void CObjBlock::Init()
 //アクション
 void CObjBlock::Action()
 {
+	//ブロック情報を持ってくる
+	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 
 	//兄主人公の位置を取得
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
@@ -110,15 +139,38 @@ void CObjBlock::Action()
 	CObjhero2* hero2 = (CObjhero2*)Objs::GetObj(OBJ_HERO2);
 	float hx2 = hero2->GetX();
 	float hy2 = hero2->GetY();
+	
+	//主人公画面切り替え
+	if (screen_change_flag == true)
+	{
 
+		if (g_hero_change == false)
+		{
+			scroll_change_keep = m_block_scroll;
+			m_block_scroll = scroll_change_s;
+			scroll_change_b = scroll_change_keep;
+		}
+		else
+		{
+			scroll_change_keep = m_block_scroll;
+			m_block_scroll = scroll_change_b;
+			scroll_change_s = scroll_change_keep;
+		}
+
+		screen_change_flag = false;
+
+	}
 
 	if (g_hero_change == true)
 	{
 		//兄後方スクロールライン
 		if (hx < 80)
 		{
+
 			hero->SetX(80);						//主人公はラインを超えないようにする
-			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll -= hero->GetVX();//主人公が本来動くべき分の値をm_block_scrollに加える
+			gb_block_scroll -= hero->GetVX();//主人公が本来動くべき分の値をm_block_scrollに加える
+
 		}
 
 		//兄前方スクロールライン
@@ -126,6 +178,7 @@ void CObjBlock::Action()
 		{
 			hero->SetX(MAPSIZE_X);					//主人公はラインを超えないようにする
 			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			gb_block_scroll -= hero->GetVX();//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
 	}
 
@@ -136,6 +189,7 @@ void CObjBlock::Action()
 		{
 			hero2->SetX(80);						//主人公はラインを超えないようにする
 			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			gs_block_scroll -= hero2->GetVX();//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
 
 		//妹前方スクロールライン
@@ -143,8 +197,12 @@ void CObjBlock::Action()
 		{
 			hero2->SetX(MAPSIZE_X);					//主人公はラインを超えないようにする
 			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			gs_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
 	}
+
+
+	
 
 	//敵出現ライン
 	//主人公の位置＋500を敵出現ラインにする
@@ -233,8 +291,9 @@ void CObjBlock::Action()
 //ドロー
 void CObjBlock::Draw()
 {
+
 	//描画カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float c[4] = { 1.0f,1.0f,1.0f,1.0f};
 
 	RECT_F src;//描画元切り取り位置
 	RECT_F dst;//描画先表示位置
@@ -245,6 +304,7 @@ void CObjBlock::Draw()
 		{
 			if (m_map[i][j] > 0)
 			{
+				
 				//表示位置
 				//ゴールは64*64で表示
 				if (m_map[i][j] == 11)
@@ -264,56 +324,77 @@ void CObjBlock::Draw()
 				}
 
 			//描画
-				if (g_hero_change == false)
-				{
+				
 					//妹ブロック(木)
-					if (m_map[i][j] == 4)
-					{
+			if (m_map[i][j] == 4)
+			{
 						//切り取り位置
 						src.m_top = 0.0f;
 						src.m_left = 64.0f;
 						src.m_right = 96.0f;
 						src.m_bottom = 32.0f;
 
-						Draw::Draw(1, &src, &dst, c, 0.0f);
-					}
-					//妹ブロック(草)
-					else if (m_map[i][j] == 13)
-					{
-						//切り取り位置
-						src.m_top = 0.0f;
-						src.m_left = 0.0f;
-						src.m_right = 32.0f;
-						src.m_bottom = 32.0f;
+						if (g_hero_change == true)
+							c[3] = 0.5f;
 
 						Draw::Draw(1, &src, &dst, c, 0.0f);
-					}
+
+						c[3] = 1.0f;
+
+						
+			}
+
+			//妹ブロック(草)
+			else if (m_map[i][j] == 13)
+			{
+				//切り取り位置
+				src.m_top = 0.0f;
+				src.m_left = 0.0f;
+				src.m_right = 32.0f;
+				src.m_bottom = 32.0f;
+
+				if (g_hero_change == true)
+					c[3] = 0.5f;
+
+				Draw::Draw(1, &src, &dst, c, 0.0f);
+
+				c[3] = 1.0f;
+
+			}
 					//妹ブロック(土)
-					else if (m_map[i][j] == 16)
-					{
-						//切り取り位置
-						src.m_top = 0.0f;
-						src.m_left = 32.0f;
-						src.m_right = 64.0f;
-						src.m_bottom = 32.0f;
+			else if (m_map[i][j] == 16)
+			{
+				//切り取り位置
+				src.m_top = 0.0f;
+				src.m_left = 32.0f;
+				src.m_right = 64.0f;
+				src.m_bottom = 32.0f;
 
-						Draw::Draw(1, &src, &dst, c, 0.0f);
-					}
-				}
-				else if (g_hero_change == true)
-				{
-					//兄ブロック(木)
-					if (m_map[i][j] == 5)
-					{
-						//切り取り位置
-						src.m_top = 0.0f;
-						src.m_left = 64.0f;
-						src.m_right = 96.0f;
-						src.m_bottom = 32.0f;
+				if (g_hero_change == true)
+					c[3] = 0.5f;
 
-						Draw::Draw(1, &src, &dst, c, 0.0f);
-					}
-				}
+				Draw::Draw(1, &src, &dst, c, 0.0f);
+
+				c[3] = 1.0f;
+			}
+				
+				
+				//兄ブロック(木)
+			else if (m_map[i][j] == 5)
+			{
+				//切り取り位置
+				src.m_top = 0.0f;
+				src.m_left = 64.0f;
+				src.m_right = 96.0f;
+				src.m_bottom = 32.0f;
+
+				if (g_hero_change == false)
+					c[3] = 0.5f;
+
+				Draw::Draw(1, &src, &dst, c, 0.0f);
+
+				c[3] = 1.0f;
+			}
 
 				//草ブロック
 				if (m_map[i][j] == 1)
@@ -416,7 +497,12 @@ void CObjBlock::Draw()
 					src.m_right = 160.0f;
 					src.m_bottom = 63.0f;
 
+					if (g_hero_change == false)
+						c[3] = 0.5f;
+
 					Draw::Draw(1, &src, &dst, c, 0.0f);
+
+					c[3] = 1.0f;
 				}
 				//カギ(妹)
 				else if (m_map[i][j] == 23)
@@ -427,7 +513,12 @@ void CObjBlock::Draw()
 					src.m_right = 192.0f;
 					src.m_bottom = 63.0f;
 
+					if (g_hero_change == true)
+						c[3] = 0.5f;
+
 					Draw::Draw(1, &src, &dst, c, 0.0f);
+
+					c[3] = 1.0f;
 				}
 				//くつ
 				else if (m_map[i][j] == 19)
@@ -438,7 +529,12 @@ void CObjBlock::Draw()
 					src.m_right = 95.0f;
 					src.m_bottom = 63.0f;
 
+					if (g_hero_change == true)
+						c[3] = 0.5f;
+
 					Draw::Draw(1, &src, &dst, c, 0.0f);
+
+					c[3] = 1.0f;
 				}
 				//よろい
 				else if (m_map[i][j] == 20)
@@ -449,7 +545,12 @@ void CObjBlock::Draw()
 					src.m_right = 127.0f;
 					src.m_bottom = 63.0f;
 
+					if (g_hero_change == false)
+						c[3] = 0.5f;
+
 					Draw::Draw(1, &src, &dst, c, 0.0f);
+
+					c[3] = 1.0f;
 				}
 
 			}
@@ -604,52 +705,67 @@ void CObjBlock::BlockHit
 						if (len < 38)
 						{
 
-							//角度で上下左右を判定
-							if ((r <= 45 && r >= 0) || r >= 315)
+							//主人公専用ブロック判定
+							//兄 5=木ブロック 18=兄鍵 20=鎧
+							if (g_hero_change == false && m_map[i][j] == 5|| g_hero_change == false && m_map[i][j] == 18|| g_hero_change == false && m_map[i][j] == 20)
+								;
+							//妹 4=木ブロック 13=草ブロック 16=土ブロック 21=妹鍵 19=靴
+							else if (g_hero_change == true && m_map[i][j] == 4|| g_hero_change == true && m_map[i][j] == 13|| g_hero_change == true && m_map[i][j] == 16||
+								g_hero_change == true && m_map[i][j] == 21|| g_hero_change == true && m_map[i][j] == 19)
+								;
+							//その他
+							else
 							{
-								//右
-								*right = true;//主人公が左部分に衝突している
-								*x = (bx + 10.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
-								*vx = -(*vx)*0.1f;//-VX*反発係数
-								*x = bx + 10.0f + (m_block_scroll);
-								*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
-
-							}
-							if (r >= 45 && r <= 135)
-							{
-								if (k == 0)
+								//角度で上下左右を判定
+								if ((r <= 45 && r >= 0) || r >= 315)
 								{
-									//上
-									*down = true;//主人公の下の部分が衝突している
-									*y = by - 64.0f;//ブロック位置ー主人公の幅
+									//右
+									*right = true;//主人公が左部分に衝突している
+									*x = (bx + 10.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+									*vx = -(*vx)*0.1f;//-VX*反発係数
+									*x = bx + 10.0f + (m_block_scroll);
 									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
-									*vy = 0.0f;
+
 								}
-							}
-							if (r >= 135 && r <= 225)
-							{
-								//左
-								*left = true;//主人公が右の部分に衝突している
-								*x = bx - 50.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
-								*vx = -(*vx)*0.1f;//-VX*反発係数
-								*x = bx - 55.0f + (m_block_scroll);
-
-								*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
-
-								if (m_map[i][j] == 11)
+								if (r >= 45 && r <= 135)
 								{
-									objh->SetGoalBlock(11);
+									if (k == 0)
+									{
+										//上
+										*down = true;//主人公の下の部分が衝突している
+										*y = by - 64.0f;//ブロック位置ー主人公の幅
+										*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+										*vy = 0.0f;
+									}
 								}
-
-							}
-							if (r >= 225 && r <= 315)
-							{
-								//下
-								if (k == 1)
+								if (r >= 135 && r <= 225)
 								{
-									*up = true;//主人公の上の部分が衝突している
+									//左
+									*left = true;//主人公が右の部分に衝突している
+									*x = bx - 50.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
+									*vx = -(*vx)*0.1f;//-VX*反発係数
+									*x = bx - 55.0f + (m_block_scroll);
+
 									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
-									//*y=by + 64.0f;//ブロックの位置+主人公の幅
+
+									if (m_map[i][j] == 11)
+									{
+										objh->SetGoalBlock(11);
+									}
+									if (m_map[i][j] == 20)
+									{
+										objh->SetArmorBlock(20);
+									}
+
+								}
+								if (r >= 225 && r <= 315)
+								{
+									//下
+									if (k == 1)
+									{
+										*up = true;//主人公の上の部分が衝突している
+										*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+										//*y=by + 64.0f;//ブロックの位置+主人公の幅
 
 									if (*vy < 0)
 									{

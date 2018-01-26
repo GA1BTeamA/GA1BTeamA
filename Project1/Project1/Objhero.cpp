@@ -15,6 +15,14 @@ using namespace GameL;
 //ブロック＆主人公切り替え false=妹用 true=兄用
 extern  bool g_hero_change;
 
+extern float g_px;
+
+//兄妹の画面切り替えフラグ
+extern bool screen_change_flag;
+
+//兄のアイテムポーチ[0]=鎧[1]=鍵
+int Bitem_porch[2];
+
 extern bool armor_block;
 
 
@@ -54,50 +62,53 @@ void CObjhero::Init()
 
 	m_block_type = 15;
 
+	//ゴールブロック
 	goal_block = 0;
+	//鎧ブロック
+	armor_block = 0;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
+
 }
 
 //アクション
 void  CObjhero::Action()
 {
 
-	//ブロックとの当たり判定実行
-	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-	pb->BlockHit(&m_px, &m_py, true,
-		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
-		&m_block_type
-	);
-
-	//ブロック情報を持ってくる
-	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-
-	//HitBoxの位置の変更
-	CHitBox* hit = Hits::GetHitBox(this);
-
-	//敵と当たっているか確認
-	if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
-	{
-		//主人公が敵とどの角度で当たっているか確認
-		HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
-		hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
-
-		//敵の左右に当たったら
-		float r = hit_data[0]->r;
-		if ((r < 45 && r >= 0) || r > 315)
-		{
-			Scene::SetScene(new CSceneGameOver());
-		}
-		/*if (r > 135 && r < 225)
-		{
-
-		}*/
-	}
-
 	if (g_hero_change == true)
 	{
 
+		//ブロックとの当たり判定実行
+		CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+		pb->BlockHit(&m_px, &m_py, true,
+			&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
+			&m_block_type
+		);
+
+		//ブロック情報を持ってくる
+		CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+		//HitBoxの位置の変更
+		CHitBox* hit = Hits::GetHitBox(this);
+
+		//敵と当たっているか確認
+		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
+		{
+			//主人公が敵とどの角度で当たっているか確認
+			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
+			hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
+
+			//敵の左右に当たったら
+			float r = hit_data[0]->r;
+			if ((r < 45 && r >= 0) || r > 315)
+			{
+				HP -= 1;
+			}
+			/*if (r > 135 && r < 225)
+			{
+
+			}*/
+		}
 
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
@@ -105,10 +116,14 @@ void  CObjhero::Action()
 			if (button_flag_z == true && m_hit_down == true)
 			{
 
-				if (g_hero_change == false)
-					g_hero_change = true;
-				else
-					g_hero_change = false;
+				g_hero_change = false;
+
+				//ブロック情報を持ってくる
+				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+				g_px = block->GetgbScroll();
+
+				screen_change_flag = true;
 
 				button_flag_z = false;
 			}
@@ -156,7 +171,7 @@ void  CObjhero::Action()
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
-				m_vy -= 13.0f;
+				m_vy -= 12.0f;
 				button_flag_up = false;
 			}
 		}
@@ -189,24 +204,22 @@ void  CObjhero::Action()
 			m_ani_framey = 0;
 		}
 
-}
+		//摩擦
+		m_vx += -(m_vx*0.098);
 
-	//摩擦
-	m_vx += -(m_vx*0.098);
+		//自由落下
+		m_vy += 9.8 / (16.0f);
 
-	//自由落下
-	m_vy += 9.8 / (16.0f);
+		//位置の更新
+		m_px += m_vx;
+		m_py += m_vy;
 
-	//位置の更新
-	m_px += m_vx;
-	m_py += m_vy;
-
-	hit->SetPos(m_px+16, m_py);
-
-	if (m_py > 850||HP==0)
-	{
-		Scene::SetScene(new CSceneGameOver());
-	}
+		if (m_py > 850 || HP == 0)
+		{
+			g_px = 0.0f;
+			HP = 0;
+			Scene::SetScene(new CSceneGameOver());
+		}
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
@@ -244,9 +257,16 @@ void  CObjhero::Draw()
 		0,1,2,
 	};*/
 
+	//明度
+	float m;
+
+	if (g_hero_change == true)
+		m = 1.0f;
+	else
+		m = 0.5f;
 
 	//描画カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float c[4] = { 1.0f,1.0f,1.0f,m};
 
 	RECT_F src;  //描画切り取り位置
 	RECT_F dst;  //描画先表示位置
@@ -267,11 +287,25 @@ void  CObjhero::Draw()
 		src.m_bottom = 192.0f;
 	}
 
-	//表示位置の設定
-	dst.m_top    = 0.0f+m_py;
-	dst.m_left   = (   64.0f*m_posture)+m_px;
-	dst.m_right  = (64- 64.0f*m_posture)+m_px;
-	dst.m_bottom = 64.0f+m_py;
+	//ブロック情報を持ってくる
+	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+	if (g_hero_change == true)
+	{
+		//表示位置の設定
+		dst.m_top = 0.0f + m_py;
+		dst.m_left = (64.0f*m_posture) + m_px ;
+		dst.m_right = (64 - 64.0f*m_posture) + m_px ;
+		dst.m_bottom = 64.0f + m_py;
+	}
+	else
+	{
+		//表示位置の設定
+		dst.m_top = 0.0f + m_py;
+		dst.m_left = (64.0f*m_posture) + m_px -g_px+block->GetScroll();
+		dst.m_right = (64 - 64.0f*m_posture) + m_px - g_px +block->GetScroll();
+		dst.m_bottom = 64.0f + m_py;
+	}
 
 	//描画
 	Draw::Draw(3, &src, &dst, c, 1.0f);

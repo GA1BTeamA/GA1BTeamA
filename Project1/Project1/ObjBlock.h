@@ -19,6 +19,8 @@ public:
 	void Draw();//ドロー
 
 	float GetScroll() { return m_block_scroll; }
+	float GetgbScroll() { return gb_block_scroll; }
+	float GetgsScroll() { return gs_block_scroll; }
 	int GetMap(int x, int y) { return m_map[y][x]; }
 
 
@@ -34,7 +36,22 @@ public:
 private:
 	int m_map[MAPSIZE_Y][MAPSIZE_X]; //マップ情報仮
 
+	//描画カラー情報
+	float c[4];
+
 	float m_block_scroll;  //スクロール用
+
+	float gb_block_scroll;  //兄のスクロール用
+
+	float gs_block_scroll;  //妹のスクロール用
+
+	float scroll_change_b;//主人公スクロール位置記憶
+
+	float scroll_change_s;//主人公スクロール位置記憶
+
+	float scroll_change_keep;//主人公スクロール一時保存用
+
+	bool button_flag;//ｚボタンフラグ
 
 	////主人公位置
 	//float hx;

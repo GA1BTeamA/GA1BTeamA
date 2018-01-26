@@ -15,6 +15,15 @@ using namespace GameL;
 //ブロック＆主人公切り替え false=妹用 true=兄用
 extern  bool g_hero_change;
 
+//グローバル位置
+ float g_px;
+
+ //兄妹の画面切り替えフラグ
+ extern bool screen_change_flag;
+
+ //妹のアイテムポーチ[0]=靴[1]=鍵
+ int Sitem_porch[2];
+
 extern bool shose_block;
 
 //イニシャライズ
@@ -22,6 +31,9 @@ void CObjhero2::Init()
 {
 	m_px = 150.0f;    //位置
 	m_py = 512.0f;
+
+	//g_px = 0.0f; //グローバル位置
+
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
 	m_posture = 1.0f; //右向き0.0ｆ　左向き1.0ｆ
@@ -63,49 +75,58 @@ void CObjhero2::Init()
 void  CObjhero2::Action()
 {
 
-	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-	pb->BlockHit(&m_px, &m_py, true,
-		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
-		&m_block_type
-	);
+	
 
-	//ブロック情報を持ってくる
-	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 
-	//HitBoxの位置の変更
-	CHitBox* hit = Hits::GetHitBox(this);
-
-	//敵と当たっているか確認
-	if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
-	{
-		//主人公が敵とどの角度で当たっているか確認
-		HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
-		hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
-
-		//敵の左右に当たったら
-		float r = hit_data[0]->r;
-		if ((r < 45 && r >= 0) || r > 315)
-		{
-			Scene::SetScene(new CSceneGameOver());
-		}
-		/*if (r > 135 && r < 225)
-		{
-
-		}*/
-	}
 
 	if (g_hero_change == false)
 	{
+
+		CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+		pb->BlockHit(&m_px, &m_py, true,
+			&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
+			&m_block_type
+		);
+
+		// ブロック情報を持ってくる
+		CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+		//HitBoxの位置の変更
+		CHitBox* hit = Hits::GetHitBox(this);
+
+		//敵と当たっているか確認
+		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
+		{
+			//主人公が敵とどの角度で当たっているか確認
+			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
+			hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
+
+															//敵の左右に当たったら
+			float r = hit_data[0]->r;
+			if ((r < 45 && r >= 0) || r > 315)
+			{
+				HP -= 1;
+			}
+			/*if (r > 135 && r < 225)
+			{
+
+			}*/
+		}
 
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
 		{
 			if (button_flag_z == true && m_hit_down == true)
 			{
-				if (g_hero_change == false)
-					g_hero_change = true;
-				else
-					g_hero_change = false;
+
+				g_hero_change = true;
+
+				//ブロック情報を持ってくる
+				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+				g_px = block->GetgsScroll();
+
+				screen_change_flag = true;
 
 				button_flag_z = false;
 			}
@@ -114,7 +135,6 @@ void  CObjhero2::Action()
 		{
 			button_flag_z = true;
 		}
-
 
 		//キー方向の入力方向
 		//x軸移動用
@@ -196,11 +216,12 @@ void  CObjhero2::Action()
 		m_px += m_vx;
 		m_py += m_vy;
 
-		
+
 
 		//ゲームオーバーに切り替え
 		if (m_py > 850 || HP == 0)
 		{
+			g_px = 0.0f;
 			Scene::SetScene(new CSceneGameOver());
 		}
 
@@ -221,8 +242,8 @@ void  CObjhero2::Action()
 		}
 	}
 
-	hit->SetPos(m_px + 16, m_py);
-
+		hit->SetPos(m_px + 16, m_py);
+	}
 }
 
 //ドロー
@@ -245,9 +266,16 @@ void  CObjhero2::Draw()
 		0,1,2,
 	};
 
+	//明度
+	float m;
+
+	if (g_hero_change == false)
+		m = 1.0f;
+	else
+		m = 0.5f;
 
 	//描画カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float c[4] = { 1.0f,1.0f,1.0f,m };
 
 	RECT_F src;  //描画切り取り位置
 	RECT_F dst;  //描画先表示位置
@@ -281,11 +309,26 @@ void  CObjhero2::Draw()
 		}
 
 	}
-	//表示位置の設定
-	dst.m_top = 0.0f + m_py;
-	dst.m_left = (64.0f*m_posture) + m_px;
-	dst.m_right = (64 - 64.0f*m_posture) + m_px;
-	dst.m_bottom = 64.0f + m_py;
+
+	//ブロック情報を持ってくる
+	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+	if (g_hero_change == false)
+	{
+		//表示位置の設定
+		dst.m_top = 0.0f + m_py;
+		dst.m_left = (64.0f*m_posture) + m_px ;
+		dst.m_right = (64 - 64.0f*m_posture) + m_px ;
+		dst.m_bottom = 64.0f + m_py;
+	}
+	else
+	{
+		//表示位置の設定
+		dst.m_top = 0.0f + m_py;
+		dst.m_left = (64.0f*m_posture) + m_px-g_px + block->GetScroll();
+		dst.m_right = (64 - 64.0f*m_posture) + m_px-g_px + block->GetScroll();
+		dst.m_bottom = 64.0f + m_py;
+	}
 
 	//描画
 	Draw::Draw(10, &src, &dst, c, 0.0f);
