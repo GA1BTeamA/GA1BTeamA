@@ -23,6 +23,8 @@ public:
 	float GetgsScroll() { return gs_block_scroll; }
 	int GetMap(int x, int y) { return m_map[y][x]; }
 
+
+
 	//ブロックとの当たり判定
 	void BlockHit
 	(
@@ -30,8 +32,6 @@ public:
 		bool*up, bool* down, bool* left, bool* right,
 		float* vx, float*vy, int* bt
 	);
-
-	
 
 private:
 	int m_map[MAPSIZE_Y][MAPSIZE_X]; //マップ情報仮

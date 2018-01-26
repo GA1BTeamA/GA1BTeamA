@@ -114,7 +114,6 @@ void  CObjhero2::Action()
 		//ŽålŒöØ‚è‘Ö‚¦
 		if (Input::GetVKey('Z') == true)
 		{
-
 			if (button_flag_z == true && m_hit_down == true)
 			{
 
@@ -235,7 +234,7 @@ void  CObjhero2::Action()
 		}
 		if (GetBT() == 19)
 		{
-			Scene::SetScene(new CSceneClear());
+			//Scene::SetScene(new CSceneClear());
 		}
 
 		hit->SetPos(m_px + 16, m_py);

@@ -14,9 +14,16 @@ extern CObjhero* objh;
 //使用するネームスペース
 using namespace GameL;
 
-
 //ブロック＆主人公切り替え false=妹用 true=兄用
 bool g_hero_change;
+
+//主人公が鍵を所持しているかのフラグ
+bool brother_key;
+bool sister_key;
+//主人公が門を開けるときのフラグ
+bool brother_gateopen;
+bool sister_gateopen;
+
 
 //グローバル位置
 extern float g_px;
@@ -79,6 +86,13 @@ void CObjBlock::Init()
 				count += 2;
 		}
 	}
+
+	brother_key = false;
+	sister_key = false;
+	brother_gateopen = false;
+	sister_gateopen = false;
+	
+
 	/*
 	int block_data[20][25] =
 	{
@@ -208,6 +222,65 @@ void CObjBlock::Action()
 		}
 	}
 
+	//キャラ切り替えに際した門ギミックの画像と当たり判定切り替え
+	if (g_hero_change == true)
+	{
+		if (brother_gateopen == false)
+		{
+			for (int i = 0; i < MAPSIZE_Y; i++)
+			{
+				for (int j = 0; j < MAPSIZE_X; j++)
+				{
+					if (m_map[i][j] == 99)
+					{
+						m_map[i][j] = 21;
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < MAPSIZE_Y; i++)
+			{
+				for (int j = 0; j < MAPSIZE_X; j++)
+				{
+					if (m_map[i][j] == 21)
+					{
+						m_map[i][j] = 99;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		if (sister_gateopen == false)
+		{
+			for (int i = 0; i < MAPSIZE_Y; i++)
+			{
+				for (int j = 0; j < MAPSIZE_X; j++)
+				{
+					if (m_map[i][j] == 99)
+					{
+						m_map[i][j] = 21;
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < MAPSIZE_Y; i++)
+			{
+				for (int j = 0; j < MAPSIZE_X; j++)
+				{
+					if (m_map[i][j] == 21)
+					{
+						m_map[i][j] = 99;
+					}
+				}
+			}
+		}
+	}
 
 }
 
@@ -428,7 +501,7 @@ void CObjBlock::Draw()
 					c[3] = 1.0f;
 				}
 				//カギ(妹)
-				else if (m_map[i][j] == 21)
+				else if (m_map[i][j] == 23)
 				{
 					//切り取り位置の設定
 					src.m_top = 32.0f;
@@ -480,6 +553,38 @@ void CObjBlock::Draw()
 		}
 	}
 
+	//鍵取得時、アイテム覧に表示
+
+	if (g_hero_change == true && brother_key == true)
+	{
+		dst.m_top = 16.0f;
+		dst.m_left = 16.0f;
+		dst.m_right = 48.0f;
+		dst.m_bottom = 48.0f;
+
+		//切り取り位置の設定
+		src.m_top = 32.0f;
+		src.m_left = 128.0f;
+		src.m_right = 160.0f;
+		src.m_bottom = 64.0f;
+		Draw::Draw(1, &src, &dst, c, 0.0f);
+	}
+	
+	else if (g_hero_change == false && sister_key == true)
+	{
+		dst.m_top = 16.0f;
+		dst.m_left = 16.0f;
+		dst.m_right = 48.0f;
+		dst.m_bottom = 48.0f;
+
+		//切り取り位置の設定
+		src.m_top = 32.0f;
+		src.m_left = 160.0f;
+		src.m_right = 192.0f;
+		src.m_bottom = 64.0f;
+		Draw::Draw(1, &src, &dst, c, 0.0f);
+	}
+
 }
 
 
@@ -517,7 +622,7 @@ void CObjBlock::BlockHit
 	{
 		for (int j = 0; j < MAPSIZE_X; j++)
 		{
-			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 18 )
+			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 99)
 			{
 				//要素番号を座標に変更
 				float bx = j*32.0f;
@@ -549,7 +654,7 @@ void CObjBlock::BlockHit
 						float len = sqrt(rvx[k] * rvx[k] + rvy[k] * rvy[k]);
 
 						//角度を求める
-						float r = atan2(rvy[k],rvx[k]);
+						float r = atan2(rvy[k], rvx[k]);
 						r = r*180.0f / 3.14f;
 
 						if (r <= 0.0f)
@@ -623,12 +728,52 @@ void CObjBlock::BlockHit
 										*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
 										//*y=by + 64.0f;//ブロックの位置+主人公の幅
 
-										if (*vy < 0)
-										{
-											*vy = 0.0f;
-										}
+									if (*vy < 0)
+									{
+										*vy = 0.0f;
 									}
+								}
 
+							}
+
+							if (g_hero_change == true)
+							{
+								//兄が鍵に触れたらフラグを立てる
+								if (m_map[i][j] == 18)
+								{
+									brother_key = true;
+									m_map[i][j] = 0;
+								}
+								//brother_keyがtrueで触れたとき門を開く
+								if (m_map[i][j] == 21)
+								{
+									if (brother_key == true)
+									{
+										brother_gateopen = true;
+										brother_key = false;
+										
+										m_map[i][j] = 99;
+									}
+								}
+							}
+							else
+							{
+								//妹が鍵に触れたらフラグを立てる
+								if (m_map[i][j] == 23)
+								{
+									sister_key = true;
+									m_map[i][j] = 0;
+								}
+								//sister_keyがtrueで触れたとき門を開く
+								if (m_map[i][j] == 21)
+								{
+									if (sister_key == true)
+									{
+										sister_gateopen = true;
+										sister_key = false;
+										
+										m_map[i][j] = 99;
+									}
 								}
 							}
 

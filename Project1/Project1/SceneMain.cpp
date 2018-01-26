@@ -99,11 +99,11 @@ void CSceneMain::InitScene()
 
 	//アイテム作成
 	CObjitem* obji = new CObjitem();
-	Objs::InsertObj(obji, OBJ_ITEM, 4);
+	Objs::InsertObj(obji, OBJ_ITEM, 1);
 
 	//アイテム作成
 	CObjitem2* obji2 = new CObjitem2();
-	Objs::InsertObj(obji2, OBJ_ITEM2, 4);
+	Objs::InsertObj(obji2, OBJ_ITEM2, 1);
 
 	//門オブジェクト作成
 	CObjGate* objgate = new CObjGate();
