@@ -668,11 +668,11 @@ void CObjBlock::BlockHit
 
 							//主人公専用ブロック判定
 							//兄 5=木ブロック 18=兄鍵 20=鎧
-							if (g_hero_change == false && m_map[i][j] == 5|| g_hero_change == false && m_map[i][j] == 18|| g_hero_change == false && m_map[i][j] == 20)
+							if (g_hero_change == false && m_map[i][j] == 5 || g_hero_change == false && m_map[i][j] == 18 || g_hero_change == false && m_map[i][j] == 20)
 								;
 							//妹 4=木ブロック 13=草ブロック 16=土ブロック 21=妹鍵 19=靴
-							else if (g_hero_change == true && m_map[i][j] == 4|| g_hero_change == true && m_map[i][j] == 13|| g_hero_change == true && m_map[i][j] == 16||
-								g_hero_change == true && m_map[i][j] == 21|| g_hero_change == true && m_map[i][j] == 19)
+							else if (g_hero_change == true && m_map[i][j] == 4 || g_hero_change == true && m_map[i][j] == 13 || g_hero_change == true && m_map[i][j] == 16 ||
+								g_hero_change == true && m_map[i][j] == 21 || g_hero_change == true && m_map[i][j] == 19)
 								;
 							//その他
 							else
@@ -728,55 +728,56 @@ void CObjBlock::BlockHit
 										*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
 										//*y=by + 64.0f;//ブロックの位置+主人公の幅
 
-									if (*vy < 0)
+										if (*vy < 0)
+										{
+											*vy = 0.0f;
+										}
+									}
+
+								}
+
+								if (g_hero_change == true)
+								{
+									//兄が鍵に触れたらフラグを立てる
+									if (m_map[i][j] == 18)
 									{
-										*vy = 0.0f;
+										brother_key = true;
+										m_map[i][j] = 0;
+									}
+									//brother_keyがtrueで触れたとき門を開く
+									if (m_map[i][j] == 21)
+									{
+										if (brother_key == true)
+										{
+											brother_gateopen = true;
+											brother_key = false;
+
+											m_map[i][j] = 99;
+										}
+									}
+								}
+								else
+								{
+									//妹が鍵に触れたらフラグを立てる
+									if (m_map[i][j] == 23)
+									{
+										sister_key = true;
+										m_map[i][j] = 0;
+									}
+									//sister_keyがtrueで触れたとき門を開く
+									if (m_map[i][j] == 21)
+									{
+										if (sister_key == true)
+										{
+											sister_gateopen = true;
+											sister_key = false;
+
+											m_map[i][j] = 99;
+										}
 									}
 								}
 
 							}
-
-							if (g_hero_change == true)
-							{
-								//兄が鍵に触れたらフラグを立てる
-								if (m_map[i][j] == 18)
-								{
-									brother_key = true;
-									m_map[i][j] = 0;
-								}
-								//brother_keyがtrueで触れたとき門を開く
-								if (m_map[i][j] == 21)
-								{
-									if (brother_key == true)
-									{
-										brother_gateopen = true;
-										brother_key = false;
-										
-										m_map[i][j] = 99;
-									}
-								}
-							}
-							else
-							{
-								//妹が鍵に触れたらフラグを立てる
-								if (m_map[i][j] == 23)
-								{
-									sister_key = true;
-									m_map[i][j] = 0;
-								}
-								//sister_keyがtrueで触れたとき門を開く
-								if (m_map[i][j] == 21)
-								{
-									if (sister_key == true)
-									{
-										sister_gateopen = true;
-										sister_key = false;
-										
-										m_map[i][j] = 99;
-									}
-								}
-							}
-
 						}
 					}
 				}

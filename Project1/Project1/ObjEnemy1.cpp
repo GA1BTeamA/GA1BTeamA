@@ -114,7 +114,7 @@ void CObjEnemy1::Action()
 	CHitBox* hit = Hits::GetHitBox(this);
 	hit->SetPos(m_px + block->GetScroll(), m_py+12);
 
-	if (m_px < 0 || m_px > 2500 || m_py < 0 || m_py > 600)
+	if ( m_py < 0 || m_py > 600)
 	{
 		this->SetStatus(false);
 		Hits::DeleteHitBox(this);
