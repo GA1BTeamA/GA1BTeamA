@@ -33,7 +33,6 @@ public:
 	void SetDown(bool b) { m_hit_down = b; }
 	void SetLeft(bool b) { m_hit_left = b; }
 	void SetRight(bool b) { m_hit_right = b; }
-	void SetBT(int t) { m_block_type = t; }
 
 
 protected:
@@ -72,5 +71,4 @@ protected:
 	int m_block_type;
 
 	int goal_block;
-	int shose_block;
 };

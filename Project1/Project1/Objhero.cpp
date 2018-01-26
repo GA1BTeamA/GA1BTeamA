@@ -15,6 +15,9 @@ using namespace GameL;
 //ブロック＆主人公切り替え false=妹用 true=兄用
 extern  bool g_hero_change;
 
+extern bool armor_block;
+
+
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -215,9 +218,9 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
-		if (shoes_block == 19)
+		if (armor_block == true)
 		{
-			Scene::SetScene(new CSceneClear());
+			HP += 1;
 		}
 	}
 

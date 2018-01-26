@@ -77,5 +77,4 @@ protected:
 	//ゴールの当たり判定チェック用
 	int goal_block;
 	int key_block;
-	int shoes_block;
 };

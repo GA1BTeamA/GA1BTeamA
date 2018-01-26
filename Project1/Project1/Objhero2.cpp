@@ -15,6 +15,8 @@ using namespace GameL;
 //ブロック＆主人公切り替え false=妹用 true=兄用
 extern  bool g_hero_change;
 
+extern bool shose_block;
+
 //イニシャライズ
 void CObjhero2::Init()
 {
@@ -202,19 +204,20 @@ void  CObjhero2::Action()
 			Scene::SetScene(new CSceneGameOver());
 		}
 
-		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
+		if (GetBT() == 12 || GetBT() == 6)
 		{
-			//HP -= 1;
+			HP -= 1;
+
+		}
+
+		if (GetBT() == 3 && shose_block == false)
+		{
+			HP -= 1;
 		}
 
 		if (goal_block == 11)
 		{
 			Scene::SetScene(new CSceneClear());
-		}
-		//アイテム
-		if (GetBT() == 20)
-		{
-			//Scene::SetScene(new CSceneClear());
 		}
 	}
 

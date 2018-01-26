@@ -20,6 +20,8 @@ bool g_hero_change;
 //主人公が鍵を所持しているかのフラグ
 bool brother_key;
 bool sister_key;
+bool armor_block;
+bool shose_block;
 //主人公が門を開けるときのフラグ
 bool brother_gateopen;
 bool sister_gateopen;
@@ -60,6 +62,8 @@ void CObjBlock::Init()
 		}
 	}
 
+	armor_block = false;
+	shose_block = false;
 	brother_key = false;
 	sister_key = false;
 	brother_gateopen = false;
@@ -484,6 +488,41 @@ void CObjBlock::Draw()
 		Draw::Draw(1, &src, &dst, c, 0.0f);
 	}
 
+	//よろい取得時、アイテム覧に表示
+
+	if (g_hero_change == true && armor_block == true)
+	{
+		dst.m_top = 16.0f;
+		dst.m_left = 82.0f;
+		dst.m_right = 114.0f;
+		dst.m_bottom = 48.0f;
+
+		//切り取り位置の設定
+		src.m_top = 32.0f;
+		src.m_left = 96.0f;
+		src.m_right = 127.0f;
+		src.m_bottom = 63.0f;
+		Draw::Draw(1, &src, &dst, c, 0.0f);
+	}
+
+
+	//くつ取得時、アイテム覧に表示
+
+	if (g_hero_change == false && shose_block == true)
+	{
+		dst.m_top = 16.0f;
+		dst.m_left = 82.0f;
+		dst.m_right = 114.0f;
+		dst.m_bottom = 48.0f;
+
+		//切り取り位置の設定
+		src.m_top = 32.0f;
+		src.m_left = 64.0f;
+		src.m_right = 95.0f;
+		src.m_bottom = 63.0f;
+		Draw::Draw(1, &src, &dst, c, 0.0f);
+	}
+
 }
 
 
@@ -661,6 +700,33 @@ void CObjBlock::BlockHit
 								}
 							}
 
+							if (g_hero_change == true)
+							{
+								//兄がよろいに触れたらフラグを立てる
+								if (m_map[i][j] == 20)
+								{
+									armor_block = true;
+									m_map[i][j] = 0;
+								}
+								//ダメージを受けるとよろいが消える
+								if (m_map[i][j] == 3|| m_map[i][j] == 6|| m_map[i][j] == 12)
+								{
+									if (armor_block == true)
+									{
+										armor_block = false;
+										m_map[i][j] = 99;
+									}
+								}
+							}
+							else
+							{
+								//妹がくつに触れたらフラグを立てる
+								if (m_map[i][j] == 19)
+								{
+									shose_block = true;
+									m_map[i][j] = 0;
+								}
+							}
 						}
 					}
 				}
