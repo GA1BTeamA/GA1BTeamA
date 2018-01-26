@@ -57,8 +57,7 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
 	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
-	Draw::LoadImageW(L"GateBlock.png", 15, TEX_SIZE_64);
-	Draw::LoadImageW(L"GateOpenLeft.png", 8, TEX_SIZE_64);
+	Draw::LoadImageW(L"Gate.png", 8, TEX_SIZE_512);
 	Draw::LoadImageW(L"GateOpenRight.png", 9, TEX_SIZE_64);
 	Draw::LoadImageW(L"switchsis.png", 12, TEX_SIZE_32);
 	Draw::LoadImageW(L"switchbro.png", 13, TEX_SIZE_32);
@@ -99,19 +98,15 @@ void CSceneMain::InitScene()
 
 	//アイテム作成
 	CObjitem* obji = new CObjitem();
-	Objs::InsertObj(obji, OBJ_ITEM, 4);
+	Objs::InsertObj(obji, OBJ_ITEM, 1);
 
 	//アイテム作成
 	CObjitem2* obji2 = new CObjitem2();
-	Objs::InsertObj(obji2, OBJ_ITEM2, 4);
+	Objs::InsertObj(obji2, OBJ_ITEM2, 1);
 
-	//門ブロックオブジェクト作成
-	CObjGateBlock* objgbl = new CObjGateBlock();
-	Objs::InsertObj(objgbl, OBJ_GATEBLOCK, 1);
-
-	//開門オブジェクト(左)作成
-	CObjGateOpenLeft* objgol = new CObjGateOpenLeft();
-	Objs::InsertObj(objgol, OBJ_GATEOPENLEFT, 1);
+	//門オブジェクト作成
+	CObjGate* objgate = new CObjGate();
+	Objs::InsertObj(objgate, OBJ_GATE, 1);
 
 	//開門オブジェクト(右)作成
 	CObjGateOpenRight* objgor = new CObjGateOpenRight();

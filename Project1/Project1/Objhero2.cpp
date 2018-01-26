@@ -98,7 +98,6 @@ void  CObjhero2::Action()
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
 		{
-
 			if (button_flag_z == true && m_hit_down == true)
 			{
 				if (g_hero_change == false)
@@ -215,7 +214,7 @@ void  CObjhero2::Action()
 		//アイテム
 		if (GetBT() == 20)
 		{
-			Scene::SetScene(new CSceneClear());
+			//Scene::SetScene(new CSceneClear());
 		}
 	}
 

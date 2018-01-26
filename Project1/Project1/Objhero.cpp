@@ -101,6 +101,7 @@ void  CObjhero::Action()
 		{
 			if (button_flag_z == true && m_hit_down == true)
 			{
+
 				if (g_hero_change == false)
 					g_hero_change = true;
 				else
