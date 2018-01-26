@@ -56,5 +56,4 @@ private:
 	////ålŒöˆÊ’u
 	//float hx;
 	//float hy;
-
 };

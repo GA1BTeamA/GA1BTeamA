@@ -24,6 +24,8 @@ extern  bool g_hero_change;
  //妹のアイテムポーチ[0]=靴[1]=鍵
  int Sitem_porch[2];
 
+extern bool shose_block;
+
 //イニシャライズ
 void CObjhero2::Init()
 {
@@ -223,7 +225,13 @@ void  CObjhero2::Action()
 			Scene::SetScene(new CSceneGameOver());
 		}
 
-		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
+		if (GetBT() == 12 || GetBT() == 6)
+		{
+			HP -= 1;
+
+		}
+
+		if (GetBT() == 3 && shose_block == false)
 		{
 			//HP -= 1;
 		}
@@ -232,6 +240,7 @@ void  CObjhero2::Action()
 		{
 			Scene::SetScene(new CSceneClear());
 		}
+	}
 
 		hit->SetPos(m_px + 16, m_py);
 	}

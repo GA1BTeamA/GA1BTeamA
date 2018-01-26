@@ -33,7 +33,6 @@ public:
 	void SetDown(bool b) { m_hit_down = b; }
 	void SetLeft(bool b) { m_hit_left = b; }
 	void SetRight(bool b) { m_hit_right = b; }
-	void SetBT(int t) { m_block_type = t; }
 
 
 protected:
@@ -71,7 +70,5 @@ protected:
 	//踏んでいるblockの種類を確認用
 	int m_block_type;
 
-	int goal_block; //ゴールブロック
-	int skey_block; //妹鍵
-	int shose_block;//靴
+	int goal_block;
 };

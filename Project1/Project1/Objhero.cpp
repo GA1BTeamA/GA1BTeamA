@@ -225,6 +225,11 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
+		if (armor_block == true)
+		{
+			HP += 1;
+		}
+	}
 		if (g_hero_change == true)
 			hit->SetPos(m_px + 16, m_py);
 

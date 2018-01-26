@@ -76,7 +76,6 @@ protected:
 	int m_block_type;
 
 	//ゴールの当たり判定チェック用
-	int goal_block; //ゴールブロック
-	int bkey_block; //兄ブロック
-	int armor_block;//鎧ブロック
+	int goal_block;
+	int key_block;
 };
