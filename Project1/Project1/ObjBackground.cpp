@@ -35,7 +35,7 @@ void CObjBackground::Action()
 		hx = hero2->GetX();
 		hy = hero2->GetY();
 		//”wŒi1E2‚Ì“®ì
-		if (hx > 400)
+		if (hx >  MAPSIZE_X)
 		{
 			m_x1 -= hero2->GetVX();
 			m_x2 -= hero2->GetVX();
@@ -53,7 +53,7 @@ void CObjBackground::Action()
 		hy = hero->GetY();
 
 		//”wŒi1E2‚Ì“®ì
-		if (hx > 400)
+		if (hx >  MAPSIZE_X)
 		{
 			m_x1 -= hero->GetVX();
 			m_x2 -= hero->GetVX();
@@ -64,9 +64,6 @@ void CObjBackground::Action()
 			m_x2 -= hero->GetVX();
 		}
 	}
-
-
-	
 	
 	if (m_x1 < -800.0f)
 	{
@@ -86,7 +83,7 @@ void CObjBackground::Action()
 		m_x2 = m_x1 - 800;
 	}
 
-	//ƒ|[ƒY‰æ–Ê‚ÉˆÚ“®(‚Ì”wŒi•\Ž¦)
+	/*//ƒ|[ƒY‰æ–Ê‚ÉˆÚ“®(‚Ì”wŒi•\Ž¦)
 	if (Input::GetVKey('C') == true)
 	{
 		if (m_key_flag == true)
@@ -99,7 +96,7 @@ void CObjBackground::Action()
 	else
 	{
 		m_key_flag = true;
-	}
+	}*/
 }
 
 //ƒhƒ[

@@ -71,6 +71,7 @@ protected:
 	//踏んでいるblockの種類を確認用
 	int m_block_type;
 
-	int goal_block;
-	int shose_block;
+	int goal_block; //ゴールブロック
+	int skey_block; //妹鍵
+	int shose_block;//靴
 };

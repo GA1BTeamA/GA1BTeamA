@@ -17,6 +17,12 @@ extern  bool g_hero_change;
 
 extern float g_px;
 
+//兄妹の画面切り替えフラグ
+extern bool screen_change_flag;
+
+//兄のアイテムポーチ[0]=鎧[1]=鍵
+int Bitem_porch[2];
+
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -53,50 +59,53 @@ void CObjhero::Init()
 
 	m_block_type = 15;
 
+	//ゴールブロック
 	goal_block = 0;
+	//鎧ブロック
+	armor_block = 0;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
+
 }
 
 //アクション
 void  CObjhero::Action()
 {
 
-	//ブロックとの当たり判定実行
-	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-	pb->BlockHit(&m_px, &m_py, true,
-		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
-		&m_block_type
-	);
-
-	//ブロック情報を持ってくる
-	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-
-	//HitBoxの位置の変更
-	CHitBox* hit = Hits::GetHitBox(this);
-
-	//敵と当たっているか確認
-	if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
-	{
-		//主人公が敵とどの角度で当たっているか確認
-		HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
-		hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
-
-		//敵の左右に当たったら
-		float r = hit_data[0]->r;
-		if ((r < 45 && r >= 0) || r > 315)
-		{
-			Scene::SetScene(new CSceneGameOver());
-		}
-		/*if (r > 135 && r < 225)
-		{
-
-		}*/
-	}
-
 	if (g_hero_change == true)
 	{
 
+		//ブロックとの当たり判定実行
+		CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+		pb->BlockHit(&m_px, &m_py, true,
+			&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
+			&m_block_type
+		);
+
+		//ブロック情報を持ってくる
+		CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+		//HitBoxの位置の変更
+		CHitBox* hit = Hits::GetHitBox(this);
+
+		//敵と当たっているか確認
+		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
+		{
+			//主人公が敵とどの角度で当たっているか確認
+			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
+			hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
+
+			//敵の左右に当たったら
+			float r = hit_data[0]->r;
+			if ((r < 45 && r >= 0) || r > 315)
+			{
+				HP -= 1;
+			}
+			/*if (r > 135 && r < 225)
+			{
+
+			}*/
+		}
 
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
@@ -109,7 +118,9 @@ void  CObjhero::Action()
 				//ブロック情報を持ってくる
 				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 
-				g_px = block->GetScroll();
+				g_px = block->GetgbScroll();
+
+				screen_change_flag = true;
 
 				button_flag_z = false;
 			}
@@ -190,25 +201,22 @@ void  CObjhero::Action()
 			m_ani_framey = 0;
 		}
 
-}
+		//摩擦
+		m_vx += -(m_vx*0.098);
 
-	//摩擦
-	m_vx += -(m_vx*0.098);
+		//自由落下
+		m_vy += 9.8 / (16.0f);
 
-	//自由落下
-	m_vy += 9.8 / (16.0f);
+		//位置の更新
+		m_px += m_vx;
+		m_py += m_vy;
 
-	//位置の更新
-	m_px += m_vx;
-	m_py += m_vy;
-
-	hit->SetPos(m_px+16, m_py);
-
-	if (m_py > 850||HP==0)
-	{
-		g_px = 0.0f;
-		Scene::SetScene(new CSceneGameOver());
-	}
+		if (m_py > 850 || HP == 0)
+		{
+			g_px = 0.0f;
+			HP = 0;
+			Scene::SetScene(new CSceneGameOver());
+		}
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
@@ -220,11 +228,18 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
-		if (shoes_block == 19)
+		if (armor_block==20)
 		{
-			Scene::SetScene(new CSceneClear());
+			HP = 2;
+			Bitem_porch[0] = 1;
 		}
+
+		if (g_hero_change == true)
+			hit->SetPos(m_px + 16, m_py);
+	
 	}
+
+}
 
 //ドロー
 void  CObjhero::Draw()
