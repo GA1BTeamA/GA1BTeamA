@@ -799,7 +799,6 @@ void CObjBlock::BlockHit
 										if (armor_block == true)
 										{
 											armor_block = false;
-											m_map[i][j] = 99;
 										}
 									}
 								}

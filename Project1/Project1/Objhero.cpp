@@ -44,6 +44,8 @@ void CObjhero::Init()
 	m_hit_left = false;
 	m_hit_right = false;
 
+	n=0;
+
 	//ジャンプボタンフラグ
 	button_flag_up = false;
 
@@ -228,7 +230,7 @@ void  CObjhero::Action()
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			//HP -= 1;
+			HP -= 1;
 		}
 
 		if (goal_block == 11)
@@ -236,9 +238,10 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
-		if (armor_block == true)
+		if (armor_block == true&&n==0)
 		{
-			HP += 1;
+			HP = 2;
+			n++;
 		}
 
 		if (g_hero_change == true)
