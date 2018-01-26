@@ -212,7 +212,8 @@ void  CObjhero2::Action()
 		{
 			Scene::SetScene(new CSceneClear());
 		}
-		if (GetBT() == 19)
+		//ƒAƒCƒeƒ€
+		if (GetBT() == 20)
 		{
 			Scene::SetScene(new CSceneClear());
 		}
