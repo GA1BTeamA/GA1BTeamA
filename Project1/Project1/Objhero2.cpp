@@ -98,7 +98,6 @@ void  CObjhero2::Action()
 		//ålŒöØ‚è‘Ö‚¦
 		if (Input::GetVKey('Z') == true)
 		{
-
 			if (button_flag_z == true && m_hit_down == true)
 			{
 				if (g_hero_change == false)
