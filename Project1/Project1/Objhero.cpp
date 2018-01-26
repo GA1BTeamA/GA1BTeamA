@@ -23,6 +23,9 @@ extern bool screen_change_flag;
 //兄のアイテムポーチ[0]=鎧[1]=鍵
 int Bitem_porch[2];
 
+extern bool armor_block;
+
+
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -239,18 +242,11 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
-		if (armor_block==20)
+		if (armor_block == true)
 		{
-			HP = 2;
-			Bitem_porch[0] = 1;
+			HP += 1;
 		}
-
-		if (g_hero_change == true)
-			hit->SetPos(m_px + 16, m_py);
-	
 	}
-
-}
 
 //ドロー
 void  CObjhero::Draw()
