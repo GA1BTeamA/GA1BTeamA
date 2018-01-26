@@ -66,7 +66,7 @@ void CObjEnemy1::Action()
 	}
 	*/
 	//•ûŒü
-	if (m_move == true)
+	/*if (m_move == true)
 	{
 		m_vx += m_speed_power;
 		m_posture = 1.0f;
@@ -88,7 +88,7 @@ void CObjEnemy1::Action()
 	if (m_ani_framex == 4)
 	{
 		m_ani_framex = 0;
-	}
+	}*/
 
 	//–€ŽC
 	m_vx += -(m_vx * 0.098);

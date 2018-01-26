@@ -20,9 +20,6 @@ extern float g_px;
 //兄妹の画面切り替えフラグ
 extern bool screen_change_flag;
 
-//兄のアイテムポーチ[0]=鎧[1]=鍵
-int Bitem_porch[2];
-
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -220,7 +217,7 @@ void  CObjhero::Action()
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			HP -= 1;
+			//HP -= 1;
 		}
 
 		if (goal_block == 11)
@@ -228,15 +225,9 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
-		if (armor_block==20)
-		{
-			HP = 2;
-			Bitem_porch[0] = 1;
-		}
-
 		if (g_hero_change == true)
 			hit->SetPos(m_px + 16, m_py);
-	
+
 	}
 
 }

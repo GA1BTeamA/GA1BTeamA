@@ -225,16 +225,12 @@ void  CObjhero2::Action()
 
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			HP -= 1;
+			//HP -= 1;
 		}
 
 		if (goal_block == 11)
 		{
 			Scene::SetScene(new CSceneClear());
-		}
-		if (GetBT() == 19)
-		{
-			//Scene::SetScene(new CSceneClear());
 		}
 
 		hit->SetPos(m_px + 16, m_py);
