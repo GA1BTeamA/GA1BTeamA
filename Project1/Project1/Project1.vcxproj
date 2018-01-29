@@ -174,8 +174,12 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="ScenePause.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
-    <ClCompile Include="Objswitchbro.cpp" />
-    <ClCompile Include="Objswitchsis.cpp" />
+    <ClCompile Include="Objswitchbro.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Objswitchsis.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="F:\SceneGameOver.h" />
@@ -234,8 +238,12 @@
     <ClInclude Include="SceneTitle.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Objswitchbro.h" />
-    <ClInclude Include="Objswitchsis.h" />
+    <ClInclude Include="Objswitchbro.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Objswitchsis.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="GameL\Draw2DTex.hlsl" />

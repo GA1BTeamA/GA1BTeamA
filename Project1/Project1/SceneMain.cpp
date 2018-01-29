@@ -20,6 +20,7 @@ using namespace GameL;
 CObjBlock* g_objb;
 
 CObjhero* objh;
+CObjhero2* objh2;
 
 //コンストラクタ
 CSceneMain::CSceneMain()
@@ -70,7 +71,7 @@ void CSceneMain::InitScene()
 	objh = new CObjhero();
 
 	//主人公妹オブジェクト作成
-	CObjhero2* objh2 = new CObjhero2();
+	objh2 = new CObjhero2();
 	Objs::InsertObj(objh2, OBJ_HERO2, 10);
 
 	//主人公兄オブジェクト作成
@@ -113,13 +114,13 @@ void CSceneMain::InitScene()
 	CObjGateOpenRight* objgor = new CObjGateOpenRight();
 	Objs::InsertObj(objgor, OBJ_GATEOPENRIGHT, 11);
 
-	//スイッチ(妹)作成
-	CObjswitchsis* objss = new CObjswitchsis();
-	Objs::InsertObj(objss, OBJ_SWITCHS, 12);
+	////スイッチ(妹)作成
+	//CObjswitchsis* objss = new CObjswitchsis();
+	//Objs::InsertObj(objss, OBJ_SWITCHS, 12);
 
-	//スイッチ(兄)作成
-	CObjswitchbro* objsb = new CObjswitchbro();
-	Objs::InsertObj(objsb, OBJ_SWITCHB, 13);
+	////スイッチ(兄)作成
+	//CObjswitchbro* objsb = new CObjswitchbro();
+	//Objs::InsertObj(objsb, OBJ_SWITCHB, 13);
 
 }
 
