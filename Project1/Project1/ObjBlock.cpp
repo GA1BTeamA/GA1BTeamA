@@ -37,7 +37,6 @@ bool screen_change_flag;
 //兄のアイテムポーチ[0]=鎧[1]=鍵
 extern int Bitem_porch[2];
 
-
 //妹のアイテムポーチ[0]=靴[1]=鍵
 extern int Sitem_porch[2];
 
