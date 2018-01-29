@@ -25,7 +25,7 @@ extern bool armor_block;
 //イニシャライズ
 void CObjhero::Init()
 {
-	m_px = 90.0f;    //位置
+	m_px = 250.0f;    //位置
 	m_py = 512.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;

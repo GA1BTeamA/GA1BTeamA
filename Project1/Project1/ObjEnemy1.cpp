@@ -37,7 +37,7 @@ void CObjEnemy1::Init()
 
 	m_move = false; //true=右　false=左
 
-	Hits::SetHitBox(this, m_px, m_py, 64, 50, ELEMENT_ENEMY, OBJ_ENEMY1, 1);
+	Hits::SetHitBox(this, m_px, m_py, 60, 40, ELEMENT_ENEMY, OBJ_ENEMY1, 1);
 }
 
 //アクション
@@ -112,7 +112,7 @@ void CObjEnemy1::Action()
 
 	//HitBoxの位置の変更
 	CHitBox* hit = Hits::GetHitBox(this);
-	hit->SetPos(m_px + block->GetScroll(), m_py+12);
+	hit->SetPos(m_px + block->GetScroll(), m_py+22);
 
 	if ( m_py < 0 || m_py > 600)
 	{

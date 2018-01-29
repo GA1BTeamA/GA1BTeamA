@@ -26,7 +26,7 @@ extern bool shose_block;
 //イニシャライズ
 void CObjhero2::Init()
 {
-	m_px = 150.0f;    //位置
+	m_px = 300.0f;    //位置
 	m_py = 512.0f;
 
 	//g_px = 0.0f; //グローバル位置

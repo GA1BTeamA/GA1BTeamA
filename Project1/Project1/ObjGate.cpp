@@ -127,8 +127,8 @@ void CObjGate::Draw()
 				//64*64‚Å•\Ž¦
 				dst.m_top = i*32.0f;
 				dst.m_left = j*32.0f + m_block_scroll;
-				dst.m_right = dst.m_left + 32.0f;
-				dst.m_bottom = dst.m_top + 32.0f;
+				dst.m_right = dst.m_left + 64.0f;
+				dst.m_bottom = dst.m_top + 64.0f;
 
 				//•`‰æ
 

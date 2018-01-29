@@ -138,10 +138,10 @@ void CObjBlock::Action()
 	if (g_hero_change == true)
 	{
 		//兄後方スクロールライン
-		if (hx < 80)
+		if (hx < 250)
 		{
 
-			hero->SetX(80);						//主人公はラインを超えないようにする
+			hero->SetX(250);						//主人公はラインを超えないようにする
 			m_block_scroll -= hero->GetVX();//主人公が本来動くべき分の値をm_block_scrollに加える
 			gb_block_scroll -= hero->GetVX();//主人公が本来動くべき分の値をm_block_scrollに加える
 
@@ -159,9 +159,9 @@ void CObjBlock::Action()
 	else
 	{
 		//妹後方スクロールライン
-		if (hx2 < 80)
+		if (hx2 < 250)
 		{
-			hero2->SetX(80);						//主人公はラインを超えないようにする
+			hero2->SetX(250);						//主人公はラインを超えないようにする
 			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 			gs_block_scroll -= hero2->GetVX();//主人公が本来動くべき分の値をm_block_scrollに加える
 		}

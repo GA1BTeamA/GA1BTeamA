@@ -80,7 +80,7 @@ void CSceneMain::InitScene()
 
 	//blockオブジェクト作成
 	g_objb = new CObjBlock();
-	Objs::InsertObj(g_objb, OBJ_BLOCK, 1);
+	Objs::InsertObj(g_objb, OBJ_BLOCK, 4);
 
 	//背景作成
 	CObjBackground* back = new CObjBackground();
@@ -100,11 +100,11 @@ void CSceneMain::InitScene()
 
 	//アイテム作成
 	CObjitem* obji = new CObjitem();
-	Objs::InsertObj(obji, OBJ_ITEM, 1);
+	Objs::InsertObj(obji, OBJ_ITEM,2);
 
 	//アイテム作成
 	CObjitem2* obji2 = new CObjitem2();
-	Objs::InsertObj(obji2, OBJ_ITEM2, 1);
+	Objs::InsertObj(obji2, OBJ_ITEM2, 2);
 
 	//門オブジェクト作成
 	CObjGate* objgate = new CObjGate();
