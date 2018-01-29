@@ -247,6 +247,7 @@ void  CObjhero::Action()
 			HP += 1;
 		}
 	}
+}
 
 //ÉhÉçÅ[
 void  CObjhero::Draw()
