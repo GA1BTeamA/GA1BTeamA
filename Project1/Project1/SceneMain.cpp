@@ -113,13 +113,6 @@ void CSceneMain::InitScene()
 	CObjGateOpenRight* objgor = new CObjGateOpenRight();
 	Objs::InsertObj(objgor, OBJ_GATEOPENRIGHT, 11);
 
-	//スイッチ(妹)作成
-	CObjswitchsis* objss = new CObjswitchsis();
-	Objs::InsertObj(objss, OBJ_SWITCHS, 12);
-
-	//スイッチ(兄)作成
-	CObjswitchbro* objsb = new CObjswitchbro();
-	Objs::InsertObj(objsb, OBJ_SWITCHB, 13);
 
 }
 

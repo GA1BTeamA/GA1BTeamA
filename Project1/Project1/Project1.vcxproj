@@ -174,8 +174,12 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="ScenePause.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
-    <ClCompile Include="Objswitchbro.cpp" />
-    <ClCompile Include="Objswitchsis.cpp" />
+    <ClCompile Include="Objswitchbro.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Objswitchsis.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="F:\SceneGameOver.h" />

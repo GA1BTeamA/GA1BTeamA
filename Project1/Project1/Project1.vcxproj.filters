@@ -234,6 +234,8 @@
     <ClInclude Include="Objkey.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Objkanbanb.h" />
+    <ClInclude Include="Objkanbans.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">
