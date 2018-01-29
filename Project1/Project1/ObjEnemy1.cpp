@@ -54,7 +54,7 @@ void CObjEnemy1::Action()
 	//通常速度
 	m_speed_power = 0.35f;
 	m_ani_max_time = 6;
-	/*
+	
 	//ブロック衝突で向き変更
 	if (m_hit_left == true)
 	{
@@ -64,7 +64,7 @@ void CObjEnemy1::Action()
 	{
 		m_move = false;
 	}
-	*/
+	
 	//方向
 	if (m_move == true)
 	{

@@ -59,6 +59,9 @@ void CObjGate::Init()
 //アクション
 void CObjGate::Action()
 {
+	//ブロック情報を持ってくる
+	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
 	//兄主人公の位置を取得
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX();
@@ -71,31 +74,36 @@ void CObjGate::Action()
 
 	if (g_hero_change == true)
 	{
+		m_block_scroll = block->GetgbScroll();
 		//兄後方マップスクロール
 		if (hx < 80)
 		{
-			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			//m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll = block->GetgbScroll();
 		}
 
 		//兄前方マップスクロール
 		if (hx > MAPSIZE_X)
 		{
-			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			//m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll = block->GetgbScroll();
 		}
 	}
-
 	else
 	{
+		m_block_scroll = block->GetgsScroll();
 		//妹後方マップスクロール
 		if (hx2 < 80)
 		{
-			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			//m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll = block->GetgsScroll();
 		}
 
 		//妹前方マップスクロール
 		if (hx2 > MAPSIZE_X)
 		{
-			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			//m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll = block->GetgsScroll();
 		}
 	}
 }
@@ -119,8 +127,8 @@ void CObjGate::Draw()
 				//64*64で表示
 				dst.m_top = i*32.0f;
 				dst.m_left = j*32.0f + m_block_scroll;
-				dst.m_right = dst.m_left + 64.0f;
-				dst.m_bottom = dst.m_top + 64.0f;
+				dst.m_right = dst.m_left + 32.0f;
+				dst.m_bottom = dst.m_top + 32.0f;
 
 				//描画
 
@@ -205,6 +213,8 @@ CObjGateOpenRight::CObjGateOpenRight()
 //イニシャライズ
 void CObjGateOpenRight::Init()
 {
+	
+
 	//マップデータ
 	//外部データの読み込み(ステージ情報)
 	unique_ptr<wchar_t>p;  //ステージ情報ポインター
@@ -232,6 +242,9 @@ void CObjGateOpenRight::Init()
 //アクション
 void CObjGateOpenRight::Action()
 {
+	//ブロック情報を持ってくる
+	CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
 	//兄主人公の位置を取得
 	CObjhero* hero = (CObjhero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX();
@@ -244,31 +257,37 @@ void CObjGateOpenRight::Action()
 
 	if (g_hero_change == true)
 	{
+		m_block_scroll = block->GetgbScroll();
 		//兄後方マップスクロール
 		if (hx < 80)
 		{
-			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			//m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll = block->GetgbScroll();
 		}
 
 		//兄前方マップスクロール
 		if (hx > MAPSIZE_X)
 		{
-			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			//m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll = block->GetgbScroll();
 		}
 	}
 
 	else
 	{
+		m_block_scroll = block->GetgsScroll();
 		//妹後方マップスクロール
 		if (hx2 < 80)
 		{
-			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			//m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll = block->GetgsScroll();
 		}
 
 		//妹前方マップスクロール
 		if (hx2 > MAPSIZE_X)
 		{
-			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			//m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
+			m_block_scroll = block->GetgsScroll();
 		}
 	}
 }

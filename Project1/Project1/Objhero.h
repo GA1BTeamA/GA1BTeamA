@@ -35,7 +35,6 @@ public:
 	void SetRight(bool b) { m_hit_right = b; }
 	void SetBT(int t) { m_block_type = t; }
 	void SetGoalBlock(int goalblock) { goal_block = goalblock; }
-	void SetArmorBlock(int armorblock) { armor_block = armorblock; }
 
 	bool GetDrawFlag() { return Draw_flag; }
 
@@ -71,6 +70,8 @@ protected:
 
 	//‘Ì—Í
 	int HP;
+
+	int n;
 
 	//“¥‚ñ‚Å‚¢‚éblock‚ÌŽí—Þ‚ðŠm”F—p
 	int m_block_type;

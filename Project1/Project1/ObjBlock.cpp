@@ -682,9 +682,9 @@ void CObjBlock::BlockHit
 							//兄 5=木ブロック 18=兄鍵 20=鎧
 							if (g_hero_change == false && m_map[i][j] == 5 || g_hero_change == false && m_map[i][j] == 18 || g_hero_change == false && m_map[i][j] == 20)
 								;
-							//妹 4=木ブロック 13=草ブロック 16=土ブロック 21=妹鍵 19=靴
+							//妹 4=木ブロック 13=草ブロック 16=土ブロック 23=妹鍵 19=靴
 							else if (g_hero_change == true && m_map[i][j] == 4 || g_hero_change == true && m_map[i][j] == 13 || g_hero_change == true && m_map[i][j] == 16 ||
-								g_hero_change == true && m_map[i][j] == 21 || g_hero_change == true && m_map[i][j] == 19)
+								g_hero_change == true && m_map[i][j] == 23 || g_hero_change == true && m_map[i][j] == 19)
 								;
 							//その他
 							else
@@ -724,10 +724,6 @@ void CObjBlock::BlockHit
 									if (m_map[i][j] == 11)
 									{
 										objh->SetGoalBlock(11);
-									}
-									if (m_map[i][j] == 20)
-									{
-										objh->SetArmorBlock(20);
 									}
 
 								}

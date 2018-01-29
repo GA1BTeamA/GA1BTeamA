@@ -20,11 +20,7 @@ extern float g_px;
 //兄妹の画面切り替えフラグ
 extern bool screen_change_flag;
 
-//兄のアイテムポーチ[0]=鎧[1]=鍵
-int Bitem_porch[2];
-
 extern bool armor_block;
-
 
 //イニシャライズ
 void CObjhero::Init()
@@ -48,6 +44,8 @@ void CObjhero::Init()
 	m_hit_left = false;
 	m_hit_right = false;
 
+	n=0;
+
 	//ジャンプボタンフラグ
 	button_flag_up = false;
 
@@ -64,8 +62,6 @@ void CObjhero::Init()
 
 	//ゴールブロック
 	goal_block = 0;
-	//鎧ブロック
-	armor_block = 0;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
 
@@ -242,11 +238,18 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
-		if (armor_block == true)
+		if (armor_block == true&&n==0)
 		{
-			HP += 1;
+			HP = 2;
+			n++;
 		}
+
+		if (g_hero_change == true)
+			hit->SetPos(m_px + 16, m_py);
+
 	}
+}
+
 }
 
 //ドロー

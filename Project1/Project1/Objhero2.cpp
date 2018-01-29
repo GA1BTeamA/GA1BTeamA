@@ -18,11 +18,8 @@ extern  bool g_hero_change;
 //グローバル位置
  float g_px;
 
- //兄妹の画面切り替えフラグ
- extern bool screen_change_flag;
-
- //妹のアイテムポーチ[0]=靴[1]=鍵
- int Sitem_porch[2];
+//兄妹の画面切り替えフラグ
+extern bool screen_change_flag;
 
 extern bool shose_block;
 
@@ -101,16 +98,27 @@ void  CObjhero2::Action()
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
 			hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
 
-															//敵の左右に当たったら
+			//敵の左右に当たったら
 			float r = hit_data[0]->r;
-			if ((r < 45 && r >= 0) || r > 315)
+			//右
+			if ((r <= 45 && r >= 0) || r >= 315)
 			{
 				HP -= 1;
 			}
-			/*if (r > 135 && r < 225)
+			//上
+			if (r >= 45 && r <= 135)
 			{
-
-			}*/
+				HP -= 1;
+			}
+			//左
+			if (r >= 135 && r <= 225)
+			{
+				HP -= 1;
+			}
+			if (r >= 225 && r <= 315)
+			{
+				HP -= 1;
+			}
 		}
 
 		//主人公切り替え
@@ -240,7 +248,6 @@ void  CObjhero2::Action()
 		{
 			Scene::SetScene(new CSceneClear());
 		}
-	}
 
 		//hit->SetPos(m_px + 16, m_py);
 }
