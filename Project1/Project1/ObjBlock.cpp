@@ -10,6 +10,7 @@
 #include "Objhero.h"
 
 extern CObjhero* objh;
+extern CObjhero2* objh2;
 
 //使用するネームスペース
 using namespace GameL;
@@ -724,6 +725,7 @@ void CObjBlock::BlockHit
 									if (m_map[i][j] == 11)
 									{
 										objh->SetGoalBlock(11);
+										objh2->SetGoalBlock(11);
 									}
 
 								}

@@ -63,6 +63,9 @@ void CObjhero2::Init()
 	//ブロック＆主人公切り替え false=妹用 true=兄用
 	g_hero_change = false;
 
+	//ゴールブロック
+	goal_block = 0;
+
 	m_block_type = 15;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO2, 1);
@@ -249,7 +252,8 @@ void  CObjhero2::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
-		//hit->SetPos(m_px + 16, m_py);
+		hit->SetPos(m_px + 16, m_py);
+	}
 }
 
 //ドロー

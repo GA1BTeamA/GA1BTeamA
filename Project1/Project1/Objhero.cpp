@@ -248,7 +248,6 @@ void  CObjhero::Action()
 			hit->SetPos(m_px + 16, m_py);
 
 	}
-}
 
 }
 
