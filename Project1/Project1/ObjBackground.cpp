@@ -40,7 +40,7 @@ void CObjBackground::Action()
 			m_x1 -= hero2->GetVX();
 			m_x2 -= hero2->GetVX();
 		}
-		else if (hx < 80)
+		else if (hx < 250)
 		{
 			m_x1 -= hero2->GetVX();
 			m_x2 -= hero2->GetVX();
@@ -58,7 +58,7 @@ void CObjBackground::Action()
 			m_x1 -= hero->GetVX();
 			m_x2 -= hero->GetVX();
 		}
-		else if (hx < 80)
+		else if (hx < 250)
 		{
 			m_x1 -= hero->GetVX();
 			m_x2 -= hero->GetVX();

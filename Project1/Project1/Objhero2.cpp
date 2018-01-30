@@ -75,10 +75,6 @@ void CObjhero2::Init()
 void  CObjhero2::Action()
 {
 
-	
-
-
-
 	if (g_hero_change == false)
 	{
 

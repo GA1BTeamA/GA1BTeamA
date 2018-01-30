@@ -21,6 +21,8 @@ extern float g_px;
 extern bool screen_change_flag;
 
 extern bool armor_block;
+bool damage_flag;
+bool enemy_flag;
 
 //イニシャライズ
 void CObjhero::Init()
@@ -44,7 +46,11 @@ void CObjhero::Init()
 	m_hit_left = false;
 	m_hit_right = false;
 
-	n=0;
+	d = 0;
+	t = 0;
+
+	damage_flag = false;
+	enemy_flag = false;
 
 	//ジャンプボタンフラグ
 	button_flag_up = false;
@@ -100,21 +106,46 @@ void  CObjhero::Action()
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
 				HP -= 1;
+				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+				if (enemy_flag == false)
+				{
+					enemy_flag = true;
+				}				
 			}
 			//上
 			if (r >= 45 && r <= 135)
 			{
 				HP -= 1;
+				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+				if (enemy_flag == false)
+				{
+					enemy_flag = true;
+				}
 			}
 			//左
 			if (r >= 135 && r <= 225)
 			{
 				HP -= 1;
+				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+				if (enemy_flag == false)
+				{
+					enemy_flag = true;
+				}
 			}
 			if (r >= 225 && r <= 315)
 			{
 				HP -= 1;
+				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+				if (enemy_flag == false)
+				{
+					enemy_flag = true;
+				}
 			}
+			if (armor_block == true)
+			{
+				armor_block = false;
+			}
+			
 		}
 
 		//主人公切り替え
@@ -228,9 +259,19 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneGameOver());
 		}
 
+		if (armor_block == true && HP<2)
+		{
+			HP = 2;
+		}
+
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			HP -= 1;
+			
+			if (HP>0&&d == 0 && damage_flag == false)
+			{
+				HP -= 1;
+				damage_flag = true;
+			}
 		}
 
 		if (goal_block == 11)
@@ -238,15 +279,37 @@ void  CObjhero::Action()
 			Scene::SetScene(new CSceneClear());
 		}
 
-		if (armor_block == true&&n==0)
+		
+		//おおかみと接触した時の無敵
+		if (enemy_flag == true)
 		{
-			HP = 2;
-			n++;
+			t++;
+		}
+		else
+		{
+			t = 0;
+		}
+		if (t > 60 * 1)
+		{
+			hit->SetStatus(ELEMENT_PLAYER, OBJ_HERO, 1);
+			enemy_flag = false;
+		}
+		//とげ踏んだ時の無敵
+		if (damage_flag == true)
+		{
+			d++;
+		}
+		else
+		{
+			d = 0;
+		}
+		if (d > 60 * 1)
+		{
+			damage_flag = false;
 		}
 
 		if (g_hero_change == true)
 			hit->SetPos(m_px + 16, m_py);
-
 	}
 
 }

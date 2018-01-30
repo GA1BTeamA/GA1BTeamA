@@ -71,7 +71,8 @@ protected:
 	//‘Ì—Í
 	int HP;
 
-	int n;
+	int t;
+	int d;
 
 	//“¥‚ñ‚Å‚¢‚éblock‚ÌŽí—Þ‚ðŠm”F—p
 	int m_block_type;

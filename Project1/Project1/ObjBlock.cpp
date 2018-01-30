@@ -795,12 +795,11 @@ void CObjBlock::BlockHit
 										m_map[i][j] = 0;
 									}
 									//É_ÉÅÅ[ÉWÇéÛÇØÇÈÇ∆ÇÊÇÎÇ¢Ç™è¡Ç¶ÇÈ
-									if (m_map[i][j] == 3 || m_map[i][j] == 6 || m_map[i][j] == 12)
+									if (m_map[i][j] == 3&& *down == true || m_map[i][j] == 6 && *down == true || m_map[i][j] == 12 && *up == true)
 									{
 										if (armor_block == true)
 										{
 											armor_block = false;
-											m_map[i][j] = 99;
 										}
 									}
 								}
