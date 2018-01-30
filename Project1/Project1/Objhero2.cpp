@@ -30,7 +30,7 @@ extern bool sister_goal;
 //イニシャライズ
 void CObjhero2::Init()
 {
-	m_px = 300.0f;    //位置
+	m_px = 380.0f;    //位置
 	m_py = 512.0f;
 
 	//g_px = 0.0f; //グローバル位置
@@ -159,14 +159,14 @@ void  CObjhero2::Action()
 		{
 			m_vx += 0.4f;
 			m_posture = 1.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 
 		}
 		else if (Input::GetVKey(VK_LEFT) == true)
 		{
 			m_vx -= 0.4f;
 			m_posture = 0.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 		}
 		else
 		{
@@ -266,7 +266,7 @@ void  CObjhero2::Action()
 			}
 		}
 
-		hit->SetPos(m_px + 16, m_py);
+		hit->SetPos(m_px + 18, m_py+9);
 	}
 }
 

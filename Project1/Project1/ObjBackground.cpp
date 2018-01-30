@@ -36,12 +36,12 @@ void CObjBackground::Action()
 		hy = hero2->GetY();
 
 		//”wŒi1E2‚Ì“®ì
-		if (hx >  MAPSIZE_X)
+		if (hx >  380)
 		{
 			sm_x1 -= hero2->GetVX();
 			sm_x2 -= hero2->GetVX();
 		}
-		else if (hx < 80)
+		else if (hx < 250)
 		{
 			sm_x1 -= hero2->GetVX();
 			sm_x2 -= hero2->GetVX();
@@ -54,12 +54,12 @@ void CObjBackground::Action()
 		hy = hero->GetY();
 
 		//”wŒi1E2‚Ì“®ì
-		if (hx >  MAPSIZE_X)
+		if (hx >  380)
 		{
 			bm_x1 -= hero->GetVX();
 			bm_x2 -= hero->GetVX();
 		}
-		else if (hx < 80)
+		else if (hx < 250 )
 		{
 			bm_x1 -= hero->GetVX();
 			bm_x2 -= hero->GetVX();

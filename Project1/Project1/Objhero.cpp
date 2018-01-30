@@ -29,7 +29,7 @@ extern bool sister_goal;
 //イニシャライズ
 void CObjhero::Init()
 {
-	m_px = 250.0f;    //位置
+	m_px = 300.0f;    //位置
 	m_py = 512.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
@@ -153,14 +153,14 @@ void  CObjhero::Action()
 		{
 			m_vx += 0.4f;
 			m_posture = 1.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 
 		}
 		else if (Input::GetVKey(VK_LEFT) == true)
 		{
 			m_vx -= 0.4f;
 			m_posture = 0.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 		}
 		else
 		{
@@ -260,7 +260,7 @@ void  CObjhero::Action()
 		}
 
 		if (g_hero_change == true)
-			hit->SetPos(m_px + 16, m_py);
+			hit->SetPos(m_px + 17, m_py+3);
 
 	}
 
@@ -273,8 +273,9 @@ void  CObjhero::Draw()
 	//歩き描画用
 	int AniDatax[8] =
 	{
-		-1,0,1,2,3,4,5,6,
+		-1,0,1,2,3,4,5,6
 	};
+
 	//ジャンプ用
 	int AniDatay[9] =
 	{
