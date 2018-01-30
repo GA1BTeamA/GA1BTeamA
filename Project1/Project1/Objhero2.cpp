@@ -23,6 +23,10 @@ extern bool screen_change_flag;
 
 extern bool shose_block;
 
+//主人公がゴール前にいるかどうか
+extern bool brother_goal;
+extern bool sister_goal;
+
 //イニシャライズ
 void CObjhero2::Init()
 {
@@ -67,6 +71,8 @@ void CObjhero2::Init()
 	goal_block = 0;
 
 	m_block_type = 15;
+
+	sister_goal = false;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO2, 1);
 }
@@ -233,6 +239,8 @@ void  CObjhero2::Action()
 		if (m_py > 850 || HP == 0)
 		{
 			g_px = 0.0f;
+			sister_goal = false;
+			goal_block = 0;
 			Scene::SetScene(new CSceneGameOver());
 		}
 
@@ -249,7 +257,13 @@ void  CObjhero2::Action()
 
 		if (goal_block == 11)
 		{
-			Scene::SetScene(new CSceneClear());
+			goal_block = 0;
+			if (brother_goal == true && sister_goal == true)
+			{
+				g_px = 0.0f;
+				sister_goal = false;
+				Scene::SetScene(new CSceneClear());
+			}
 		}
 
 		hit->SetPos(m_px + 16, m_py);

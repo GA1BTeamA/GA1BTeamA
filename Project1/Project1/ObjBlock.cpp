@@ -27,18 +27,15 @@ bool shose_block;
 bool brother_gateopen;
 bool sister_gateopen;
 
-
 //グローバル位置
 extern float g_px;
 
+//主人公がゴール前にいるかどうか
+bool brother_goal;
+bool sister_goal;
+
 //兄妹の画面切り替えフラグ
 bool screen_change_flag;
-
-//兄のアイテムポーチ[0]=鎧[1]=鍵
-extern int Bitem_porch[2];
-
-//妹のアイテムポーチ[0]=靴[1]=鍵
-extern int Sitem_porch[2];
 
 CObjBlock::CObjBlock()
 {
@@ -370,7 +367,7 @@ void CObjBlock::Draw()
 			}
 
 				//草ブロック
-				if (m_map[i][j] == 1)
+				if (m_map[i][j] == 1|| m_map[i][j] == 26)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -709,6 +706,21 @@ void CObjBlock::BlockHit
 										*y = by - 64.0f;//ブロック位置ー主人公の幅
 										*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
 										*vy = 0.0f;
+
+										if (*bt==26)
+										{
+											if (g_hero_change == true)
+												brother_goal = true;
+											else
+												sister_goal = true;
+										}
+										else
+										{
+											if(g_hero_change == true)
+												brother_goal = false;
+											else
+												sister_goal = false;
+										}
 									}
 								}
 								if (r >= 135 && r <= 225)
