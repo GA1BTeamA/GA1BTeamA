@@ -24,10 +24,14 @@ extern bool armor_block;
 bool damage_flag;
 bool enemy_flag;
 
+//主人公がゴール前にいるかどうか
+extern bool brother_goal;
+extern bool sister_goal;
+
 //イニシャライズ
 void CObjhero::Init()
 {
-	m_px = 250.0f;    //位置
+	m_px = 300.0f;    //位置
 	m_py = 512.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
@@ -68,6 +72,8 @@ void CObjhero::Init()
 
 	//ゴールブロック
 	goal_block = 0;
+
+	brother_goal = false;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
 
@@ -178,14 +184,14 @@ void  CObjhero::Action()
 		{
 			m_vx += 0.4f;
 			m_posture = 1.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 
 		}
 		else if (Input::GetVKey(VK_LEFT) == true)
 		{
 			m_vx -= 0.4f;
 			m_posture = 0.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 		}
 		else
 		{
@@ -255,6 +261,8 @@ void  CObjhero::Action()
 		if (m_py > 850 || HP == 0)
 		{
 			g_px = 0.0f;
+			brother_goal = false;
+			goal_block = 0;
 			HP = 0;
 			Scene::SetScene(new CSceneGameOver());
 		}
@@ -274,9 +282,16 @@ void  CObjhero::Action()
 			}
 		}
 
+
 		if (goal_block == 11)
 		{
-			Scene::SetScene(new CSceneClear());
+			goal_block = 0;
+			if (brother_goal == true && sister_goal == true)
+			{
+				g_px = 0.0f;
+				brother_goal = false;
+				Scene::SetScene(new CSceneClear());
+			}
 		}
 
 		
@@ -321,8 +336,9 @@ void  CObjhero::Draw()
 	//歩き描画用
 	int AniDatax[8] =
 	{
-		-1,0,1,2,3,4,5,6,
+		-1,0,1,2,3,4,5,6
 	};
+
 	//ジャンプ用
 	int AniDatay[9] =
 	{

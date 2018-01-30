@@ -15,11 +15,11 @@ extern  bool g_hero_change;
 void CObjBackground::Init()
 {
 	m_scroll = 0.0f;
-	m_x1 = 0.0f;
-	m_x2 = 800.0f;
+	bm_x1 = 0.0f;
+	bm_x2 = 800.0f;
+	sm_x1 = 0.0f;
+	sm_x2 = 800.0f;
 	m_key_flag = false;
-
-	
 }
 
 //ÉAÉNÉVÉáÉì
@@ -34,16 +34,17 @@ void CObjBackground::Action()
 	{
 		hx = hero2->GetX();
 		hy = hero2->GetY();
+
 		//îwåi1ÅE2ÇÃìÆçÏ
-		if (hx >  MAPSIZE_X)
+		if (hx >  380)
 		{
-			m_x1 -= hero2->GetVX();
-			m_x2 -= hero2->GetVX();
+			sm_x1 -= hero2->GetVX();
+			sm_x2 -= hero2->GetVX();
 		}
 		else if (hx < 250)
 		{
-			m_x1 -= hero2->GetVX();
-			m_x2 -= hero2->GetVX();
+			sm_x1 -= hero2->GetVX();
+			sm_x2 -= hero2->GetVX();
 		}
 	}
 	//åZ
@@ -53,35 +54,26 @@ void CObjBackground::Action()
 		hy = hero->GetY();
 
 		//îwåi1ÅE2ÇÃìÆçÏ
-		if (hx >  MAPSIZE_X)
+		if (hx >  380)
 		{
-			m_x1 -= hero->GetVX();
-			m_x2 -= hero->GetVX();
+			bm_x1 -= hero->GetVX();
+			bm_x2 -= hero->GetVX();
 		}
-		else if (hx < 250)
+		else if (hx < 250 )
 		{
-			m_x1 -= hero->GetVX();
-			m_x2 -= hero->GetVX();
+			bm_x1 -= hero->GetVX();
+			bm_x2 -= hero->GetVX();
 		}
 	}
 	
-	if (m_x1 < -800.0f)
-	{
-		m_x1 = m_x2 + 800;
-	}
-	if (m_x1 > 800.0f)
-	{
-		m_x1 = m_x2 - 800;
-	}
-	
-	if (m_x2 < -800.0f)
-	{
-		m_x2 = m_x1 + 800;
-	}
-	if (m_x2 > 800.0f)
-	{
-		m_x2 = m_x1 - 800;
-	}
+	if (sm_x1 < -800.0f) { sm_x1 = sm_x2 + 800; }
+	if (sm_x1 >  800.0f) { sm_x1 = sm_x2 - 800; }
+	if (sm_x2 < -800.0f) { sm_x2 = sm_x1 + 800; }
+	if (sm_x2 >  800.0f) { sm_x2 = sm_x1 - 800; }
+	if (bm_x1 < -800.0f) { bm_x1 = bm_x2 + 800; }
+	if (bm_x1 >  800.0f) { bm_x1 = bm_x2 - 800; }
+	if (bm_x2 < -800.0f) { bm_x2 = bm_x1 + 800; }
+	if (bm_x2 >  800.0f) { bm_x2 = bm_x1 - 800; }
 
 	/*//É|Å[ÉYâÊñ Ç…à⁄ìÆ(ÇÃîwåiï\é¶)
 	if (Input::GetVKey('C') == true)
@@ -114,17 +106,36 @@ void CObjBackground::Draw()
 	src.m_right = 790.0f;
 	src.m_bottom = 400.0f;
 
-	//îwåi1à íuê›íËÇµï`âÊ
-	dst.m_top = 0.0f;
-	dst.m_left = 0.0f + m_x1;
-	dst.m_right = 800.0f + m_x1;
-	dst.m_bottom = 600.0f;
-	Draw::Draw(0, &src, &dst, c, 0.0f);
+	if (g_hero_change == false)
+	{
+		//ñÖîwåi1à íuê›íËÇµï`âÊ
+		dst.m_top = 0.0f;
+		dst.m_left = 0.0f + sm_x1;
+		dst.m_right = 800.0f + sm_x1;
+		dst.m_bottom = 600.0f;
+		Draw::Draw(0, &src, &dst, c, 0.0f);
 
-	//îwåi2à íuê›íËÇµï`âÊ
-	dst.m_top = 0.0f;
-	dst.m_left = 0.0f + m_x2;
-	dst.m_right = 800.0f + m_x2;
-	dst.m_bottom = 600.0f;
-	Draw::Draw(0, &src, &dst, c, 0.0f);
+		//ñÖîwåi2à íuê›íËÇµï`âÊ
+		dst.m_top = 0.0f;
+		dst.m_left = 0.0f + sm_x2;
+		dst.m_right = 800.0f + sm_x2;
+		dst.m_bottom = 600.0f;
+		Draw::Draw(0, &src, &dst, c, 0.0f);
+	}
+	else
+	{
+		//åZîwåi1à íuê›íËÇµï`âÊ
+		dst.m_top = 0.0f;
+		dst.m_left = 0.0f + bm_x1;
+		dst.m_right = 800.0f + bm_x1;
+		dst.m_bottom = 600.0f;
+		Draw::Draw(0, &src, &dst, c, 0.0f);
+
+		//åZîwåi2à íuê›íËÇµï`âÊ
+		dst.m_top = 0.0f;
+		dst.m_left = 0.0f + bm_x2;
+		dst.m_right = 800.0f + bm_x2;
+		dst.m_bottom = 600.0f;
+		Draw::Draw(0, &src, &dst, c, 0.0f);
+	}
 }
