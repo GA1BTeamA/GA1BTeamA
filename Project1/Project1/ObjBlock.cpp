@@ -147,9 +147,9 @@ void CObjBlock::Action()
 		}
 
 		//兄前方スクロールライン
-		if (hx > MAPSIZE_X)
+		if (hx > 380)
 		{
-			hero->SetX(MAPSIZE_X);					//主人公はラインを超えないようにする
+			hero->SetX(380);					//主人公はラインを超えないようにする
 			m_block_scroll -= hero->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 			gb_block_scroll -= hero->GetVX();//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
@@ -166,9 +166,9 @@ void CObjBlock::Action()
 		}
 
 		//妹前方スクロールライン
-		if (hx2 > MAPSIZE_X)
+		if (hx2 > 380)
 		{
-			hero2->SetX(MAPSIZE_X);					//主人公はラインを超えないようにする
+			hero2->SetX(380);					//主人公はラインを超えないようにする
 			m_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 			gs_block_scroll -= hero2->GetVX();	//主人公が本来動くべき分の値をm_block_scrollに加える
 		}
@@ -795,12 +795,12 @@ void CObjBlock::BlockHit
 										m_map[i][j] = 0;
 									}
 									//ダメージを受けるとよろいが消える
-									if (m_map[i][j] == 3 || m_map[i][j] == 6 || m_map[i][j] == 12)
+									if (m_map[i][j] == 3&& *down == true || m_map[i][j] == 6 && *down == true || m_map[i][j] == 12 && *down == true)
 									{
 										if (armor_block == true)
 										{
 											armor_block = false;
-											m_map[i][j] = 99;
+											
 										}
 									}
 								}
