@@ -75,6 +75,10 @@ void CObjhero::Init()
 
 	brother_goal = false;
 
+	muteki = 0;
+	muteki_e = 0;
+	muteki_t = 0;
+
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
 
 }
@@ -275,8 +279,9 @@ void  CObjhero::Action()
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
 			
-			if (HP>0&&d == 0 && damage_flag == false)
+			if (HP>0&&d == 0 && damage_flag == false && muteki == 0)
 			{
+				muteki = 1;
 				HP -= 1;
 				damage_flag = true;
 			}
@@ -296,7 +301,7 @@ void  CObjhero::Action()
 
 		
 		//おおかみと接触した時の無敵
-		if (enemy_flag == true)
+		if (enemy_flag == true && muteki == 0)
 		{
 			t++;
 		}
@@ -310,7 +315,7 @@ void  CObjhero::Action()
 			enemy_flag = false;
 		}
 		//とげ踏んだ時の無敵
-		if (damage_flag == true)
+		if (damage_flag == true && muteki == 0)
 		{
 			d++;
 		}
@@ -325,6 +330,27 @@ void  CObjhero::Action()
 
 		if (g_hero_change == true)
 			hit->SetPos(m_px + 16, m_py);
+
+		if (muteki == 1)
+		{
+			muteki_t++;
+			if (muteki_t == 60)
+			{
+				muteki = 0;
+				muteki_t = 0;
+			}
+
+			if (muteki_t % 2 == 1)
+			{
+				muteki_e = 1;
+			}
+
+			if (muteki_t % 2 == 0)
+			{
+				muteki_e = 0;
+			}
+
+		}
 	}
 
 }
@@ -336,7 +362,7 @@ void  CObjhero::Draw()
 	//歩き描画用
 	int AniDatax[8] =
 	{
-		-1,0,1,2,3,4,5,6
+		6,-1,0,1,2,3,4,5,
 	};
 
 	//ジャンプ用
@@ -344,11 +370,6 @@ void  CObjhero::Draw()
 	{
 		1,1,2,2,2,2,2,2,0,
 	};
-	//アクション用
-	/*int AniDataa[3] =
-	{
-		0,1,2,
-	};*/
 
 	//明度
 	float m;
@@ -366,18 +387,18 @@ void  CObjhero::Draw()
 	if (Draw_flag == true)
 	{
 		//切り取り位置の設定
-		src.m_top = 64.0f;
-		src.m_left = 0.0f + AniDatax[m_ani_framex] * 64;
-		src.m_right = 64.0f + AniDatax[m_ani_framex] * 64;
-		src.m_bottom = 128.0f;
+		src.m_top = 64.0f-64.0f*muteki_e;
+		src.m_left = 0.0f + AniDatax[m_ani_framex] * 64- AniDatax[m_ani_framex] * 64*muteki_e;
+		src.m_right = 64.0f + AniDatax[m_ani_framex] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+		src.m_bottom = 128.0f - 64.0f*muteki_e;
 	}
 	else
 	{
 		//切り取り位置の設定
-		src.m_top = 128.0f;
-		src.m_left = 0.0f + AniDatay[m_ani_framey] * 64;
-		src.m_right = 64.0f + AniDatay[m_ani_framey] * 64;
-		src.m_bottom = 192.0f;
+		src.m_top = 128.0f - 128.0f*muteki_e;
+		src.m_left = 0.0f + AniDatay[m_ani_framey] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+		src.m_right = 64.0f + AniDatay[m_ani_framey] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+		src.m_bottom = 192.0f - 128.0f*muteki_e;
 	}
 
 	//ブロック情報を持ってくる

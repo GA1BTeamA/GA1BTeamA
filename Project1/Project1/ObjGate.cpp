@@ -161,7 +161,7 @@ void CObjGate::Draw()
 							src.m_left = 128.0f;
 							src.m_right = 192.0f;
 							src.m_bottom = 64.0f;
-
+							
 							Draw::Draw(8, &src, &dst, c, 0.0f);
 						}
 					}
@@ -189,6 +189,7 @@ void CObjGate::Draw()
 						src.m_left = 192.0f;
 						src.m_right = 256.0f;
 						src.m_bottom = 64.0f;
+
 					}
 
 					Draw::Draw(8, &src, &dst, c, 0.0f);
@@ -316,16 +317,20 @@ void CObjGateOpenRight::Draw()
 
 				if (m_map[i][j] == 21)
 				{
-					if (brother_gateopen == true && g_hero_change == true || sister_gateopen == true && g_hero_change == false)
+					if (brother_gateopen == true && 
+						g_hero_change == true || 
+						sister_gateopen == true && 
+						g_hero_change == false)
 					{
 						//êÿÇËéÊÇËà íuÇÃê›íË
 						src.m_top = 0.0f;
 						src.m_left = 0.0f;
 						src.m_right = 64.0f;
 						src.m_bottom = 64.0f;
+						Draw::Draw(9, &src, &dst, c, 0.0f);
 					}
 
-					Draw::Draw(9, &src, &dst, c, 0.0f);
+					
 				}
 			}
 		}
