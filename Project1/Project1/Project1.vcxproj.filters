@@ -236,6 +236,8 @@
     </ClInclude>
     <ClInclude Include="Objkanbanb.h" />
     <ClInclude Include="Objkanbans.h" />
+    <ClInclude Include="Objkanbanb.h" />
+    <ClInclude Include="Objkanbans.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">

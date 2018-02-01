@@ -74,6 +74,11 @@ protected:
 	int t;
 	int d;
 
+	//–³“G
+	int muteki;
+	int muteki_e;//–³“GŠÔ‚ÌŠG
+	int muteki_t;//–³“G‚ÌŠÔ
+
 	//“¥‚ñ‚Å‚¢‚éblock‚Ìí—Ş‚ğŠm”F—p
 	int m_block_type;
 
