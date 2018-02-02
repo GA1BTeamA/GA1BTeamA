@@ -104,7 +104,7 @@ void  CObjhero::Action()
 		CHitBox* hit = Hits::GetHitBox(this);
 
 		//敵と当たっているか確認
-		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
+		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
 		{
 			//主人公が敵とどの角度で当たっているか確認
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
@@ -120,6 +120,7 @@ void  CObjhero::Action()
 				if (enemy_flag == false)
 				{
 					enemy_flag = true;
+					muteki = 1;
 				}				
 			}
 			//上
@@ -130,6 +131,7 @@ void  CObjhero::Action()
 				if (enemy_flag == false)
 				{
 					enemy_flag = true;
+					muteki = 1;
 				}
 			}
 			//左
@@ -140,6 +142,7 @@ void  CObjhero::Action()
 				if (enemy_flag == false)
 				{
 					enemy_flag = true;
+					muteki = 1;
 				}
 			}
 			if (r >= 225 && r <= 315)
@@ -149,6 +152,7 @@ void  CObjhero::Action()
 				if (enemy_flag == false)
 				{
 					enemy_flag = true;
+					muteki = 1;
 				}
 			}
 			if (armor_block == true)
@@ -256,7 +260,7 @@ void  CObjhero::Action()
 		m_vx += -(m_vx*0.098);
 
 		//自由落下
-		m_vy += 9.8 / (16.0f);
+		m_vy += 9 / (16.0f);
 
 		//位置の更新
 		m_px += m_vx;

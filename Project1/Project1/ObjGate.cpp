@@ -189,10 +189,10 @@ void CObjGate::Draw()
 						src.m_left = 192.0f;
 						src.m_right = 256.0f;
 						src.m_bottom = 64.0f;
-
+						Draw::Draw(8, &src, &dst, c, 0.0f);
 					}
 
-					Draw::Draw(8, &src, &dst, c, 0.0f);
+					
 				}
 			}
 		}
