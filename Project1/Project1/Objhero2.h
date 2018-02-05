@@ -34,6 +34,8 @@ public:
 	void SetLeft(bool b) { m_hit_left = b; }
 	void SetRight(bool b) { m_hit_right = b; }
 
+	void SetGoalBlock(int goalblock) { goal_block = goalblock; }
+
 
 protected:
 	float m_px;    //ˆÊ’u

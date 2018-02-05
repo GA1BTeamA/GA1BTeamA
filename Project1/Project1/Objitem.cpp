@@ -13,12 +13,6 @@ using namespace GameL;
 //ブロック＆主人公切り替え false=妹用 true=兄用
 extern  bool g_hero_change;
 
-//兄のアイテムポーチ[0]=鎧[1]=鍵
-extern int Bitem_porch[2];
-
-//妹のアイテムポーチ[0]=靴[1]=鍵
-extern int Sitem_porch[2];
-
 //イニシャライズ
 void CObjitem::Init()
 {

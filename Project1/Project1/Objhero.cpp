@@ -22,6 +22,12 @@ extern bool screen_change_flag;
 
 //よろいフラグ
 extern bool armor_block;
+bool damage_flag;
+bool enemy_flag;
+
+//主人公がゴール前にいるかどうか
+extern bool brother_goal;
+extern bool sister_goal;
 
 //スイッチフラグ
 extern bool Switch_flag;
@@ -29,7 +35,7 @@ extern bool Switch_flag;
 //イニシャライズ
 void CObjhero::Init()
 {
-	m_px = 90.0f;    //位置
+	m_px = 300.0f;    //位置
 	m_py = 512.0f;
 	m_vx = 0.0f;    //移動ベクトル
 	m_vy = 0.0f;
@@ -48,7 +54,11 @@ void CObjhero::Init()
 	m_hit_left = false;
 	m_hit_right = false;
 
-	n=0;
+	d = 0;
+	t = 0;
+
+	damage_flag = false;
+	enemy_flag = false;
 
 	//ジャンプボタンフラグ
 	button_flag_up = false;
@@ -66,6 +76,12 @@ void CObjhero::Init()
 
 	//ゴールブロック
 	goal_block = 0;
+
+	brother_goal = false;
+
+	muteki = 0;
+	muteki_e = 0;
+	muteki_t = 0;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
 
@@ -92,7 +108,7 @@ void  CObjhero::Action()
 		CHitBox* hit = Hits::GetHitBox(this);
 
 		//敵と当たっているか確認
-		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
+		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
 		{
 			//主人公が敵とどの角度で当たっているか確認
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
@@ -104,21 +120,50 @@ void  CObjhero::Action()
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
 				HP -= 1;
+				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+				if (enemy_flag == false)
+				{
+					enemy_flag = true;
+					muteki = 1;
+				}				
 			}
 			//上
 			if (r >= 45 && r <= 135)
 			{
 				HP -= 1;
+				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+				if (enemy_flag == false)
+				{
+					enemy_flag = true;
+					muteki = 1;
+				}
 			}
 			//左
 			if (r >= 135 && r <= 225)
 			{
 				HP -= 1;
+				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+				if (enemy_flag == false)
+				{
+					enemy_flag = true;
+					muteki = 1;
+				}
 			}
 			if (r >= 225 && r <= 315)
 			{
 				HP -= 1;
+				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+				if (enemy_flag == false)
+				{
+					enemy_flag = true;
+					muteki = 1;
+				}
 			}
+			if (armor_block == true)
+			{
+				armor_block = false;
+			}
+			
 		}
 
 		//主人公切り替え
@@ -151,14 +196,14 @@ void  CObjhero::Action()
 		{
 			m_vx += 0.4f;
 			m_posture = 1.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 
 		}
 		else if (Input::GetVKey(VK_LEFT) == true)
 		{
 			m_vx -= 0.4f;
 			m_posture = 0.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 		}
 		else
 		{
@@ -219,7 +264,7 @@ void  CObjhero::Action()
 		m_vx += -(m_vx*0.098);
 
 		//自由落下
-		m_vy += 9.8 / (16.0f);
+		m_vy += 9 / (16.0f);
 
 		//位置の更新
 		m_px += m_vx;
@@ -228,24 +273,67 @@ void  CObjhero::Action()
 		if (m_py > 850 || HP == 0)
 		{
 			g_px = 0.0f;
+			brother_goal = false;
+			goal_block = 0;
 			HP = 0;
 			Scene::SetScene(new CSceneGameOver());
 		}
 
+		if (armor_block == true && HP<2)
+		{
+			HP = 2;
+		}
+
 		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 		{
-			HP -= 1;
+			
+			if (HP>0&&d == 0 && damage_flag == false && muteki == 0)
+			{
+				muteki = 1;
+				HP -= 1;
+				damage_flag = true;
+			}
 		}
+
 
 		if (goal_block == 11)
 		{
-			Scene::SetScene(new CSceneClear());
+			goal_block = 0;
+			if (brother_goal == true && sister_goal == true)
+			{
+				g_px = 0.0f;
+				brother_goal = false;
+				Scene::SetScene(new CSceneClear());
+			}
 		}
 
-		if (armor_block == true&&n==0)
+		
+		//おおかみと接触した時の無敵
+		if (enemy_flag == true && muteki == 0)
 		{
-			HP = 2;
-			n++;
+			t++;
+		}
+		else
+		{
+			t = 0;
+		}
+		if (t > 60 * 1)
+		{
+			hit->SetStatus(ELEMENT_PLAYER, OBJ_HERO, 1);
+			enemy_flag = false;
+		}
+		//とげ踏んだ時の無敵
+		if (damage_flag == true && muteki == 0)
+		{
+			d++;
+		}
+		else
+		{
+			d = 0;
+		}
+		if (d > 60 * 1)
+		{
+			damage_flag = false;
 		}
 		//スイッチフラグの管理
 		if (GetBT() == 27 && Switch_flag == false)
@@ -256,6 +344,26 @@ void  CObjhero::Action()
 		if (g_hero_change == true)
 			hit->SetPos(m_px + 16, m_py);
 
+		if (muteki == 1)
+		{
+			muteki_t++;
+			if (muteki_t == 60)
+			{
+				muteki = 0;
+				muteki_t = 0;
+			}
+
+			if (muteki_t % 2 == 1)
+			{
+				muteki_e = 1;
+			}
+
+			if (muteki_t % 2 == 0)
+			{
+				muteki_e = 0;
+			}
+
+		}
 	}
 
 }
@@ -267,18 +375,14 @@ void  CObjhero::Draw()
 	//歩き描画用
 	int AniDatax[8] =
 	{
-		-1,0,1,2,3,4,5,6,
+		6,-1,0,1,2,3,4,5,
 	};
+
 	//ジャンプ用
 	int AniDatay[9] =
 	{
 		1,1,2,2,2,2,2,2,0,
 	};
-	//アクション用
-	/*int AniDataa[3] =
-	{
-		0,1,2,
-	};*/
 
 	//明度
 	float m;
@@ -296,18 +400,18 @@ void  CObjhero::Draw()
 	if (Draw_flag == true)
 	{
 		//切り取り位置の設定
-		src.m_top = 64.0f;
-		src.m_left = 0.0f + AniDatax[m_ani_framex] * 64;
-		src.m_right = 64.0f + AniDatax[m_ani_framex] * 64;
-		src.m_bottom = 128.0f;
+		src.m_top = 64.0f-64.0f*muteki_e;
+		src.m_left = 0.0f + AniDatax[m_ani_framex] * 64- AniDatax[m_ani_framex] * 64*muteki_e;
+		src.m_right = 64.0f + AniDatax[m_ani_framex] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+		src.m_bottom = 128.0f - 64.0f*muteki_e;
 	}
 	else
 	{
 		//切り取り位置の設定
-		src.m_top = 128.0f;
-		src.m_left = 0.0f + AniDatay[m_ani_framey] * 64;
-		src.m_right = 64.0f + AniDatay[m_ani_framey] * 64;
-		src.m_bottom = 192.0f;
+		src.m_top = 128.0f - 128.0f*muteki_e;
+		src.m_left = 0.0f + AniDatay[m_ani_framey] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+		src.m_right = 64.0f + AniDatay[m_ani_framey] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+		src.m_bottom = 192.0f - 128.0f*muteki_e;
 	}
 
 	//ブロック情報を持ってくる

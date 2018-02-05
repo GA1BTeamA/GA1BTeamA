@@ -22,8 +22,6 @@ enum OBJ_NAME
 	OBJ_ITEM2,
 	OBJ_GATE,
 	OBJ_GATEOPENRIGHT,
-	OBJ_SWITCHS,
-	OBJ_SWITCHB,
 	OBJ_GOAL,
 };
 //------------------------------------------------
@@ -85,8 +83,6 @@ struct UserData
 //#include "Objgateopenleft.h"
 //#include "Objgateopenright.h"
 #include "ObjGate.h"
-#include "Objswitchsis.h"
-#include "Objswitchbro.h"
 #include "ObjGoal.h"
 
 //------------------------------------------------

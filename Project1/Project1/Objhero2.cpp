@@ -23,13 +23,17 @@ extern bool screen_change_flag;
 
 extern bool shose_block;
 
+//主人公がゴール前にいるかどうか
+extern bool brother_goal;
+extern bool sister_goal;
+
 //スイッチフラグ
 extern bool Switch_flag;
 
 //イニシャライズ
 void CObjhero2::Init()
 {
-	m_px = 150.0f;    //位置
+	m_px = 380.0f;    //位置
 	m_py = 512.0f;
 
 	//g_px = 0.0f; //グローバル位置
@@ -66,7 +70,12 @@ void CObjhero2::Init()
 	//ブロック＆主人公切り替え false=妹用 true=兄用
 	g_hero_change = false;
 
+	//ゴールブロック
+	goal_block = 0;
+
 	m_block_type = 15;
+
+	sister_goal = false;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO2, 1);
 }
@@ -74,10 +83,6 @@ void CObjhero2::Init()
 //アクション
 void  CObjhero2::Action()
 {
-
-	
-
-
 
 	if (g_hero_change == false)
 	{
@@ -153,14 +158,14 @@ void  CObjhero2::Action()
 		{
 			m_vx += 0.4f;
 			m_posture = 1.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 
 		}
 		else if (Input::GetVKey(VK_LEFT) == true)
 		{
 			m_vx -= 0.4f;
 			m_posture = 0.0f;
-			m_ani_timex += 1;
+			m_ani_timex += 2;
 		}
 		else
 		{
@@ -233,6 +238,8 @@ void  CObjhero2::Action()
 		if (m_py > 850 || HP == 0)
 		{
 			g_px = 0.0f;
+			sister_goal = false;
+			goal_block = 0;
 			Scene::SetScene(new CSceneGameOver());
 		}
 
@@ -249,6 +256,14 @@ void  CObjhero2::Action()
 
 		if (goal_block == 11)
 		{
+			goal_block = 0;
+			if (brother_goal == true && sister_goal == true)
+			{
+				g_px = 0.0f;
+				sister_goal = false;
+				Scene::SetScene(new CSceneClear());
+			}
+		}
 			Scene::SetScene(new CSceneClear());
 		}
 		//スイッチフラグの管理
@@ -257,7 +272,7 @@ void  CObjhero2::Action()
 			Switch_flag == true;
 		}
 
-		hit->SetPos(m_px + 16, m_py);
+		hit->SetPos(m_px + 18, m_py+9);
 	}
 }
 

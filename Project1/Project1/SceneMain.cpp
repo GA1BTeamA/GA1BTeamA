@@ -20,6 +20,7 @@ using namespace GameL;
 CObjBlock* g_objb;
 
 CObjhero* objh;
+CObjhero2* objh2;
 
 //コンストラクタ
 CSceneMain::CSceneMain()
@@ -55,7 +56,7 @@ void CSceneMain::InitScene()
 	//Draw::LoadImageW(L"kanban bro.png", 6, TEX_SIZE_32);
 	//Draw::LoadImageW(L"kanban sis.png", 4, TEX_SIZE_32);
 	Draw::LoadImageW(L"imouto1.png" , 10, TEX_SIZE_512);
-	Draw::LoadImageW(L"ani1.png", 3, TEX_SIZE_512);
+	Draw::LoadImageW(L"ani5.png", 3, TEX_SIZE_512);
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
 	Draw::LoadImageW(L"Gate.png", 8, TEX_SIZE_512);
 	Draw::LoadImageW(L"GateOpenRight.png", 9, TEX_SIZE_64);
@@ -70,7 +71,7 @@ void CSceneMain::InitScene()
 	objh = new CObjhero();
 
 	//主人公妹オブジェクト作成
-	CObjhero2* objh2 = new CObjhero2();
+	objh2 = new CObjhero2();
 	Objs::InsertObj(objh2, OBJ_HERO2, 10);
 
 	//主人公兄オブジェクト作成
@@ -79,7 +80,7 @@ void CSceneMain::InitScene()
 
 	//blockオブジェクト作成
 	g_objb = new CObjBlock();
-	Objs::InsertObj(g_objb, OBJ_BLOCK, 1);
+	Objs::InsertObj(g_objb, OBJ_BLOCK, 4);
 
 	//背景作成
 	CObjBackground* back = new CObjBackground();
@@ -99,11 +100,11 @@ void CSceneMain::InitScene()
 
 	//アイテム作成
 	CObjitem* obji = new CObjitem();
-	Objs::InsertObj(obji, OBJ_ITEM, 1);
+	Objs::InsertObj(obji, OBJ_ITEM,2);
 
 	//アイテム作成
 	CObjitem2* obji2 = new CObjitem2();
-	Objs::InsertObj(obji2, OBJ_ITEM2, 1);
+	Objs::InsertObj(obji2, OBJ_ITEM2, 2);
 
 	//門オブジェクト作成
 	CObjGate* objgate = new CObjGate();
@@ -113,13 +114,6 @@ void CSceneMain::InitScene()
 	CObjGateOpenRight* objgor = new CObjGateOpenRight();
 	Objs::InsertObj(objgor, OBJ_GATEOPENRIGHT, 11);
 
-	//スイッチ(妹)作成
-	CObjswitchsis* objss = new CObjswitchsis();
-	Objs::InsertObj(objss, OBJ_SWITCHS, 12);
-
-	//スイッチ(兄)作成
-	CObjswitchbro* objsb = new CObjswitchbro();
-	Objs::InsertObj(objsb, OBJ_SWITCHB, 13);
 
 }
 
