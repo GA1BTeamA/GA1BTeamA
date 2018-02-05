@@ -631,7 +631,7 @@ void CObjBlock::BlockHit
 	{
 		for (int j = 0; j < MAPSIZE_X; j++)
 		{
-			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 99)
+			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 99 && m_map[i][j]!=28)
 			{
 				//—v‘f”Ô†‚ğÀ•W‚É•ÏX
 				float bx = j*32.0f;

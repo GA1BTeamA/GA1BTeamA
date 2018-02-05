@@ -97,7 +97,7 @@ void  CObjhero2::Action()
 		CHitBox* hit = Hits::GetHitBox(this);
 
 		//敵と当たっているか確認
-		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
+		/*if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
 		{
 			//主人公が敵とどの角度で当たっているか確認
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
@@ -124,7 +124,7 @@ void  CObjhero2::Action()
 			{
 				HP -= 1;
 			}
-		}
+		}*/
 
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
