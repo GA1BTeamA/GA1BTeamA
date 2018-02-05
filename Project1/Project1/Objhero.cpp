@@ -20,7 +20,11 @@ extern float g_px;
 //兄妹の画面切り替えフラグ
 extern bool screen_change_flag;
 
+//よろいフラグ
 extern bool armor_block;
+
+//スイッチフラグ
+extern bool Switch_flag;
 
 //イニシャライズ
 void CObjhero::Init()
@@ -53,7 +57,7 @@ void CObjhero::Init()
 	button_flag_z = false;
 
 	//描画切り替え
-	Draw_flag=true;
+	Draw_flag=true;	
 
 	//体力
 	HP = 1;
@@ -242,6 +246,11 @@ void  CObjhero::Action()
 		{
 			HP = 2;
 			n++;
+		}
+		//スイッチフラグの管理
+		if (GetBT() == 27 && Switch_flag == false)
+		{
+			Switch_flag == true;
 		}
 
 		if (g_hero_change == true)

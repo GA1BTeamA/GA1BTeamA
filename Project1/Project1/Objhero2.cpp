@@ -23,6 +23,9 @@ extern bool screen_change_flag;
 
 extern bool shose_block;
 
+//スイッチフラグ
+extern bool Switch_flag;
+
 //イニシャライズ
 void CObjhero2::Init()
 {
@@ -247,6 +250,11 @@ void  CObjhero2::Action()
 		if (goal_block == 11)
 		{
 			Scene::SetScene(new CSceneClear());
+		}
+		//スイッチフラグの管理
+		if (GetBT() == 27 && Switch_flag == false)
+		{
+			Switch_flag == true;
 		}
 
 		hit->SetPos(m_px + 16, m_py);
