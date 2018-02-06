@@ -113,21 +113,21 @@ void  CObjhero2::Action()
 			//右
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
-				HP -= 1;
+				//HP -= 1;
 			}
 			//上
 			if (r >= 45 && r <= 135)
 			{
-				HP -= 1;
+				//HP -= 1;
 			}
 			//左
 			if (r >= 135 && r <= 225)
 			{
-				HP -= 1;
+				//HP -= 1;
 			}
 			if (r >= 225 && r <= 315)
 			{
-				HP -= 1;
+				//HP -= 1;
 			}
 		}*/
 
@@ -136,8 +136,6 @@ void  CObjhero2::Action()
 		{
 			if (button_flag_z == true && m_hit_down == true)
 			{
-
-				g_hero_change = true;
 
 				//ブロック情報を持ってくる
 				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
@@ -234,7 +232,10 @@ void  CObjhero2::Action()
 		m_px += m_vx;
 		m_py += m_vy;
 
-
+		if (m_hit_left == true || m_hit_right == true)
+		{
+			m_px -= m_vx;
+		}
 
 		//ゲームオーバーに切り替え
 		if (m_py > 850 || HP == 0)

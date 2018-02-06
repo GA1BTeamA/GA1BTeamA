@@ -119,7 +119,7 @@ void  CObjhero::Action()
 			//右
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
-				HP -= 1;
+				//HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -130,7 +130,7 @@ void  CObjhero::Action()
 			//上
 			if (r >= 45 && r <= 135)
 			{
-				HP -= 1;
+				//HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -141,7 +141,7 @@ void  CObjhero::Action()
 			//左
 			if (r >= 135 && r <= 225)
 			{
-				HP -= 1;
+				//HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -151,7 +151,7 @@ void  CObjhero::Action()
 			}
 			if (r >= 225 && r <= 315)
 			{
-				HP -= 1;
+				//HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -171,8 +171,6 @@ void  CObjhero::Action()
 		{
 			if (button_flag_z == true && m_hit_down == true)
 			{
-
-				g_hero_change = false;
 
 				//ブロック情報を持ってくる
 				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
@@ -227,7 +225,7 @@ void  CObjhero::Action()
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
-				m_vy -= 12.0f;
+				m_vy -= 11.0f;
 				button_flag_up = false;
 			}
 		}
@@ -264,11 +262,17 @@ void  CObjhero::Action()
 		m_vx += -(m_vx*0.098);
 
 		//自由落下
-		m_vy += 9 / (16.0f);
+		m_vy += 9/ (16.0f);
+
 
 		//位置の更新
 		m_px += m_vx;
 		m_py += m_vy;
+
+		if (m_hit_left==true|| m_hit_right==true)
+		{
+			m_px -= m_vx;
+		}
 
 		if (m_py > 850 || HP == 0)
 		{
