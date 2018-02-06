@@ -264,16 +264,17 @@ void  CObjhero2::Action()
 				Scene::SetScene(new CSceneClear());
 			}
 		}
-			Scene::SetScene(new CSceneClear());
-		}
+
 		//スイッチフラグの管理
 		if (GetBT() == 27 && Switch_flag == false)
 		{
-			Switch_flag == true;
-		}
+			Switch_flag = true;
+		}	
 
+		Scene::SetScene(new CSceneClear());
 		hit->SetPos(m_px + 18, m_py+9);
-	}
+			
+		}		
 }
 
 //ドロー

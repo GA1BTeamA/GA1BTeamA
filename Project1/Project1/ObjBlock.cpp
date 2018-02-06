@@ -844,7 +844,7 @@ void CObjBlock::BlockHit
 
 								//スイッチの処理
 								//兄
-								if (g_hero_change==true)
+								/*if (g_hero_change==true)
 								{
 									if (Switch_flag == true)
 									{
@@ -858,7 +858,7 @@ void CObjBlock::BlockHit
 									{
 
 									}
-								}
+								}*/
 							}
 						}
 					}
