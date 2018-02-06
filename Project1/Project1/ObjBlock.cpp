@@ -26,6 +26,9 @@ bool shose_block;
 //主人公が門を開けるときのフラグ
 bool brother_gateopen;
 bool sister_gateopen;
+//スイッチを踏んでいるときのフラグ
+bool switch_flag;
+bool switch_flag2;
 
 //グローバル位置
 extern float g_px;
@@ -92,6 +95,7 @@ void CObjBlock::Init()
 	sister_key = false;
 	brother_gateopen = false;
 	sister_gateopen = false;
+	switch_flag = false;
 }
 
 //アクション
@@ -119,12 +123,14 @@ void CObjBlock::Action()
 			scroll_change_keep = m_block_scroll;
 			m_block_scroll = scroll_change_s;
 			scroll_change_b = scroll_change_keep;
+			g_hero_change = true;
 		}
 		else
 		{
 			scroll_change_keep = m_block_scroll;
 			m_block_scroll = scroll_change_b;
 			scroll_change_s = scroll_change_keep;
+			g_hero_change = false;
 		}
 
 		screen_change_flag = false;
@@ -255,6 +261,44 @@ void CObjBlock::Action()
 			}
 		}
 	}
+
+	//主人公がスイッチを踏んでいる間、踏スイッチとブロックを用意する
+	if (switch_flag == true||switch_flag2==true)
+	{
+		for (int i = 0; i < MAPSIZE_Y; i++)
+		{
+			for (int j = 0; j < MAPSIZE_X; j++)
+			{
+				if (m_map[i][j] == 27)
+				{
+					m_map[i][j] = 29;
+					m_map[i + 1][j] = 30;
+				}
+				if (m_map[i][j] == 28)
+				{
+					m_map[i][j] = 31;
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < MAPSIZE_Y; i++)
+		{
+			for (int j = 0; j < MAPSIZE_X; j++)
+			{
+				if (m_map[i][j] == 29)
+				{
+					m_map[i][j] = 27;
+					m_map[i + 1][j] = 1;
+				}
+				if (m_map[i][j] == 31)
+				{
+					m_map[i][j] = 28;
+				}
+			}
+		}
+	}
 }
 
 //ドロー
@@ -366,7 +410,7 @@ void CObjBlock::Draw()
 			}
 
 				//草ブロック
-				if (m_map[i][j] == 1|| m_map[i][j] == 26)
+				if (m_map[i][j] == 1|| m_map[i][j] == 26||m_map[i][j]==30)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -378,7 +422,7 @@ void CObjBlock::Draw()
 				}
 
 				//木ブロック
-				else if (m_map[i][j] == 2)
+				else if (m_map[i][j] == 2 || m_map[i][j] == 31)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -521,6 +565,39 @@ void CObjBlock::Draw()
 
 					c[3] = 1.0f;
 				}
+				//スイッチ踏
+				else if (m_map[i][j] == 29)
+				{
+					//切り取り位置の設定
+					src.m_top = 64.0f;
+					src.m_left = 128.0f;
+					src.m_right = 160.0f;
+					src.m_bottom = 96.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//スイッチ未踏(兄)
+				else if (g_hero_change == true && m_map[i][j] == 27)
+				{
+					//切り取り位置の設定
+					src.m_top = 64.0f;
+					src.m_left = 64.0f;
+					src.m_right = 96.0f;
+					src.m_bottom = 96.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//スイッチ未踏(妹)
+				else if (g_hero_change == false && m_map[i][j] == 27)
+				{
+					//切り取り位置の設定
+					src.m_top = 64.0f;
+					src.m_left = 96.0f;
+					src.m_right = 128.0f;
+					src.m_bottom = 96.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
 			}
 		}
 	}
@@ -629,7 +706,12 @@ void CObjBlock::BlockHit
 	{
 		for (int j = 0; j < MAPSIZE_X; j++)
 		{
-			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 99)
+			if (m_map[i][j] >   0 && 
+				m_map[i][j] != 15 && 
+				m_map[i][j] != 17 && 
+				m_map[i][j] != 99 && 
+				m_map[i][j] != 28 &&
+				m_map[i][j] != 29 )
 			{
 				//要素番号を座標に変更
 				float bx = j*32.0f;
@@ -639,7 +721,7 @@ void CObjBlock::BlockHit
 				float scroll = scroll_on ? m_block_scroll : 0;
 
 				//主人公とブロックの当り判定
-				if ((*x + 19.0f + (-m_block_scroll) + 26.0f > bx) && (*x + 19.0 + (-m_block_scroll) < bx + 32.0f) && (*y + 64.0f > by) && (*y < by + 32.0f))
+				if ((*x + 19.0f + (-m_block_scroll) + 22.0f > bx) && (*x + 19.0 + (-m_block_scroll) < bx + 32.0f) && (*y + 64.0f > by) && (*y < by + 32.0f))
 				{
 					//上下左右判定
 
@@ -647,11 +729,11 @@ void CObjBlock::BlockHit
 					float rvx[2];
 					float rvy[2];
 
-					rvx[0] = (*x + (-m_block_scroll)) + 32 - bx;
+					rvx[0] = (*x + (-m_block_scroll)) + 16 - bx;
 					rvy[0] = *y + 32 - by;
 
-					rvx[1] = (*x + (-m_block_scroll) + 32) - bx;
-					rvy[1] = *y - by;
+					rvx[1] = (*x + (-m_block_scroll) + 16) - bx;
+					rvy[1] = *y  - by;
 					//float vx = (hx+32+(-m_block_scroll)) - x;
 					//float vy = hy + 32 - y;
 
@@ -689,9 +771,8 @@ void CObjBlock::BlockHit
 								{
 									//右
 									*right = true;//主人公が左部分に衝突している
-									*x = (bx + 10.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+									*x = (bx + 13.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
 									*vx = -(*vx)*0.1f;//-VX*反発係数
-									*x = bx + 10.0f + (m_block_scroll);
 									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
 
 								}
@@ -725,18 +806,21 @@ void CObjBlock::BlockHit
 								{
 									//左
 									*left = true;//主人公が右の部分に衝突している
-									*x = bx - 50.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
+									*x = bx - 41.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
 									*vx = -(*vx)*0.1f;//-VX*反発係数
-									*x = bx - 55.0f + (m_block_scroll);
 
 									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
 
-									if (m_map[i][j] == 11)
+
+									if (m_map[i][j] == 11 && g_hero_change == false)
 									{
-										objh->SetGoalBlock(11);
 										objh2->SetGoalBlock(11);
 									}
-
+									else if (m_map[i][j] == 11 && g_hero_change == true)
+									{
+										objh->SetGoalBlock(11);
+									}
+									
 								}
 								if (r >= 225 && r <= 315)
 								{

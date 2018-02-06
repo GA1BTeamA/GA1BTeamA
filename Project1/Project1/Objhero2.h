@@ -73,4 +73,7 @@ protected:
 	int m_block_type;
 
 	int goal_block;
+
+	//タイマー
+	int s;
 };
