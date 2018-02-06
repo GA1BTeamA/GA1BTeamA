@@ -26,6 +26,9 @@ bool shose_block;
 //主人公が門を開けるときのフラグ
 bool brother_gateopen;
 bool sister_gateopen;
+//スイッチを踏んでいるときのフラグ
+bool switch_flag;
+bool switch_flag2;
 
 //グローバル位置
 extern float g_px;
@@ -92,6 +95,7 @@ void CObjBlock::Init()
 	sister_key = false;
 	brother_gateopen = false;
 	sister_gateopen = false;
+	switch_flag = false;
 }
 
 //アクション
@@ -258,6 +262,43 @@ void CObjBlock::Action()
 		}
 	}
 
+	//主人公がスイッチを踏んでいる間、踏スイッチとブロックを用意する
+	if (switch_flag == true||switch_flag2==true)
+	{
+		for (int i = 0; i < MAPSIZE_Y; i++)
+		{
+			for (int j = 0; j < MAPSIZE_X; j++)
+			{
+				if (m_map[i][j] == 27)
+				{
+					m_map[i][j] = 29;
+					m_map[i + 1][j] = 30;
+				}
+				if (m_map[i][j] == 28)
+				{
+					m_map[i][j] = 31;
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < MAPSIZE_Y; i++)
+		{
+			for (int j = 0; j < MAPSIZE_X; j++)
+			{
+				if (m_map[i][j] == 29)
+				{
+					m_map[i][j] = 27;
+					m_map[i + 1][j] = 1;
+				}
+				if (m_map[i][j] == 31)
+				{
+					m_map[i][j] = 28;
+				}
+			}
+		}
+	}
 }
 
 //ドロー
@@ -369,7 +410,7 @@ void CObjBlock::Draw()
 			}
 
 				//草ブロック
-				if (m_map[i][j] == 1|| m_map[i][j] == 27)
+				if (m_map[i][j] == 1|| m_map[i][j] == 26||m_map[i][j]==30||m_map[i][j]==31)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -524,7 +565,39 @@ void CObjBlock::Draw()
 
 					c[3] = 1.0f;
 				}
+				//スイッチ踏
+				else if (m_map[i][j] == 29)
+				{
+					//切り取り位置の設定
+					src.m_top = 64.0f;
+					src.m_left = 128.0f;
+					src.m_right = 160.0f;
+					src.m_bottom = 96.0f;
 
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//スイッチ未踏(兄)
+				else if (g_hero_change == true && m_map[i][j] == 27)
+				{
+					//切り取り位置の設定
+					src.m_top = 64.0f;
+					src.m_left = 64.0f;
+					src.m_right = 96.0f;
+					src.m_bottom = 96.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
+				//スイッチ未踏(妹)
+				else if (g_hero_change == false && m_map[i][j] == 27)
+				{
+					//切り取り位置の設定
+					src.m_top = 64.0f;
+					src.m_left = 96.0f;
+					src.m_right = 128.0f;
+					src.m_bottom = 96.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
 			}
 		}
 	}
@@ -633,7 +706,12 @@ void CObjBlock::BlockHit
 	{
 		for (int j = 0; j < MAPSIZE_X; j++)
 		{
-			if (m_map[i][j] > 0 && m_map[i][j] != 15 && m_map[i][j] != 17 && m_map[i][j] != 99)
+			if (m_map[i][j] >   0 && 
+				m_map[i][j] != 15 && 
+				m_map[i][j] != 17 && 
+				m_map[i][j] != 99 && 
+				m_map[i][j] != 28 &&
+				m_map[i][j] != 29 )
 			{
 				//要素番号を座標に変更
 				float bx = j*32.0f;

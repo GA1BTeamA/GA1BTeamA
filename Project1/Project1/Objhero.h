@@ -71,8 +71,10 @@ protected:
 	//体力
 	int HP;
 
+	//タイマー用
 	int t;
 	int d;
+	int s;
 
 	//無敵
 	int muteki;
