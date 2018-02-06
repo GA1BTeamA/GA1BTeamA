@@ -28,6 +28,9 @@ bool enemy_flag;
 extern bool brother_goal;
 extern bool sister_goal;
 
+//主人公がスイッチを踏んでいるかどうか
+extern bool switch_flag;
+
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -52,6 +55,7 @@ void CObjhero::Init()
 
 	d = 0;
 	t = 0;
+	s = 0;
 
 	damage_flag = false;
 	enemy_flag = false;
@@ -104,7 +108,7 @@ void  CObjhero::Action()
 		CHitBox* hit = Hits::GetHitBox(this);
 
 		//敵と当たっているか確認
-		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
+		/*if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
 		{
 			//主人公が敵とどの角度で当たっているか確認
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
@@ -160,7 +164,7 @@ void  CObjhero::Action()
 				armor_block = false;
 			}
 			
-		}
+		}*/
 
 		//主人公切り替え
 		if (Input::GetVKey('Z') == true)
@@ -353,8 +357,23 @@ void  CObjhero::Action()
 			{
 				muteki_e = 0;
 			}
-
 		}
+
+		//スイッチを上から触れたらフラグを立てる
+		if (GetBT() == 27 && switch_flag == false)
+		{
+			switch_flag = true;
+		}
+		if (GetBT() != 30 && switch_flag == true)
+		{
+			s++;
+			if (s > 60 * 0.5)
+			{
+				switch_flag = false;
+				s = 0;
+			}
+		}
+
 	}
 
 }
