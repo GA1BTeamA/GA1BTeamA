@@ -20,6 +20,7 @@ extern float g_px;
 //兄妹の画面切り替えフラグ
 extern bool screen_change_flag;
 
+//よろいフラグ
 extern bool armor_block;
 bool damage_flag;
 bool enemy_flag;
@@ -67,7 +68,7 @@ void CObjhero::Init()
 	button_flag_z = false;
 
 	//描画切り替え
-	Draw_flag=true;
+	Draw_flag=true;	
 
 	//体力
 	HP = 1;

@@ -410,7 +410,7 @@ void CObjBlock::Draw()
 			}
 
 				//草ブロック
-				if (m_map[i][j] == 1|| m_map[i][j] == 26||m_map[i][j]==30||m_map[i][j]==31)
+				if (m_map[i][j] == 1|| m_map[i][j] == 26||m_map[i][j]==30)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -422,7 +422,7 @@ void CObjBlock::Draw()
 				}
 
 				//木ブロック
-				else if (m_map[i][j] == 2)
+				else if (m_map[i][j] == 2 || m_map[i][j] == 31)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
