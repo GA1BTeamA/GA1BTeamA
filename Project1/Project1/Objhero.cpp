@@ -29,9 +29,6 @@ bool enemy_flag;
 extern bool brother_goal;
 extern bool sister_goal;
 
-//スイッチフラグ
-extern bool Switch_flag;
-
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -334,11 +331,6 @@ void  CObjhero::Action()
 		if (d > 60 * 1)
 		{
 			damage_flag = false;
-		}
-		//スイッチフラグの管理
-		if (GetBT() == 27 && Switch_flag == false)
-		{
-			Switch_flag = true;
 		}
 
 		if (g_hero_change == true)

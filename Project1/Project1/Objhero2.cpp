@@ -27,9 +27,6 @@ extern bool shose_block;
 extern bool brother_goal;
 extern bool sister_goal;
 
-//スイッチフラグ
-extern bool Switch_flag;
-
 //イニシャライズ
 void CObjhero2::Init()
 {
@@ -264,14 +261,6 @@ void  CObjhero2::Action()
 				Scene::SetScene(new CSceneClear());
 			}
 		}
-
-		//スイッチフラグの管理
-		if (GetBT() == 27 && Switch_flag == false)
-		{
-			Switch_flag = true;
-		}	
-
-		Scene::SetScene(new CSceneClear());
 		hit->SetPos(m_px + 18, m_py+9);
 			
 		}		

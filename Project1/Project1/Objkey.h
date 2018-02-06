@@ -5,7 +5,7 @@
 //使用するネームスペース
 using namespace GameL;
 
-#define MAPSIZE_X 310
+#define MAPSIZE_X 289
 #define MAPSIZE_Y 19
 
 //オブジェクト:ゴール

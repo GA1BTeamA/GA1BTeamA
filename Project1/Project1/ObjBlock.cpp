@@ -23,7 +23,6 @@ bool brother_key;
 bool sister_key;
 bool armor_block;
 bool shose_block;
-bool Switch_flag;
 //主人公が門を開けるときのフラグ
 bool brother_gateopen;
 bool sister_gateopen;
@@ -93,7 +92,6 @@ void CObjBlock::Init()
 	sister_key = false;
 	brother_gateopen = false;
 	sister_gateopen = false;
-	Switch_flag = false;
 }
 
 //アクション
@@ -257,7 +255,6 @@ void CObjBlock::Action()
 			}
 		}
 	}
-
 }
 
 //ドロー
@@ -516,22 +513,6 @@ void CObjBlock::Draw()
 					src.m_left = 96.0f;
 					src.m_right = 127.0f;
 					src.m_bottom = 63.0f;
-
-					if (g_hero_change == false)
-						c[3] = 0.5f;
-
-					Draw::Draw(1, &src, &dst, c, 0.0f);
-
-					c[3] = 1.0f;
-				}
-				//スイッチ
-				else if (m_map[i][j] == 27)
-				{
-					//切り取り位置の設定
-					src.m_top = 0.0f;
-					src.m_left = 0.0f;
-					src.m_right = 32.0f;
-					src.m_bottom = 32.0f;
 
 					if (g_hero_change == false)
 						c[3] = 0.5f;
@@ -841,24 +822,6 @@ void CObjBlock::BlockHit
 										m_map[i][j] = 0;
 									}
 								}
-
-								//スイッチの処理
-								//兄
-								/*if (g_hero_change==true)
-								{
-									if (Switch_flag == true)
-									{
-
-									}
-								}
-								//妹
-								else
-								{
-									if (Switch_flag == true)
-									{
-
-									}
-								}*/
 							}
 						}
 					}
