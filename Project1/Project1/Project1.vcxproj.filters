@@ -112,9 +112,6 @@
     <ClCompile Include="ObjGate.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ObjSwitch.cpp">
-      <Filter>ソースファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameL\Audio.h">
@@ -243,9 +240,6 @@
     <ClInclude Include="Objkanbans.h" />
     <ClInclude Include="Objkanbanb.h" />
     <ClInclude Include="Objkanbans.h" />
-    <ClInclude Include="ObjSwitch.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ソースファイル">

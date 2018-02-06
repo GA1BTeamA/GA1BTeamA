@@ -60,8 +60,8 @@ void CSceneMain::InitScene()
 	Draw::LoadImageW(L"waku.png", 4, TEX_SIZE_64);
 	Draw::LoadImageW(L"Gate.png", 8, TEX_SIZE_512);
 	Draw::LoadImageW(L"GateOpenRight.png", 9, TEX_SIZE_64);
-	Draw::LoadImageW(L"switchsis.png", 12, TEX_SIZE_32);
-	Draw::LoadImageW(L"switchbro.png", 13, TEX_SIZE_32);
+	//Draw::LoadImageW(L"switchsis.png", 12, TEX_SIZE_32);
+	//Draw::LoadImageW(L"switchbro.png", 13, TEX_SIZE_32);
 
 	//タイムオブジェクト
 	//CObjTime* objt = new CObjTime();

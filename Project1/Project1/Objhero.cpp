@@ -28,6 +28,9 @@ bool enemy_flag;
 extern bool brother_goal;
 extern bool sister_goal;
 
+//主人公がスイッチを踏んでいるかどうか
+extern bool switch_flag;
+
 //イニシャライズ
 void CObjhero::Init()
 {
@@ -52,6 +55,7 @@ void CObjhero::Init()
 
 	d = 0;
 	t = 0;
+	s = 0;
 
 	damage_flag = false;
 	enemy_flag = false;
@@ -353,8 +357,23 @@ void  CObjhero::Action()
 			{
 				muteki_e = 0;
 			}
-
 		}
+
+		//スイッチを上から触れたらフラグを立てる
+		if (GetBT() == 27 && switch_flag == false)
+		{
+			switch_flag = true;
+		}
+		if (GetBT() != 30 && switch_flag == true)
+		{
+			s++;
+			if (s > 60 * 0.5)
+			{
+				switch_flag = false;
+				s = 0;
+			}
+		}
+
 	}
 
 }

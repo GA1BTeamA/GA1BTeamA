@@ -27,6 +27,9 @@ extern bool shose_block;
 extern bool brother_goal;
 extern bool sister_goal;
 
+//主人公がスイッチを踏んでいるかどうか
+extern bool switch_flag2;
+
 //イニシャライズ
 void CObjhero2::Init()
 {
@@ -75,6 +78,8 @@ void CObjhero2::Init()
 	sister_goal = false;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO2, 1);
+
+	s = 0;
 }
 
 //アクション
@@ -263,6 +268,21 @@ void  CObjhero2::Action()
 		}
 
 		hit->SetPos(m_px + 18, m_py+9);
+
+		//スイッチを上から触れたらフラグを立てる
+		if (GetBT() == 27 && switch_flag2 == false)
+		{
+			switch_flag2 = true;
+		}
+		if (GetBT() != 30 && switch_flag2 == true)
+		{
+			s++;
+			if (s > 60 * 0.5)
+			{
+				switch_flag2 = false;
+				s = 0;
+			}
+		}
 	}
 }
 
