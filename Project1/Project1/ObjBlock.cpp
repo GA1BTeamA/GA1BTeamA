@@ -119,12 +119,14 @@ void CObjBlock::Action()
 			scroll_change_keep = m_block_scroll;
 			m_block_scroll = scroll_change_s;
 			scroll_change_b = scroll_change_keep;
+			g_hero_change = true;
 		}
 		else
 		{
 			scroll_change_keep = m_block_scroll;
 			m_block_scroll = scroll_change_b;
 			scroll_change_s = scroll_change_keep;
+			g_hero_change = false;
 		}
 
 		screen_change_flag = false;
@@ -367,7 +369,7 @@ void CObjBlock::Draw()
 			}
 
 				//草ブロック
-				if (m_map[i][j] == 1|| m_map[i][j] == 26)
+				if (m_map[i][j] == 1|| m_map[i][j] == 27)
 				{
 					//切り取り位置
 					src.m_top = 0.0f;
@@ -641,7 +643,7 @@ void CObjBlock::BlockHit
 				float scroll = scroll_on ? m_block_scroll : 0;
 
 				//主人公とブロックの当り判定
-				if ((*x + 19.0f + (-m_block_scroll) + 26.0f > bx) && (*x + 19.0 + (-m_block_scroll) < bx + 32.0f) && (*y + 64.0f > by) && (*y < by + 32.0f))
+				if ((*x + 19.0f + (-m_block_scroll) + 22.0f > bx) && (*x + 19.0 + (-m_block_scroll) < bx + 32.0f) && (*y + 64.0f > by) && (*y < by + 32.0f))
 				{
 					//上下左右判定
 
@@ -649,11 +651,11 @@ void CObjBlock::BlockHit
 					float rvx[2];
 					float rvy[2];
 
-					rvx[0] = (*x + (-m_block_scroll)) + 32 - bx;
+					rvx[0] = (*x + (-m_block_scroll)) + 16 - bx;
 					rvy[0] = *y + 32 - by;
 
-					rvx[1] = (*x + (-m_block_scroll) + 32) - bx;
-					rvy[1] = *y - by;
+					rvx[1] = (*x + (-m_block_scroll) + 16) - bx;
+					rvy[1] = *y  - by;
 					//float vx = (hx+32+(-m_block_scroll)) - x;
 					//float vy = hy + 32 - y;
 
@@ -691,9 +693,8 @@ void CObjBlock::BlockHit
 								{
 									//右
 									*right = true;//主人公が左部分に衝突している
-									*x = (bx + 10.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+									*x = (bx + 13.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
 									*vx = -(*vx)*0.1f;//-VX*反発係数
-									*x = bx + 10.0f + (m_block_scroll);
 									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
 
 								}
@@ -727,18 +728,21 @@ void CObjBlock::BlockHit
 								{
 									//左
 									*left = true;//主人公が右の部分に衝突している
-									*x = bx - 50.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
+									*x = bx - 41.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
 									*vx = -(*vx)*0.1f;//-VX*反発係数
-									*x = bx - 55.0f + (m_block_scroll);
 
 									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
 
-									if (m_map[i][j] == 11)
+
+									if (m_map[i][j] == 11 && g_hero_change == false)
 									{
-										objh->SetGoalBlock(11);
 										objh2->SetGoalBlock(11);
 									}
-
+									else if (m_map[i][j] == 11 && g_hero_change == true)
+									{
+										objh->SetGoalBlock(11);
+									}
+									
 								}
 								if (r >= 225 && r <= 315)
 								{
