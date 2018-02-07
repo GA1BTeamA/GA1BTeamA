@@ -97,6 +97,8 @@ void CObjBlock::Init()
 	sister_key = false;
 	brother_gateopen = false;
 	sister_gateopen = false;
+	brother_gateopen2 = false;
+	sister_gateopen2 = false;
 	switch_flag = false;
 }
 
