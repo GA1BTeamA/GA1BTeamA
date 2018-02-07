@@ -168,7 +168,7 @@ void  CObjhero::Action()
 		}
 
 		//ålŒöØ‚è‘Ö‚¦
-		if (Input::GetVKey('Z') == true)
+		if (Input::GetVKey(VK_SHIFT) == true)
 		{
 			if (button_flag_z == true && m_hit_down == true && GetBT() != 27
 				&& GetBT() != 18&& GetBT() != 28)
@@ -223,11 +223,11 @@ void  CObjhero::Action()
 		}
 
 		//y²ˆÚ“®—p
-		if (Input::GetVKey(VK_UP) == true)
+		if (Input::GetVKey(VK_UP) == true|| Input::GetVKey('Z') == true)
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
-				m_vy -= 11.0f;
+				m_vy -= 12.0f;
 				button_flag_up = false;
 			}
 		}
