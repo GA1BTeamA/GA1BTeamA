@@ -27,6 +27,9 @@ extern bool shose_block;
 extern bool brother_goal;
 extern bool sister_goal;
 
+//主人公がスイッチを踏んでいるかどうか
+extern bool switch_flag2;
+
 //イニシャライズ
 void CObjhero2::Init()
 {
@@ -75,6 +78,8 @@ void CObjhero2::Init()
 	sister_goal = false;
 
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO2, 1);
+
+	s = 0;
 }
 
 //アクション
@@ -97,7 +102,7 @@ void  CObjhero2::Action()
 		CHitBox* hit = Hits::GetHitBox(this);
 
 		//敵と当たっているか確認
-		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
+		/*if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
 		{
 			//主人公が敵とどの角度で当たっているか確認
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
@@ -108,31 +113,29 @@ void  CObjhero2::Action()
 			//右
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
-				HP -= 1;
+				//HP -= 1;
 			}
 			//上
 			if (r >= 45 && r <= 135)
 			{
-				HP -= 1;
+				//HP -= 1;
 			}
 			//左
 			if (r >= 135 && r <= 225)
 			{
-				HP -= 1;
+				//HP -= 1;
 			}
 			if (r >= 225 && r <= 315)
 			{
-				HP -= 1;
+				//HP -= 1;
 			}
-		}
+		}*/
 
 		//主人公切り替え
 		if (Input::GetVKey(VK_LSHIFT) == true)
 		{
 			if (button_flag_z == true && m_hit_down == true)
 			{
-
-				g_hero_change = true;
 
 				//ブロック情報を持ってくる
 				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
@@ -229,7 +232,10 @@ void  CObjhero2::Action()
 		m_px += m_vx;
 		m_py += m_vy;
 
-
+		if (m_hit_left == true || m_hit_right == true)
+		{
+			m_px -= m_vx;
+		}
 
 		//ゲームオーバーに切り替え
 		if (m_py > 850 || HP == 0)
@@ -263,6 +269,21 @@ void  CObjhero2::Action()
 		}
 
 		hit->SetPos(m_px + 18, m_py+9);
+
+		//スイッチを上から触れたらフラグを立てる
+		if (GetBT() == 27 && switch_flag2 == false)
+		{
+			switch_flag2 = true;
+		}
+		if (GetBT() != 30 && switch_flag2 == true)
+		{
+			s++;
+			if (s > 60 * 0.5)
+			{
+				switch_flag2 = false;
+				s = 0;
+			}
+		}
 	}
 }
 

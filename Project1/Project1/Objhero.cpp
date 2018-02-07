@@ -20,6 +20,7 @@ extern float g_px;
 //兄妹の画面切り替えフラグ
 extern bool screen_change_flag;
 
+//よろいフラグ
 extern bool armor_block;
 bool damage_flag;
 bool enemy_flag;
@@ -27,6 +28,9 @@ bool enemy_flag;
 //主人公がゴール前にいるかどうか
 extern bool brother_goal;
 extern bool sister_goal;
+
+//主人公がスイッチを踏んでいるかどうか
+extern bool switch_flag;
 
 //イニシャライズ
 void CObjhero::Init()
@@ -52,6 +56,7 @@ void CObjhero::Init()
 
 	d = 0;
 	t = 0;
+	s = 0;
 
 	damage_flag = false;
 	enemy_flag = false;
@@ -63,7 +68,7 @@ void CObjhero::Init()
 	button_flag_z = false;
 
 	//描画切り替え
-	Draw_flag=true;
+	Draw_flag=true;	
 
 	//体力
 	HP = 1;
@@ -104,7 +109,7 @@ void  CObjhero::Action()
 		CHitBox* hit = Hits::GetHitBox(this);
 
 		//敵と当たっているか確認
-		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
+		/*if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
 		{
 			//主人公が敵とどの角度で当たっているか確認
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
@@ -115,7 +120,7 @@ void  CObjhero::Action()
 			//右
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
-				HP -= 1;
+				//HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -126,7 +131,7 @@ void  CObjhero::Action()
 			//上
 			if (r >= 45 && r <= 135)
 			{
-				HP -= 1;
+				//HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -137,7 +142,7 @@ void  CObjhero::Action()
 			//左
 			if (r >= 135 && r <= 225)
 			{
-				HP -= 1;
+				//HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -147,7 +152,7 @@ void  CObjhero::Action()
 			}
 			if (r >= 225 && r <= 315)
 			{
-				HP -= 1;
+				//HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -160,15 +165,13 @@ void  CObjhero::Action()
 				armor_block = false;
 			}
 			
-		}
+		}*/
 
 		//主人公切り替え
 		if (Input::GetVKey(VK_LSHIFT) == true)
 		{
 			if (button_flag_z == true && m_hit_down == true)
 			{
-
-				g_hero_change = false;
 
 				//ブロック情報を持ってくる
 				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
@@ -223,7 +226,7 @@ void  CObjhero::Action()
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
-				m_vy -= 12.0f;
+				m_vy -= 11.0f;
 				button_flag_up = false;
 			}
 		}
@@ -260,11 +263,17 @@ void  CObjhero::Action()
 		m_vx += -(m_vx*0.098);
 
 		//自由落下
-		m_vy += 9 / (16.0f);
+		m_vy += 9/ (16.0f);
+
 
 		//位置の更新
 		m_px += m_vx;
 		m_py += m_vy;
+
+		if (m_hit_left==true|| m_hit_right==true)
+		{
+			m_px -= m_vx;
+		}
 
 		if (m_py > 850 || HP == 0)
 		{
@@ -353,8 +362,23 @@ void  CObjhero::Action()
 			{
 				muteki_e = 0;
 			}
-
 		}
+
+		//スイッチを上から触れたらフラグを立てる
+		if (GetBT() == 27 && switch_flag == false)
+		{
+			switch_flag = true;
+		}
+		if (GetBT() != 30 && switch_flag == true)
+		{
+			s++;
+			if (s > 60 * 0.5)
+			{
+				switch_flag = false;
+				s = 0;
+			}
+		}
+
 	}
 
 }
