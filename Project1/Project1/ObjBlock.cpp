@@ -204,66 +204,6 @@ void CObjBlock::Action()
 		}
 	}
 
-	//キャラ切り替えに際した門ギミックの画像と当たり判定切り替え
-	if (g_hero_change == true)
-	{
-		if (brother_gateopen == false)
-		{
-			for (int i = 0; i < MAPSIZE_Y; i++)
-			{
-				for (int j = 0; j < MAPSIZE_X; j++)
-				{
-					if (m_map[i][j] == 99)
-					{
-						m_map[i][j] = 21;
-					}
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < MAPSIZE_Y; i++)
-			{
-				for (int j = 0; j < MAPSIZE_X; j++)
-				{
-					if (m_map[i][j] == 21)
-					{
-						m_map[i][j] = 99;
-					}
-				}
-			}
-		}
-	}
-	else
-	{
-		if (sister_gateopen == false)
-		{
-			for (int i = 0; i < MAPSIZE_Y; i++)
-			{
-				for (int j = 0; j < MAPSIZE_X; j++)
-				{
-					if (m_map[i][j] == 99)
-					{
-						m_map[i][j] = 21;
-					}
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < MAPSIZE_Y; i++)
-			{
-				for (int j = 0; j < MAPSIZE_X; j++)
-				{
-					if (m_map[i][j] == 21)
-					{
-						m_map[i][j] = 99;
-					}
-				}
-			}
-		}
-	}
-
 	//主人公がスイッチを踏んでいる間、踏スイッチとブロックを用意する
 	if (switch_flag == true||switch_flag2==true)
 	{
@@ -857,8 +797,10 @@ void CObjBlock::BlockHit
 										{
 											brother_gateopen = true;
 											brother_key = false;
-
-											m_map[i][j] = 99;
+											if (brother_gateopen == true && sister_gateopen == true)
+											{
+												m_map[i][j] = 99;
+											}
 										}
 									}
 									//brother_keyがtrueで触れたとき「門2」を開く
@@ -883,18 +825,20 @@ void CObjBlock::BlockHit
 										sister_key = true;
 										m_map[i][j] = 0;
 									}
-									//sister_keyがtrueで触れたとき門を開く
+									//sister_keyがtrueで触れたとき「門」を開く
 									if (m_map[i][j] == 21)
 									{
 										if (sister_key == true)
 										{
 											sister_gateopen = true;
 											sister_key = false;
-
-											m_map[i][j] = 99;
+											if (brother_gateopen == true && sister_gateopen == true)
+											{
+												m_map[i][j] = 99;
+											}
 										}
 									}
-									//sister_keyがtrueで触れたとき門2を開く
+									//sister_keyがtrueで触れたとき「門2」を開く
 									if (m_map[i][j] == 32)
 									{
 										if (sister_key == true)
