@@ -112,11 +112,20 @@ void  CObjhero::Action()
 		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
 		{
 			//主人公が敵とどの角度で当たっているか確認
-			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
+			HIT_DATA** hit_data = {0};							//当たった時の細かな情報を入れるための構造体
 			hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
 
 			//敵の左右に当たったら
-			float r = hit_data[0]->r;
+			float r;
+			for(int i=0; hit->GetCount() ;i++)
+			{
+				if(hit_data[i]!=nullptr)
+				{
+					r= hit_data[i]->r;
+					break;
+				}
+			}
+			 
 			//右
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
