@@ -334,20 +334,8 @@ void  CObjhero::Action()
 			hit->SetStatus(ELEMENT_PLAYER, OBJ_HERO, 1);
 			enemy_flag = false;
 		}
-		//とげ踏んだ時の無敵
-		if (damage_flag == true && muteki == 0)
-		{
-			d++;
-		}
-		else
-		{
-			d = 0;
-		}
-		if (d > 60 * 1)
-		{
-			damage_flag = false;
-		}
 
+		//とげ踏んだ時の無敵
 		if (g_hero_change == true)
 			hit->SetPos(m_px + 16, m_py);
 
@@ -358,6 +346,7 @@ void  CObjhero::Action()
 			{
 				muteki = 0;
 				muteki_t = 0;
+				damage_flag = false;
 			}
 
 			if (muteki_t % 2 == 1)
@@ -369,6 +358,7 @@ void  CObjhero::Action()
 			{
 				muteki_e = 0;
 			}
+
 		}
 
 		//スイッチを上から触れたらフラグを立てる
