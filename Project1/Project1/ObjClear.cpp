@@ -55,7 +55,7 @@ void CObjClear::Draw()
 
 	Draw::Draw(1, &src, &dst, c, 0.0f);
 
-	Font::StrDraw(L"ゲームクリア", 300, 200, 30, c);
+	Font::StrDraw(L"ゲームクリア！", 300, 200, 30, c);
 	Font::StrDraw(L"Enterを押してタイトルに戻る", 200, 400, 30, c);
 
 }
