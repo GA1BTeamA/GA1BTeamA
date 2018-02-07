@@ -103,7 +103,7 @@ void CObjEnemy1::Action()
 
 	float x = pb->GetScroll() + m_px;
 
-	pb->BlockHit(&x, &m_py, false,
+	pb->BlockEnemyHit(&x, &m_py, false,
 		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
 		&d);
 

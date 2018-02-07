@@ -109,7 +109,7 @@ void  CObjhero::Action()
 		CHitBox* hit = Hits::GetHitBox(this);
 
 		//敵と当たっているか確認
-		/*if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
+		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
 		{
 			//主人公が敵とどの角度で当たっているか確認
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
@@ -120,7 +120,7 @@ void  CObjhero::Action()
 			//右
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
-				//HP -= 1;
+				HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -131,7 +131,7 @@ void  CObjhero::Action()
 			//上
 			if (r >= 45 && r <= 135)
 			{
-				//HP -= 1;
+				HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -142,7 +142,7 @@ void  CObjhero::Action()
 			//左
 			if (r >= 135 && r <= 225)
 			{
-				//HP -= 1;
+				HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -152,7 +152,7 @@ void  CObjhero::Action()
 			}
 			if (r >= 225 && r <= 315)
 			{
-				//HP -= 1;
+				HP -= 1;
 				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
 				if (enemy_flag == false)
 				{
@@ -165,12 +165,13 @@ void  CObjhero::Action()
 				armor_block = false;
 			}
 			
-		}*/
+		}
 
 		//主人公切り替え
-		if (Input::GetVKey(VK_LSHIFT) == true)
+		if (Input::GetVKey('Z') == true)
 		{
-			if (button_flag_z == true && m_hit_down == true)
+			if (button_flag_z == true && m_hit_down == true && GetBT() != 27
+				&& GetBT() != 18&& GetBT() != 28)
 			{
 
 				//ブロック情報を持ってくる
@@ -222,7 +223,7 @@ void  CObjhero::Action()
 		}
 
 		//y軸移動用
-		if (Input::GetVKey(VK_UP) == true|| Input::GetVKey('Z') == true)
+		if (Input::GetVKey(VK_UP) == true)
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
@@ -263,7 +264,7 @@ void  CObjhero::Action()
 		m_vx += -(m_vx*0.098);
 
 		//自由落下
-		m_vy += 9/ (16.0f);
+		m_vy += 9.8/ (16.0f);
 
 
 		//位置の更新
@@ -298,6 +299,12 @@ void  CObjhero::Action()
 				HP -= 1;
 				damage_flag = true;
 			}
+
+			if (armor_block == true)
+			{
+				armor_block = false;
+			}
+
 		}
 
 
@@ -369,14 +376,21 @@ void  CObjhero::Action()
 		{
 			switch_flag = true;
 		}
-		if (GetBT() != 30 && switch_flag == true)
+		if (GetBT() != 30)
 		{
-			s++;
-			if (s > 60 * 0.5)
+			if (switch_flag == true)
 			{
-				switch_flag = false;
-				s = 0;
+				s++;
+				if (s > 60 * 0.2)
+				{
+					switch_flag = false;
+					s = 0;
+				}
 			}
+		}
+		else
+		{
+			switch_flag = true;
 		}
 
 	}
