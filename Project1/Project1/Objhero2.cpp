@@ -127,7 +127,7 @@ void  CObjhero2::Action()
 		}
 
 		//ålŒöØ‚è‘Ö‚¦
-		if (Input::GetVKey('Z') == true)
+		if (Input::GetVKey(VK_LSHIFT) == true)
 		{
 			if (button_flag_z == true && m_hit_down == true)
 			{
@@ -182,7 +182,7 @@ void  CObjhero2::Action()
 		}
 
 		//y²ˆÚ“®—p
-		if (Input::GetVKey(VK_UP) == true)
+		if (Input::GetVKey(VK_UP) == true || Input::GetVKey('Z') == true)
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
