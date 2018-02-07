@@ -132,40 +132,21 @@ void CObjGate::Draw()
 
 				//描画
 
-				//兄閉門ブロック
-				if (g_hero_change == true)
-				{
+				//閉門ブロック
 					if (m_map[i][j] == 21)
 					{
 						if (brother_gateopen == false)
 						{
 							//切り取り位置の設定
-							src.m_top = 0.0f;
-							src.m_left = 64.0f;
-							src.m_right = 128.0f;
-							src.m_bottom = 64.0f;
+							src.m_top = 128.0f;
+							src.m_left = 0.0f;
+							src.m_right = 64.0f;
+							src.m_bottom = 192.0f;
 
 							Draw::Draw(8, &src, &dst, c, 0.0f);
 						}
 					}
-				}
-				//妹閉門ブロック
-				if (g_hero_change == false)
-				{
-					if (m_map[i][j] == 21)
-					{
-						if (sister_gateopen == false)
-						{
-							//切り取り位置の設定
-							src.m_top = 0.0f;
-							src.m_left = 128.0f;
-							src.m_right = 192.0f;
-							src.m_bottom = 64.0f;
-							
-							Draw::Draw(8, &src, &dst, c, 0.0f);
-						}
-					}
-				}
+				
 				
 				//門ブロック
 				if (m_map[i][j] == 22)
