@@ -848,7 +848,7 @@ void CObjBlock::BlockHit
 										brother_key = true;
 										m_map[i][j] = 0;
 									}
-									//brother_keyがtrueで触れたとき門を開く
+									//brother_keyがtrueで触れたとき「門」を開く
 									if (m_map[i][j] == 21)
 									{
 										if (brother_key == true)
@@ -857,6 +857,19 @@ void CObjBlock::BlockHit
 											brother_key = false;
 
 											m_map[i][j] = 99;
+										}
+									}
+									//brother_keyがtrueで触れたとき「門2」を開く
+									if (m_map[i][j] == 32)
+									{
+										if (brother_key == true)
+										{
+											brother_gateopen2 = true;
+											brother_key = false;
+											if (brother_gateopen2 == true && sister_gateopen2 == true)
+											{
+												m_map[i][j] = 99;
+											}
 										}
 									}
 								}
@@ -877,6 +890,19 @@ void CObjBlock::BlockHit
 											sister_key = false;
 
 											m_map[i][j] = 99;
+										}
+									}
+									//sister_keyがtrueで触れたとき門2を開く
+									if (m_map[i][j] == 32)
+									{
+										if (sister_key == true)
+										{
+											sister_gateopen2 = true;
+											sister_key = false;
+											if (brother_gateopen2 == true && sister_gateopen2 == true)
+											{
+												m_map[i][j] = 99;
+											}
 										}
 									}
 								}

@@ -179,6 +179,61 @@ void CObjGate::Draw()
 					Draw::Draw(8, &src, &dst, c, 0.0f);
 				}
 
+					if (m_map[i][j] == 32)
+					{
+						//開門ブロック2
+						if (brother_gateopen2 == true && sister_gateopen2 == true)
+						{
+							//切り取り位置の設定
+							src.m_top = 0.0f;
+							src.m_left = 192.0f;
+							src.m_right = 256.0f;
+							src.m_bottom = 64.0f;
+							Draw::Draw(8, &src, &dst, c, 0.0f);
+						}
+						//閉門ブロック2-1
+						else if (brother_gateopen2 == true && sister_gateopen2 == false)
+						{
+							//切り取り位置の設定
+							src.m_top = 128.0f;
+							src.m_left = 128.0f;
+							src.m_right = 192.0f;
+							src.m_bottom = 192.0f;
+							Draw::Draw(8, &src, &dst, c, 0.0f);
+						}
+						//閉門ブロック2-2
+						else if (brother_gateopen2 == false && sister_gateopen2 == true)
+						{
+							//切り取り位置の設定
+							src.m_top = 128.0f;
+							src.m_left = 64.0f;
+							src.m_right = 128.0f;
+							src.m_bottom = 192.0f;
+							Draw::Draw(8, &src, &dst, c, 0.0f);
+						}
+						//閉門ブロック2-3
+						else
+						{
+							//切り取り位置の設定
+							src.m_top = 128.0f;
+							src.m_left = 0.0f;
+							src.m_right = 64.0f;
+							src.m_bottom = 192.0f;
+
+							Draw::Draw(8, &src, &dst, c, 0.0f);
+						}
+					}
+				
+				//門ブロック
+				if (m_map[i][j] == 22)
+				{
+					//切り取り位置の設定
+					src.m_top = 0.0f;
+					src.m_left = 0.0f;
+					src.m_right = 64.0f;
+					src.m_bottom = 64.0f;
+
+					Draw::Draw(8, &src, &dst, c, 0.0f);
 				//開門ブロック左
 				if (m_map[i][j] == 21)
 				{
@@ -331,6 +386,22 @@ void CObjGateOpenRight::Draw()
 					}
 
 					
+				}
+
+				if (m_map[i][j] == 32)
+				{
+					if (brother_gateopen2 == true &&
+						sister_gateopen2 == true)
+					{
+						//切り取り位置の設定
+						src.m_top = 0.0f;
+						src.m_left = 0.0f;
+						src.m_right = 64.0f;
+						src.m_bottom = 64.0f;
+						Draw::Draw(9, &src, &dst, c, 0.0f);
+					}
+
+
 				}
 			}
 		}
