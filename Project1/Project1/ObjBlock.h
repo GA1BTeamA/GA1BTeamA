@@ -25,8 +25,16 @@ public:
 
 
 
-	//ブロックとの当たり判定
+	//ブロックとの当たり判定（主人公）
 	void BlockHit
+	(
+		float *x, float *y, bool scroll_on,
+		bool*up, bool* down, bool* left, bool* right,
+		float* vx, float*vy, int* bt
+	);
+
+	//ブロックとの当たり判定（オオカミ）
+	void BlockEnemyHit
 	(
 		float *x, float *y, bool scroll_on,
 		bool*up, bool* down, bool* left, bool* right,

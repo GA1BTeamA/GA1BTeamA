@@ -97,8 +97,6 @@ void CObjBlock::Init()
 	sister_key = false;
 	brother_gateopen = false;
 	sister_gateopen = false;
-	brother_gateopen2 = false;
-	sister_gateopen2 = false;
 	switch_flag = false;
 }
 
@@ -206,7 +204,65 @@ void CObjBlock::Action()
 		}
 	}
 
-	
+	//キャラ切り替えに際した門ギミックの画像と当たり判定切り替え
+	if (g_hero_change == true)
+	{
+		if (brother_gateopen == false)
+		{
+			for (int i = 0; i < MAPSIZE_Y; i++)
+			{
+				for (int j = 0; j < MAPSIZE_X; j++)
+				{
+					if (m_map[i][j] == 99)
+					{
+						m_map[i][j] = 21;
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < MAPSIZE_Y; i++)
+			{
+				for (int j = 0; j < MAPSIZE_X; j++)
+				{
+					if (m_map[i][j] == 21)
+					{
+						m_map[i][j] = 99;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		if (sister_gateopen == false)
+		{
+			for (int i = 0; i < MAPSIZE_Y; i++)
+			{
+				for (int j = 0; j < MAPSIZE_X; j++)
+				{
+					if (m_map[i][j] == 99)
+					{
+						m_map[i][j] = 21;
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < MAPSIZE_Y; i++)
+			{
+				for (int j = 0; j < MAPSIZE_X; j++)
+				{
+					if (m_map[i][j] == 21)
+					{
+						m_map[i][j] = 99;
+					}
+				}
+			}
+		}
+	}
 
 	//主人公がスイッチを踏んでいる間、踏スイッチとブロックを用意する
 	if (switch_flag == true||switch_flag2==true)
@@ -618,6 +674,7 @@ void CObjBlock::Draw()
 }
 
 
+//主人公用-----------------------------------------------------------------------------------------------------------------------------------------
 //BlockHit関数
 //引数1  float* x          ;判定を行うobjectのx位置
 //引数2  float* y          ;判定を行うobjectのy位置
@@ -667,7 +724,7 @@ void CObjBlock::BlockHit
 				float scroll = scroll_on ? m_block_scroll : 0;
 
 				//主人公とブロックの当り判定
-				if ((*x + 19.0f + (-m_block_scroll) + 22.0f > bx) && (*x + 19.0 + (-m_block_scroll) < bx + 32.0f) && (*y + 64.0f > by) && (*y < by + 32.0f))
+				if ((*x + 41.0f + (-m_block_scroll) > bx) && (*x + 19.0 + (-m_block_scroll) < bx + 32.0f) && (*y + 64.0f > by) && (*y < by + 32.0f))
 				{
 					//上下左右判定
 
@@ -800,10 +857,8 @@ void CObjBlock::BlockHit
 										{
 											brother_gateopen = true;
 											brother_key = false;
-											if (brother_gateopen == true && sister_gateopen == true)
-											{
-												m_map[i][j] = 99;
-											}
+
+											m_map[i][j] = 99;
 										}
 									}
 									//brother_keyがtrueで触れたとき「門2」を開く
@@ -835,10 +890,8 @@ void CObjBlock::BlockHit
 										{
 											sister_gateopen = true;
 											sister_key = false;
-											if (brother_gateopen == true && sister_gateopen == true)
-											{
-												m_map[i][j] = 99;
-											}
+
+											m_map[i][j] = 99;
 										}
 									}
 									//sister_keyがtrueで触れたとき門2を開く
@@ -864,14 +917,6 @@ void CObjBlock::BlockHit
 										armor_block = true;
 										m_map[i][j] = 0;
 									}
-									//ダメージを受けるとよろいが消える
-									if (m_map[i][j] == 3&& *down == true || m_map[i][j] == 6 && *down == true || m_map[i][j] == 12 && *up == true)
-									{
-										if (armor_block == true)
-										{
-											armor_block = false;
-										}
-									}
 								}
 								else
 								{
@@ -882,6 +927,145 @@ void CObjBlock::BlockHit
 										m_map[i][j] = 0;
 									}
 								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+//オオカミ用-----------------------------------------------------------------------------------------------------------------------------------------
+//BlockHit関数
+//引数1  float* x          ;判定を行うobjectのx位置
+//引数2  float* y          ;判定を行うobjectのy位置
+//引数3  bool   scroll_on  ;判定を行うobjectはスクロールの影響与えるかどうか（true=与える false=与えない）
+//引数4  bool*  up         ;上下左右判定の上部分に当たっているかどうかを返す
+//引数5  bool*  down       ;上下左右判定の下部分に当たっているかどうかを返す
+//引数6  bool*  left       ;上下左右判定の左部分に当たっているかどうかを返す
+//引数7  bool*  right      ;上下左右判定の右部分に当たっているかどうかを返す
+//引数8  float* vx         ;左右判定時の反発による移動方向・力の値変えて返す
+//引数9  float* vy         ;上下判定時による自由落下運動の移動方向・力の値変えて返す
+//引数10 int*   bt         ;下部分判定時、特殊なブロックのタイプを返す
+//判定を行うobjectとブロック64＊64限定で、当たり判定と上下左右半手を行う
+//その結果は引数4～10に返す
+void CObjBlock::BlockEnemyHit
+(
+	float* x, float* y, bool scroll_on,
+	bool*up, bool* down, bool* left, bool* right,
+	float *vx, float *vy, int* bt
+)
+{
+	//主人公の衝突確認状態確認用フラグの初期化
+	*up = false;
+	*down = false;
+	*left = false;
+	*right = false;
+
+	//踏んでいるblockの種類の初期化
+	*bt = 0;
+
+	//m_mapの全要素にアクセス
+	for (int i = 0; i < MAPSIZE_Y; i++)
+	{
+		for (int j = 0; j < MAPSIZE_X; j++)
+		{
+			if (m_map[i][j] > 0 &&
+				m_map[i][j] != 15 &&
+				m_map[i][j] != 17 &&
+				m_map[i][j] != 99 &&
+				m_map[i][j] != 28 &&
+				m_map[i][j] != 29)
+			{
+				//要素番号を座標に変更
+				float bx = j*32.0f;
+				float by = i*32.0f;
+
+				//スクロールの影響
+				float scroll = scroll_on ? m_block_scroll : 0;
+
+				//主人公とブロックの当り判定
+				if ((*x+58.0+ (-m_block_scroll) > bx) && (*x+4.0f + (-m_block_scroll) < bx + 32.0f) && (*y + 64.0f > by) && (*y < by + 32.0f))
+				{
+					//上下左右判定
+
+					//vectorの作成
+					float rvx[2];
+					float rvy[2];
+
+					rvx[0] = (*x + (-m_block_scroll))+16 - bx;
+					rvy[0] = *y + 32 - by;
+
+					rvx[1] = (*x + (-m_block_scroll)+16) - bx;
+					rvy[1] = *y - by;
+					//float vx = (hx+32+(-m_block_scroll)) - x;
+					//float vy = hy + 32 - y;
+
+					for (int k = 0; k < 2; k++)
+					{
+						//長さを求める
+						float len = sqrt(rvx[k] * rvx[k] + rvy[k] * rvy[k]);
+
+						//角度を求める
+						float r = atan2(rvy[k], rvx[k]);
+						r = r*180.0f / 3.14f;
+
+						if (r <= 0.0f)
+							r = abs(r);
+						else
+							r = 360.0f - abs(r);
+
+						//lenがある一定の長さより短い場合判定に入る
+						if (len < 38)
+						{
+
+
+							//角度で上下左右を判定
+							if ((r <= 45 && r >= 0) || r >= 315)
+							{
+								//右
+								*right = true;//主人公が左部分に衝突している
+								*x = (bx + 58.0f + (m_block_scroll));//ブロックの位置ー主人公の幅
+								*vx = -(*vx)*0.1f;//-VX*反発係数
+								*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+
+							}
+							if (r >= 45 && r <= 135)
+							{
+								if (k == 0)
+								{
+									//上
+									*down = true;//主人公の下の部分が衝突している
+									*y = by - 64.0f;//ブロック位置ー主人公の幅
+									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+									*vy = 0.0f;
+								}
+							}
+							if (r >= 135 && r <= 225)
+							{
+								//左
+								*left = true;//主人公が右の部分に衝突している
+								*x = bx - 64.0f + (m_block_scroll);//ブロックの位置ー主人公の幅
+								*vx = -(*vx)*0.1f;//-VX*反発係数
+								*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+
+							}
+							if (r >= 225 && r <= 315)
+							{
+								//下
+								if (k == 1)
+								{
+									*up = true;//主人公の上の部分が衝突している
+									*bt = m_map[i][j];//ブロックの要素(type)を主人公に渡す
+									//*y=by + 64.0f;//ブロックの位置+主人公の幅
+
+									if (*vy < 0)
+									{
+										*vy = 0.0f;
+									}
+								}
+
 							}
 						}
 					}

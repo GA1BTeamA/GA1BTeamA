@@ -102,7 +102,7 @@ void  CObjhero2::Action()
 		CHitBox* hit = Hits::GetHitBox(this);
 
 		//敵と当たっているか確認
-		/*if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
+		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr)
 		{
 			//主人公が敵とどの角度で当たっているか確認
 			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
@@ -113,28 +113,29 @@ void  CObjhero2::Action()
 			//右
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
-				//HP -= 1;
+				HP -= 1;
 			}
 			//上
 			if (r >= 45 && r <= 135)
 			{
-				//HP -= 1;
+				HP -= 1;
 			}
 			//左
 			if (r >= 135 && r <= 225)
 			{
-				//HP -= 1;
+				HP -= 1;
 			}
 			if (r >= 225 && r <= 315)
 			{
-				//HP -= 1;
+				HP -= 1;
 			}
-		}*/
+		}
 
 		//主人公切り替え
-		if (Input::GetVKey(VK_LSHIFT) == true)
+		if (Input::GetVKey('Z') == true)
 		{
-			if (button_flag_z == true && m_hit_down == true)
+			if (button_flag_z == true && m_hit_down == true && GetBT() != 27
+				&& GetBT() != 23 && GetBT() != 19)
 			{
 
 				//ブロック情報を持ってくる
@@ -185,7 +186,7 @@ void  CObjhero2::Action()
 		}
 
 		//y軸移動用
-		if (Input::GetVKey(VK_UP) == true || Input::GetVKey('Z') == true)
+		if (Input::GetVKey(VK_UP) == true)
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
@@ -275,14 +276,21 @@ void  CObjhero2::Action()
 		{
 			switch_flag2 = true;
 		}
-		if (GetBT() != 30 && switch_flag2 == true)
+		if (GetBT() != 30)
 		{
-			s++;
-			if (s > 60 * 0.5)
+			if (switch_flag2 == true)
 			{
-				switch_flag2 = false;
-				s = 0;
+				s++;
+				if (s > 60 * 0.2)
+				{
+					switch_flag2 = false;
+					s = 0;
+				}
 			}
+		}
+		else
+		{
+			switch_flag2 = true;
 		}
 	}
 }
