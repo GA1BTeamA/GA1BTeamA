@@ -26,6 +26,8 @@ bool shose_block;
 //主人公が門を開けるときのフラグ
 bool brother_gateopen;
 bool sister_gateopen;
+bool brother_gateopen2;
+bool sister_gateopen2;
 //スイッチを踏んでいるときのフラグ
 bool switch_flag;
 bool switch_flag2;
@@ -95,6 +97,8 @@ void CObjBlock::Init()
 	sister_key = false;
 	brother_gateopen = false;
 	sister_gateopen = false;
+	brother_gateopen2 = false;
+	sister_gateopen2 = false;
 	switch_flag = false;
 }
 
@@ -202,65 +206,7 @@ void CObjBlock::Action()
 		}
 	}
 
-	//キャラ切り替えに際した門ギミックの画像と当たり判定切り替え
-	if (g_hero_change == true)
-	{
-		if (brother_gateopen == false)
-		{
-			for (int i = 0; i < MAPSIZE_Y; i++)
-			{
-				for (int j = 0; j < MAPSIZE_X; j++)
-				{
-					if (m_map[i][j] == 99)
-					{
-						m_map[i][j] = 21;
-					}
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < MAPSIZE_Y; i++)
-			{
-				for (int j = 0; j < MAPSIZE_X; j++)
-				{
-					if (m_map[i][j] == 21)
-					{
-						m_map[i][j] = 99;
-					}
-				}
-			}
-		}
-	}
-	else
-	{
-		if (sister_gateopen == false)
-		{
-			for (int i = 0; i < MAPSIZE_Y; i++)
-			{
-				for (int j = 0; j < MAPSIZE_X; j++)
-				{
-					if (m_map[i][j] == 99)
-					{
-						m_map[i][j] = 21;
-					}
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < MAPSIZE_Y; i++)
-			{
-				for (int j = 0; j < MAPSIZE_X; j++)
-				{
-					if (m_map[i][j] == 21)
-					{
-						m_map[i][j] = 99;
-					}
-				}
-			}
-		}
-	}
+	
 
 	//主人公がスイッチを踏んでいる間、踏スイッチとブロックを用意する
 	if (switch_flag == true||switch_flag2==true)
@@ -854,8 +800,10 @@ void CObjBlock::BlockHit
 										{
 											brother_gateopen = true;
 											brother_key = false;
-
-											m_map[i][j] = 99;
+											if (brother_gateopen == true && sister_gateopen == true)
+											{
+												m_map[i][j] = 99;
+											}
 										}
 									}
 								}
@@ -874,8 +822,10 @@ void CObjBlock::BlockHit
 										{
 											sister_gateopen = true;
 											sister_key = false;
-
-											m_map[i][j] = 99;
+											if (brother_gateopen == true && sister_gateopen == true)
+											{
+												m_map[i][j] = 99;
+											}
 										}
 									}
 								}
