@@ -21,6 +21,8 @@ extern bool g_hero_change;
 //主人公が門を開けるときのフラグ
 extern bool brother_gateopen;
 extern bool sister_gateopen;
+extern bool brother_gateopen2;
+extern bool sister_gateopen2;
 
 //----------------------------------------------
 
