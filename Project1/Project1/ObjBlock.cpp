@@ -26,6 +26,8 @@ bool shose_block;
 //主人公が門を開けるときのフラグ
 bool brother_gateopen;
 bool sister_gateopen;
+bool brother_gateopen2;
+bool sister_gateopen2;
 //スイッチを踏んでいるときのフラグ
 bool switch_flag;
 bool switch_flag2;
