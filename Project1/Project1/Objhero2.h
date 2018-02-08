@@ -76,4 +76,8 @@ protected:
 
 	//タイマー
 	int s;
+
+	//ゲームオーバー移行フラグ
+	bool end_flag;
+	int end_t;
 };

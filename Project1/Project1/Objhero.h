@@ -87,4 +87,8 @@ protected:
 	//ゴールの当たり判定チェック用
 	int goal_block;
 	int key_block;
+
+	//ゲームオーバー移行フラグ
+	bool end_flag;
+	int end_t;
 };

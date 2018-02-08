@@ -85,6 +85,10 @@ void CObjhero::Init()
 	muteki_e = 0;
 	muteki_t = 0;
 
+	end_flag = false;
+
+	end_t = 0;
+
 	Hits::SetHitBox(this, m_px, m_py, 32, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
 
 }
@@ -93,309 +97,332 @@ void CObjhero::Init()
 void  CObjhero::Action()
 {
 
-	if (g_hero_change == true)
+	if (end_flag == false)
 	{
-
-		//ブロックとの当たり判定実行
-		CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-		pb->BlockHit(&m_px, &m_py, true,
-			&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
-			&m_block_type
-		);
-
-		//ブロック情報を持ってくる
-		CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-
-		//HitBoxの位置の変更
-		CHitBox* hit = Hits::GetHitBox(this);
-
-		//敵と当たっているか確認
-		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
+		if (g_hero_change == true)
 		{
-			//主人公が敵とどの角度で当たっているか確認
-			HIT_DATA** hit_data = {0};							//当たった時の細かな情報を入れるための構造体
-			hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
 
-			//敵の左右に当たったら
-			float r;
-			for(int i=0; hit->GetCount() ;i++)
+			//ブロックとの当たり判定実行
+			CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+			pb->BlockHit(&m_px, &m_py, true,
+				&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
+				&m_block_type
+			);
+
+			//ブロック情報を持ってくる
+			CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
+			//HitBoxの位置の変更
+			CHitBox* hit = Hits::GetHitBox(this);
+
+			//敵と当たっているか確認
+			if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
 			{
-				if(hit_data[i]!=nullptr)
+				//主人公が敵とどの角度で当たっているか確認
+				HIT_DATA** hit_data = { 0 };							//当たった時の細かな情報を入れるための構造体
+				hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
+
+				//敵の左右に当たったら
+				float r;
+				for (int i = 0; hit->GetCount(); i++)
 				{
-					r= hit_data[i]->r;
-					break;
+					if (hit_data[i] != nullptr)
+					{
+						r = hit_data[i]->r;
+						break;
+					}
 				}
-			}
-			 
-			//右
-			if ((r <= 45 && r >= 0) || r >= 315)
-			{
-				HP -= 1;
-				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
-				if (enemy_flag == false)
+
+
+				//オオカミと当たったら鳴らす
+				if (HP > 0)
 				{
-					enemy_flag = true;
-					muteki = 1;
-				}				
-			}
-			//上
-			if (r >= 45 && r <= 135)
-			{
-				HP -= 1;
-				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
-				if (enemy_flag == false)
-				{
-					enemy_flag = true;
-					muteki = 1;
+					Audio::Start(1);
 				}
-			}
-			//左
-			if (r >= 135 && r <= 225)
-			{
-				HP -= 1;
-				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
-				if (enemy_flag == false)
+				//右
+				if ((r <= 45 && r >= 0) || r >= 315)
 				{
-					enemy_flag = true;
-					muteki = 1;
+					HP -= 1;
+					hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+					if (enemy_flag == false)
+					{
+						enemy_flag = true;
+						muteki = 1;
+					}
 				}
-			}
-			if (r >= 225 && r <= 315)
-			{
-				HP -= 1;
-				hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
-				if (enemy_flag == false)
+				//上
+				if (r >= 45 && r <= 135)
 				{
-					enemy_flag = true;
-					muteki = 1;
+					HP -= 1;
+					hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+					if (enemy_flag == false)
+					{
+						enemy_flag = true;
+						muteki = 1;
+					}
 				}
-			}
-			if (armor_block == true)
-			{
+				//左
+				if (r >= 135 && r <= 225)
+				{
+					HP -= 1;
+					hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+					if (enemy_flag == false)
+					{
+						enemy_flag = true;
+						muteki = 1;
+					}
+				}
+				if (r >= 225 && r <= 315)
+				{
+					HP -= 1;
+					hit->SetStatus(ELEMENT_ENEMY, OBJ_HERO, 1);
+					if (enemy_flag == false)
+					{
+						enemy_flag = true;
+						muteki = 1;
+					}
+				}
+				
+				if (armor_block == true)
+				{
+					armor_block = false;
+				}
+
 				Audio::Start(1);
-				armor_block = false;
 			}
-			
-		}
 
-		//主人公切り替え
-		if (Input::GetVKey(VK_SHIFT) == true)
-		{
-			if (button_flag_z == true && m_hit_down == true && GetBT() != 27
-				&& GetBT() != 18&& GetBT() != 28)
+			//主人公切り替え
+			if (Input::GetVKey(VK_SHIFT) == true)
 			{
-				//ブロック情報を持ってくる
-				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+				if (button_flag_z == true && m_hit_down == true && GetBT() != 27
+					&& GetBT() != 18 && GetBT() != 28)
+				{
+					//ブロック情報を持ってくる
+					CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 
-				g_px = block->GetgbScroll();
+					g_px = block->GetgbScroll();
 
-				screen_change_flag = true;
+					screen_change_flag = true;
 
-				button_flag_z = false;
+					button_flag_z = false;
+				}
 			}
-		}
 
-		else
-		{
-			button_flag_z = true;
-		}
-
-		//キー方向の入力方向
-		//x軸移動用
-		if (Input::GetVKey(VK_RIGHT) == true)
-		{
-			m_vx += 0.4f;
-			m_posture = 1.0f;
-			m_ani_timex += 2;
-
-		}
-		else if (Input::GetVKey(VK_LEFT) == true)
-		{
-			m_vx -= 0.4f;
-			m_posture = 0.0f;
-			m_ani_timex += 2;
-		}
-		else
-		{
-			m_ani_framex = 1;  //キー入力が無い場合は静止フレームにする
-			m_ani_timex = 0;
-		}
-
-		if (m_ani_timex > 8)
-		{
-			m_ani_framex += 1;
-			m_ani_timex = 0;
-		}
-
-		if (m_ani_framex == 8)
-		{
-			m_ani_framex = 0;
-		}
-
-		//y軸移動用
-		if (Input::GetVKey(VK_UP) == true|| Input::GetVKey('Z') == true)
-		{
-			if (button_flag_up == true && m_hit_down == true)
+			else
 			{
-				Audio::Start(2);
-				m_vy -= 12.0f;
-				button_flag_up = false;
+				button_flag_z = true;
 			}
-		}
-		else
-		{
-			button_flag_up = true;
-		}
 
-		//空中にいるかの確認
-		if (m_hit_down == false)
-		{
-			Draw_flag = false;
-
-			m_ani_timey += 1;
-
-			if (m_ani_timey > 8)
+			//キー方向の入力方向
+			//x軸移動用
+			if (Input::GetVKey(VK_RIGHT) == true)
 			{
-				m_ani_framey += 1;
+				m_vx += 0.4f;
+				m_posture = 1.0f;
+				m_ani_timex += 2;
+
+			}
+			else if (Input::GetVKey(VK_LEFT) == true)
+			{
+				m_vx -= 0.4f;
+				m_posture = 0.0f;
+				m_ani_timex += 2;
+			}
+			else
+			{
+				m_ani_framex = 1;  //キー入力が無い場合は静止フレームにする
+				m_ani_timex = 0;
+			}
+
+			if (m_ani_timex > 8)
+			{
+				m_ani_framex += 1;
+				m_ani_timex = 0;
+			}
+
+			if (m_ani_framex == 8)
+			{
+				m_ani_framex = 0;
+			}
+
+			//y軸移動用
+			if (Input::GetVKey(VK_UP) == true || Input::GetVKey('Z') == true)
+			{
+				if (button_flag_up == true && m_hit_down == true)
+				{
+					Audio::Start(2);
+					m_vy -= 12.0f;
+					button_flag_up = false;
+				}
+			}
+			else
+			{
+				button_flag_up = true;
+			}
+
+			//空中にいるかの確認
+			if (m_hit_down == false)
+			{
+				Draw_flag = false;
+
+				m_ani_timey += 1;
+
+				if (m_ani_timey > 8)
+				{
+					m_ani_framey += 1;
+					m_ani_timey = 0;
+				}
+				if (m_ani_framey == 8)
+				{
+					m_ani_framey = 0;
+				}
+			}
+			else
+			{
+				Draw_flag = true;
 				m_ani_timey = 0;
-			}
-			if (m_ani_framey == 8)
-			{
 				m_ani_framey = 0;
 			}
-		}
-		else
-		{
-			Draw_flag = true;
-			m_ani_timey = 0;
-			m_ani_framey = 0;
-		}
 
-		//摩擦
-		m_vx += -(m_vx*0.098);
+			//摩擦
+			m_vx += -(m_vx*0.098);
 
-		//自由落下
-		m_vy += 9.8/ (16.0f);
+			//自由落下
+			m_vy += 9.8 / (16.0f);
 
 
-		//位置の更新
-		m_px += m_vx;
-		m_py += m_vy;
+			//位置の更新
+			m_px += m_vx;
+			m_py += m_vy;
 
-		if (m_hit_left==true|| m_hit_right==true)
-		{
-			m_px -= m_vx;
-		}
-
-		if (m_py > 850 || HP == 0)
-		{
-			g_px = 0.0f;
-			brother_goal = false;
-			goal_block = 0;
-			HP = 0;
-			Scene::SetScene(new CSceneGameOver());
-		}
-
-		if (armor_block == true && HP<2)
-		{
-			HP = 2;
-		}
-
-		if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
-		{
-			
-			if (HP>0&&d == 0 && damage_flag == false && muteki == 0)
-			{				
-				muteki = 1;
-				HP -= 1;
-				damage_flag = true;
-			}
-
-			if (armor_block == true)
+			if (m_hit_left == true || m_hit_right == true)
 			{
-				Audio::Start(1);
-				armor_block = false;
+				m_px -= m_vx;
 			}
 
-		}
-
-
-		if (goal_block == 11)
-		{
-			goal_block = 0;
-			if (brother_goal == true && sister_goal == true)
+			if (m_py > 850 || HP == 0)
 			{
 				g_px = 0.0f;
 				brother_goal = false;
-				Scene::SetScene(new CSceneClear());
-			}
-		}
-
-		
-		//おおかみと接触した時の無敵
-		if (enemy_flag == true && muteki == 0)
-		{
-			t++;
-		}
-		else
-		{
-			t = 0;
-		}
-		if (t > 60 * 1)
-		{
-			hit->SetStatus(ELEMENT_PLAYER, OBJ_HERO, 1);
-			enemy_flag = false;
-		}
-
-		//とげ踏んだ時の無敵
-		if (g_hero_change == true)
-			hit->SetPos(m_px + 16, m_py);
-
-		if (muteki == 1)
-		{
-			muteki_t++;
-			if (muteki_t == 60)
-			{
-				muteki = 0;
-				muteki_t = 0;
-				damage_flag = false;
+				goal_block = 0;
+				HP = 0;
+				end_flag = true;
 			}
 
-			if (muteki_t % 2 == 1)
+			if (armor_block == true && HP < 2)
 			{
-				muteki_e = 1;
+				HP = 2;
 			}
 
-			if (muteki_t % 2 == 0)
+			if (GetBT() == 3 || GetBT() == 12 || GetBT() == 6)
 			{
-				muteki_e = 0;
-			}
 
-		}
-
-		//スイッチを上から触れたらフラグを立てる
-		if (GetBT() == 27 && switch_flag == false)
-		{
-			switch_flag = true;
-			Audio::Start(3);
-		}
-		if (GetBT() != 30)
-		{
-			if (switch_flag == true)
-			{
-				s++;
-				if (s > 60 * 0.2)
+				if (HP > 0 && d == 0 && damage_flag == false && muteki == 0)
 				{
-					switch_flag = false;
-					s = 0;
+					//オオカミと当たったら鳴らす
+					if (HP > 0)
+					{
+						Audio::Start(1);
+					}
+					muteki = 1;
+					HP -= 1;
+					damage_flag = true;
+				}
+
+				if (armor_block == true)
+				{
+					armor_block = false;
+				}
+
+			}
+
+
+			if (goal_block == 11)
+			{
+				goal_block = 0;
+				if (brother_goal == true && sister_goal == true)
+				{
+					g_px = 0.0f;
+					brother_goal = false;
+					Scene::SetScene(new CSceneClear());
 				}
 			}
-		}
-		else
-		{
-			switch_flag = true;
-		}
 
+
+			//おおかみと接触した時の無敵
+			if (enemy_flag == true && muteki == 0)
+			{
+				t++;
+			}
+			else
+			{
+				t = 0;
+			}
+			if (t > 60 * 1)
+			{
+				hit->SetStatus(ELEMENT_PLAYER, OBJ_HERO, 1);
+				enemy_flag = false;
+			}
+
+			//とげ踏んだ時の無敵
+			if (g_hero_change == true)
+				hit->SetPos(m_px + 16, m_py);
+
+			if (muteki == 1)
+			{
+				muteki_t++;
+				if (muteki_t == 60)
+				{
+					muteki = 0;
+					muteki_t = 0;
+					damage_flag = false;
+				}
+
+				if (muteki_t % 2 == 1)
+				{
+					muteki_e = 1;
+				}
+
+				if (muteki_t % 2 == 0)
+				{
+					muteki_e = 0;
+				}
+
+			}
+
+			//スイッチを上から触れたらフラグを立てる
+			if (GetBT() == 27 && switch_flag == false)
+			{
+				switch_flag = true;
+				Audio::Start(3);
+			}
+			if (GetBT() != 30)
+			{
+				if (switch_flag == true)
+				{
+					s++;
+					if (s > 60 * 0.2)
+					{
+						switch_flag = false;
+						s = 0;
+					}
+				}
+			}
+			else
+			{
+				switch_flag = true;
+			}
+
+		}
+	}
+	else
+	{
+		end_t++;
+		if (end_t == 60)
+		{
+			end_t = 0;
+			Scene::SetScene(new CSceneGameOver());
+		}
 	}
 
 }
@@ -429,21 +456,33 @@ void  CObjhero::Draw()
 
 	RECT_F src;  //描画切り取り位置
 	RECT_F dst;  //描画先表示位置
-	if (Draw_flag == true)
+
+	if (end_t>=1)
 	{
 		//切り取り位置の設定
-		src.m_top = 64.0f-64.0f*muteki_e;
-		src.m_left = 0.0f + AniDatax[m_ani_framex] * 64- AniDatax[m_ani_framex] * 64*muteki_e;
-		src.m_right = 64.0f + AniDatax[m_ani_framex] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
-		src.m_bottom = 128.0f - 64.0f*muteki_e;
+		src.m_top = 192.0f;
+		src.m_left = 0.0f;
+		src.m_right = 64.0f;
+		src.m_bottom = 256.0f;
 	}
 	else
 	{
-		//切り取り位置の設定
-		src.m_top = 128.0f - 128.0f*muteki_e;
-		src.m_left = 0.0f + AniDatay[m_ani_framey] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
-		src.m_right = 64.0f + AniDatay[m_ani_framey] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
-		src.m_bottom = 192.0f - 128.0f*muteki_e;
+		if (Draw_flag == true)
+		{
+			//切り取り位置の設定
+			src.m_top = 64.0f - 64.0f*muteki_e;
+			src.m_left = 0.0f + AniDatax[m_ani_framex] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+			src.m_right = 64.0f + AniDatax[m_ani_framex] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+			src.m_bottom = 128.0f - 64.0f*muteki_e;
+		}
+		else
+		{
+			//切り取り位置の設定
+			src.m_top = 128.0f - 128.0f*muteki_e;
+			src.m_left = 0.0f + AniDatay[m_ani_framey] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+			src.m_right = 64.0f + AniDatay[m_ani_framey] * 64 - AniDatax[m_ani_framex] * 64 * muteki_e;
+			src.m_bottom = 192.0f - 128.0f*muteki_e;
+		}
 	}
 
 	//ブロック情報を持ってくる
