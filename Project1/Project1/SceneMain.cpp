@@ -39,6 +39,11 @@ void CSceneMain::InitScene()
 {
 	//âπäyì«Ç›çûÇ›
 	Audio::LoadAudio(0, L"BGMGameMain.wav", BACK_MUSIC);
+	Audio::LoadAudio(1, L"SEHit.wav", EFFECT);
+	Audio::LoadAudio(2, L"SEJump.wav", EFFECT);
+	Audio::LoadAudio(3, L"SESwitch.wav", EFFECT);
+	Audio::LoadAudio(4, L"SEitem.wav", EFFECT);
+	Audio::LoadAudio(5, L"SEkey.wav", EFFECT);
 
 	//É{ÉäÉÖÅ[ÉÄí≤êÆ
 	float v = Audio::VolumeMaster(0.1);
