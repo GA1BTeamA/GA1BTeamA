@@ -543,6 +543,16 @@ void CObjBlock::Draw()
 
 					Draw::Draw(1, &src, &dst, c, 0.0f);
 				}
+				else if (m_map[i][j] == 28)
+				{
+					//Ø‚èæ‚èˆÊ’u‚Ìİ’è
+					src.m_top = 0.0f;
+					src.m_left = 192.0f;
+					src.m_right = 224.0f;
+					src.m_bottom = 32.0f;
+
+					Draw::Draw(1, &src, &dst, c, 0.0f);
+				}
 			}
 		}
 	}

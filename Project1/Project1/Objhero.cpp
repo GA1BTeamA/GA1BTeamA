@@ -113,11 +113,20 @@ void  CObjhero::Action()
 		if (hit->CheckObjNameHit(OBJ_ENEMY1) != nullptr&& muteki == 0)
 		{
 			//主人公が敵とどの角度で当たっているか確認
-			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
+			HIT_DATA** hit_data = {0};							//当たった時の細かな情報を入れるための構造体
 			hit_data = hit->SearchObjNameHit(OBJ_ENEMY1);	//hit_dataに主人公と当たっている他全てのHitBoxとの情報を入れる
 
 			//敵の左右に当たったら
-			float r = hit_data[0]->r;
+			float r;
+			for(int i=0; hit->GetCount() ;i++)
+			{
+				if(hit_data[i]!=nullptr)
+				{
+					r= hit_data[i]->r;
+					break;
+				}
+			}
+			 
 			//右
 			if ((r <= 45 && r >= 0) || r >= 315)
 			{
@@ -337,20 +346,8 @@ void  CObjhero::Action()
 			hit->SetStatus(ELEMENT_PLAYER, OBJ_HERO, 1);
 			enemy_flag = false;
 		}
-		//とげ踏んだ時の無敵
-		if (damage_flag == true && muteki == 0)
-		{
-			d++;
-		}
-		else
-		{
-			d = 0;
-		}
-		if (d > 60 * 1)
-		{
-			damage_flag = false;
-		}
 
+		//とげ踏んだ時の無敵
 		if (g_hero_change == true)
 			hit->SetPos(m_px + 16, m_py);
 
@@ -361,6 +358,7 @@ void  CObjhero::Action()
 			{
 				muteki = 0;
 				muteki_t = 0;
+				damage_flag = false;
 			}
 
 			if (muteki_t % 2 == 1)
@@ -372,6 +370,7 @@ void  CObjhero::Action()
 			{
 				muteki_e = 0;
 			}
+
 		}
 
 		//スイッチを上から触れたらフラグを立てる
