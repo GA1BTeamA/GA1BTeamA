@@ -4,6 +4,7 @@
 #include "GameL\SceneManager.h"
 #include "GameL\SceneObjManager.h"
 #include "GameL\HitBoxManager.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "Objhero2.h"
@@ -190,6 +191,7 @@ void  CObjhero2::Action()
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
+				Audio::Start(2);
 				m_vy -= 11.0f;
 				button_flag_up = false;
 			}
@@ -274,6 +276,7 @@ void  CObjhero2::Action()
 		//スイッチを上から触れたらフラグを立てる
 		if (GetBT() == 27 && switch_flag2 == false)
 		{
+			Audio::Start(3);
 			switch_flag2 = true;
 		}
 		if (GetBT() != 30)

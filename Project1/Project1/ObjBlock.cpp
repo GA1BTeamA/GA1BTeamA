@@ -4,6 +4,7 @@
 #include "GameL\SceneManager.h"
 #include "GameL\SceneObjManager.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjBlock.h"
@@ -799,6 +800,7 @@ void CObjBlock::BlockHit
 									//兄が鍵に触れたらフラグを立てる
 									if (m_map[i][j] == 18)
 									{
+										Audio::Start(4);
 										brother_key = true;
 										m_map[i][j] = 0;
 									}
@@ -807,6 +809,7 @@ void CObjBlock::BlockHit
 									{
 										if (brother_key == true)
 										{
+											Audio::Start(5);
 											brother_gateopen = true;
 											brother_key = false;
 											if (brother_gateopen == true && sister_gateopen == true)
@@ -820,6 +823,7 @@ void CObjBlock::BlockHit
 									{
 										if (brother_key == true)
 										{
+											Audio::Start(5);
 											brother_gateopen2 = true;
 											brother_key = false;
 											if (brother_gateopen2 == true && sister_gateopen2 == true)
@@ -834,6 +838,7 @@ void CObjBlock::BlockHit
 									//妹が鍵に触れたらフラグを立てる
 									if (m_map[i][j] == 23)
 									{
+										Audio::Start(4);
 										sister_key = true;
 										m_map[i][j] = 0;
 									}
@@ -842,6 +847,7 @@ void CObjBlock::BlockHit
 									{
 										if (sister_key == true)
 										{
+											Audio::Start(5);
 											sister_gateopen = true;
 											sister_key = false;
 											if (brother_gateopen == true && sister_gateopen == true)
@@ -855,6 +861,7 @@ void CObjBlock::BlockHit
 									{
 										if (sister_key == true)
 										{
+											Audio::Start(5);
 											sister_gateopen2 = true;
 											sister_key = false;
 											if (brother_gateopen2 == true && sister_gateopen2 == true)
@@ -870,6 +877,7 @@ void CObjBlock::BlockHit
 									//兄がよろいに触れたらフラグを立てる
 									if (m_map[i][j] == 20)
 									{
+										Audio::Start(4);
 										armor_block = true;
 										m_map[i][j] = 0;
 									}
@@ -879,6 +887,7 @@ void CObjBlock::BlockHit
 									//妹がくつに触れたらフラグを立てる
 									if (m_map[i][j] == 19)
 									{
+										Audio::Start(4);
 										shose_block = true;
 										m_map[i][j] = 0;
 									}

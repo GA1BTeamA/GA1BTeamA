@@ -4,6 +4,7 @@
 #include "GameL\SceneManager.h"
 #include "GameL\SceneObjManager.h"
 #include "GameL\HitBoxManager.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "Objhero.h"
@@ -171,6 +172,7 @@ void  CObjhero::Action()
 			}
 			if (armor_block == true)
 			{
+				Audio::Start(1);
 				armor_block = false;
 			}
 			
@@ -182,7 +184,6 @@ void  CObjhero::Action()
 			if (button_flag_z == true && m_hit_down == true && GetBT() != 27
 				&& GetBT() != 18&& GetBT() != 28)
 			{
-
 				//ƒuƒƒbƒNî•ñ‚ðŽ‚Á‚Ä‚­‚é
 				CObjBlock* block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 
@@ -236,6 +237,7 @@ void  CObjhero::Action()
 		{
 			if (button_flag_up == true && m_hit_down == true)
 			{
+				Audio::Start(2);
 				m_vy -= 12.0f;
 				button_flag_up = false;
 			}
@@ -303,7 +305,7 @@ void  CObjhero::Action()
 		{
 			
 			if (HP>0&&d == 0 && damage_flag == false && muteki == 0)
-			{
+			{				
 				muteki = 1;
 				HP -= 1;
 				damage_flag = true;
@@ -311,6 +313,7 @@ void  CObjhero::Action()
 
 			if (armor_block == true)
 			{
+				Audio::Start(1);
 				armor_block = false;
 			}
 
@@ -374,6 +377,7 @@ void  CObjhero::Action()
 		if (GetBT() == 27 && switch_flag == false)
 		{
 			switch_flag = true;
+			Audio::Start(3);
 		}
 		if (GetBT() != 30)
 		{
