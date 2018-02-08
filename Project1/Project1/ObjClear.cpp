@@ -55,7 +55,10 @@ void CObjClear::Draw()
 
 	Draw::Draw(1, &src, &dst, c, 0.0f);
 
-	Font::StrDraw(L"ゲームクリア！", 300, 200, 30, c);
-	Font::StrDraw(L"Enterを押してタイトルに戻る", 200, 400, 30, c);
+	Font::StrDraw(L"ゲームクリア！", 170, 100, 70, c);
+	Font::StrDraw(L"無事出会う事ができた二人", 240, 250, 25, c);
+	Font::StrDraw(L"二人の絆はより硬く",280, 320, 25, c);
+	Font::StrDraw(L"永く続いてゆくだろう", 270, 390, 25, c);
+	Font::StrDraw(L"Enterを押してタイトルに戻る", 200, 500, 30, c);
 
 }

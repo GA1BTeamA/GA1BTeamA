@@ -55,7 +55,10 @@ void CObjTitle::Draw()
 
 	Draw::Draw(1, &src, &dst, c, 0.0f);
 
-	Font::StrDraw(L"ゲームスタート", 300, 325, 30, c);
-	Font::StrDraw(L"Enterキーを押してください", 200, 400, 30, c);
+	Font::StrDraw(L"魔女の悪戯で別々の世界に飛ばされた兄妹", 155, 250, 25, c);
+	Font::StrDraw(L"魔女「森の奥に出口は用意しておいた。", 180, 300, 25, c);
+	Font::StrDraw(L"二人でなら辿り着けるかもね。」", 210, 350, 25, c);
+	Font::StrDraw(L"二人は再び出会うことができるのか...", 180, 400, 25, c);
+	Font::StrDraw(L"Enterキーを押してください", 200, 500, 30, c);
 
 }
